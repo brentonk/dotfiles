@@ -1,0 +1,12 @@
+set font "Iosevka Nerd Font 12"
+
+map k scroll up
+map j scroll down
+map l scroll left
+map ; scroll right
+
+set show-recent 0
+
+set selection-clipboard clipboard
+map <C-c> copy
+map <C-v> exec xclip -selection clipboard -o | xclip -selection primary
