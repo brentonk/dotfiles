@@ -19,5 +19,7 @@ return {
     local telescope = require('telescope')
     telescope.setup(opts)
     telescope.load_extension('luasnip')
+    telescope.load_extension('chezmoi')
+    vim.keymap.set('n', '<leader>cz', telescope.extensions.chezmoi.find_files, {})
   end
 }
