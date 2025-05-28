@@ -1,0 +1,19 @@
+# Common binary types
+*.docx
+*.pdf
+*.xlsx
+
+# LaTeX junk files
+*.aux
+*.bbl
+*.fdb_latexmk
+*.fls
+*.log
+
+# Allow searching in .config as well as some config files
+!.config/
+!.zshrc
+!.zprofile
+!.zshenv
+!.rgignore
+!.Rprofile
