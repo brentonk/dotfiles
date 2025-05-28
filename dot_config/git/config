@@ -1,0 +1,11 @@
+[user]
+	email = brenton.kenkel@gmail.com
+	name = Brenton Kenkel
+[credential]
+	helper = cache
+[pull]
+	rebase = false
+[merge]
+	conflictstyle = diff3
+[init]
+	defaultBranch = main
