@@ -1,0 +1,12 @@
+options(repos = structure(c(CRAN = "https://cloud.r-project.org/")), browser = "brave")
+
+.hgd <- function() {
+  if (interactive()) {
+    if (require("httpgd")) {
+      httpgd::hgd()
+      httpgd::hgd_browse()
+    } else {
+      cat("\nMust install nx10/httpgd to use this function.\n")
+    }
+  }
+}
