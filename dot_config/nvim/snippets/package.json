@@ -1,0 +1,15 @@
+{
+  "name": "bjk-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "tex",
+        "path": "./tex.json"
+      },
+      {
+        "language": "quarto",
+        "path": "./quarto.json"
+      }
+    ]
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "al": {
+    "prefix": "al",
+    "body": [
+      "\\begin{align*}",
+      "\t$1",
+      "\\end{align*}"
+    ],
+    "description": "align* environment"
+  },
+  "prob": {
+    "prefix": "prob",
+    "body": [
+      "\\begin{problem}",
+      "\t$1",
+      "\\end{problem}"
+    ],
+    "description": "simpler problem environment"
+  },
+  "sum": {
+    "prefix": "sum",
+    "body": [
+      "\\sum_{$1}^{$2} $0"
+    ],
+    "description": "summation"
+  },
+  "int": {
+    "prefix": "int",
+    "body": [
+      "\\int_{$1}^{$2} $0"
+    ],
+    "description": "integral"
+  },
+  "bigcup": {
+    "prefix": "bigcup",
+    "body": [
+      "\\bigcup_{$1}^{$2} $0"
+    ],
+    "description": "big union"
+  },
+  "bigcap": {
+    "prefix": "bigcap",
+    "body": [
+      "\\bigcap_{$1}^{$2} $0"
+    ],
+    "description": "big intersection"
+  },
+  "frac": {
+    "prefix": "frac",
+    "body": [
+      "\\frac{$1}{$2}"
+    ],
+    "description": "fraction"
+  }
+}
