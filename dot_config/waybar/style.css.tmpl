@@ -1,12 +1,14 @@
+/* vim: set ft=css: */
+
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Fira Sans, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 15px;
+    font-size: {{ if eq .chezmoi.hostname "trebek" }}13px{{ else }}15px{{ end }};
 }
 
 window#waybar {
     background-color: rgba(43, 48, 59, 0.5);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    border-bottom: {{ if eq .chezmoi.hostname "trebek" }}1px{{ else }}3px{{ end }} solid rgba(100, 114, 125, 0.5);
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;

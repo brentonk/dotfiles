@@ -1,8 +1,8 @@
-// -*- mode: jsonc -*-
+// vim: set ft=jsonc:
 {
     // "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 35, // Waybar height (to be removed for auto height)
+    "height": {{ if eq .chezmoi.hostname "trebek" }}25{{ else }}30{{ end }}, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
@@ -13,7 +13,10 @@
         "custom/media"
     ],
     "modules-center": [
+        {{- if eq .chezmoi.hostname "trebek" -}}
+        {{- else -}}
         "hyprland/window"
+        {{- end -}}
     ],
     "modules-right": [
         // "mpd",
@@ -22,9 +25,12 @@
         "custom/gcal",
         "network",
         // "power-profiles-daemon",
+        {{- if eq .chezmoi.hostname "trebek" -}}
+        {{- else -}}
         "cpu",
         "memory",
         "temperature",
+        {{- end -}}
         // "backlight",
         // "keyboard-state",
         // "sway/language",

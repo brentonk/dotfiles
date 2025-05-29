@@ -37,6 +37,9 @@ vim.keymap.set("n", "<Esc>", "<Esc>:noh<CR>", { noremap = true })
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+-- allow reading file type from modeline
+vim.opt.modeline = true
+
 -- title string for terminal should be current path
 vim.opt.title = true
 vim.opt.titlelen = 0
