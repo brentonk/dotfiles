@@ -22,15 +22,12 @@
         "custom/gcal",
         "network",
         {{ if eq .chezmoi.hostname "trebek" -}}
+        "battery",
         {{- else -}}
         "cpu",
         "memory",
         "temperature",
-        {{- end -}}
-        {{if eq .chezmoi.hostname "trebek" -}}
-        "battery",
-        {{else -}}
-        {{end}}
+        {{- end}}
         "clock",
         "tray"
     ],
