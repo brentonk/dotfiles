@@ -6,6 +6,7 @@ return {
     "hrsh7th/cmp-path",
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
+    "lukas-reineke/cmp-rg",
   },
   config = function()
     local cmp = require("cmp")
@@ -21,8 +22,10 @@ return {
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "luasnip" },
-        { name = "buffer" },
+        { name = "rg" },
         { name = "path" },
+      }, {
+        { name = "buffer" }
       }),
       mapping = {
         ['<C-p>']     = cmp.mapping.select_prev_item(),
