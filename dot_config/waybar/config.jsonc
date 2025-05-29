@@ -19,6 +19,7 @@
         // "mpd",
         // "idle_inhibitor",
         // "pulseaudio",
+        "custom/gcal",
         "network",
         // "power-profiles-daemon",
         "cpu",
@@ -54,6 +55,12 @@
         //     "focused": "",
         //     "default": ""
         // }
+    },
+    "custom/gcal": {
+      "exec": "/home/brenton/Dropbox/bin/gcal_waybar.py",
+      "interval": 60,
+      "return-type": "text",
+      "show-empty": false
     },
     "keyboard-state": {
         "numlock": true,
