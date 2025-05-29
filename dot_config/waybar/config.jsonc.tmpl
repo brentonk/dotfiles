@@ -2,7 +2,7 @@
 {
     // "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
-    "height": {{ if eq .chezmoi.hostname "trebek" }}25{{ else }}30{{ end }}, // Waybar height (to be removed for auto height)
+    "height": {{ if eq .chezmoi.hostname "trebek" }}25{{ else }}35{{ end }}, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
@@ -26,11 +26,11 @@
         "cpu",
         "memory",
         "temperature",
-        {{- end }}
+        {{- end -}}
         {{if eq .chezmoi.hostname "trebek" -}}
         "battery",
-        {{- else -}}
-        {{- end}}
+        {{else -}}
+        {{end}}
         "clock",
         "tray"
     ],
