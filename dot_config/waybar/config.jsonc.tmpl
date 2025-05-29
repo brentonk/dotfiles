@@ -19,26 +19,20 @@
         {{- end -}}
     ],
     "modules-right": [
-        // "mpd",
-        // "idle_inhibitor",
-        // "pulseaudio",
         "custom/gcal",
         "network",
-        // "power-profiles-daemon",
-        {{- if eq .chezmoi.hostname "trebek" -}}
+        {{ if eq .chezmoi.hostname "trebek" -}}
         {{- else -}}
         "cpu",
         "memory",
         "temperature",
-        {{- end -}}
-        // "backlight",
-        // "keyboard-state",
-        // "sway/language",
-        // "battery",
-        // "battery#bat2",
+        {{- end }}
+        {{if eq .chezmoi.hostname "trebek" -}}
+        "battery",
+        {{- else -}}
+        {{- end}}
         "clock",
         "tray"
-        // "custom/power"
     ],
     // Modules configuration
     "hyprland/workspaces": {
