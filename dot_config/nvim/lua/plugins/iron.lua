@@ -7,9 +7,7 @@ return {
     iron.setup({
       config = {
         scratch_repl = true,
-        highlight = {
-          italic = false,
-        },
+        highlight = false,
         repl_definition = {
           sh = {
             command = { "zsh" },
