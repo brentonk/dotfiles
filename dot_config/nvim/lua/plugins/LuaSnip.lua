@@ -15,6 +15,40 @@ return {
       paths = { snippets_path },
     })
 
+    -- Custom snippets in Lua (those that can't sensibly be in VSCode format)
+    local s = luasnip.snippet
+    local t = luasnip.text_node
+    local i = luasnip.insert_node
+    local f = luasnip.function_node
+    local fmta = require("luasnip.extras.fmt").fmta
+    luasnip.add_snippets("tex", {
+      s({ trig = "res", dscr = "Restatable environment" },
+        fmta(
+          [[
+          \begin{restatable}{<>}{res<>}
+            \label{res:<>}
+            <>
+          \end{restatable}
+          ]],
+          {
+            i(1, "environment"),
+            i(2, "CommandName"),
+            f(
+              function(args)
+                -- ChatGPT-written function for CamelCase -> kebab-case
+                return args[1][1]
+                    :gsub("(%l)(%u)", "%1-%2") -- fooBar → foo-Bar
+                    :gsub("(%u)(%u%l)", "%1-%2") -- HTMLParser → HTML-Parser
+                    :lower()
+              end,
+              { 2 }
+            ),
+            i(0, "body")
+          }
+        )
+      ),
+    })
+
     -- Key mappings
     vim.keymap.set({ "i", "s" }, "<Tab>", function()
       if luasnip.expand_or_jumpable() then
