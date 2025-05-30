@@ -5,8 +5,9 @@ return {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "L3MON4D3/LuaSnip",
-    "saadparwaiz1/cmp_luasnip",
     "lukas-reineke/cmp-rg",
+    "micangl/cmp-vimtex",
+    "saadparwaiz1/cmp_luasnip",
   },
   config = function()
     local cmp = require("cmp")
@@ -20,6 +21,7 @@ return {
         end,
       },
       sources = cmp.config.sources({
+        { name = "vimtex" },
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "rg" },
