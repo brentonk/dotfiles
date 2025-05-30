@@ -9,5 +9,10 @@ return {
       "ruff",
       "texlab",
     },
-  }
+    automatic_enable = {
+      exclude = {
+        "lua_ls",  -- handled by nvim-lspconfig to whitelist vim global
+      },
+    },
+  },
 }
