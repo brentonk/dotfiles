@@ -60,10 +60,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 -- Movement key remapping for right-hand ergonomics
 -- Use l/; for left/right instead of h/l
-vim.keymap.set({"n", "v"}, "l", "h", { noremap = true })
-vim.keymap.set({"n", "v"}, ";", "l", { noremap = true })
-vim.keymap.set({"n", "v"}, "h", ";", { noremap = true })
-vim.keymap.set({"n", "v"}, ",", ";", { noremap = true })
+vim.keymap.set({"n", "x"}, "l", "h", { noremap = true })
+vim.keymap.set({"n", "x"}, ";", "l", { noremap = true })
+vim.keymap.set({"n", "x"}, "h", ";", { noremap = true })
+vim.keymap.set({"n", "x"}, ",", ";", { noremap = true })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { noremap = true })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { noremap = true })
 vim.keymap.set("n", "<C-l>", "<C-w>h", { noremap = true })
