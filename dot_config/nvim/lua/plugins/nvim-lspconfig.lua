@@ -7,7 +7,16 @@ return {
       settings = {
         Lua = {
           diagnostics = {
-            globals = { "vim" },
+            globals = {
+              "vim",
+              -- LuaSnip injected globals
+              "s",
+              "t",
+              "i",
+              "f",
+              "fmt",
+              "fmta",
+            },
           }
         }
       }

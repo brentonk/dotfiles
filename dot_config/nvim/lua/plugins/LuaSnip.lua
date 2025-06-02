@@ -9,44 +9,14 @@ return {
       enable_autosnippets = true,
     })
 
-    local snippets_path = vim.fn.stdpath("config") .. "/snippets"
+    local snippets_path_json = vim.fn.stdpath("config") .. "/snippets/json"
+    local snippets_path_lua = vim.fn.stdpath("config") .. "/snippets/lua"
     require("luasnip.loaders.from_vscode").lazy_load()
     require("luasnip.loaders.from_vscode").lazy_load({
-      paths = { snippets_path },
+      paths = { snippets_path_json },
     })
-
-    -- Custom snippets in Lua (those that can't sensibly be in VSCode format)
-    local s = luasnip.snippet
-    local t = luasnip.text_node
-    local i = luasnip.insert_node
-    local f = luasnip.function_node
-    local fmta = require("luasnip.extras.fmt").fmta
-    luasnip.add_snippets("tex", {
-      s({ trig = "res", dscr = "Restatable environment" },
-        fmta(
-          [[
-          \begin{restatable}{<>}{res<>}
-            \label{res:<>}
-            <>
-          \end{restatable}
-          ]],
-          {
-            i(1, "environment"),
-            i(2, "CommandName"),
-            f(
-              function(args)
-                -- ChatGPT-written function for CamelCase -> kebab-case
-                return args[1][1]
-                    :gsub("(%l)(%u)", "%1-%2") -- fooBar → foo-Bar
-                    :gsub("(%u)(%u%l)", "%1-%2") -- HTMLParser → HTML-Parser
-                    :lower()
-              end,
-              { 2 }
-            ),
-            i(0, "body")
-          }
-        )
-      ),
+    require("luasnip.loaders.from_lua").lazy_load({
+      paths = { snippets_path_lua },
     })
 
     -- Key mappings
@@ -71,7 +41,10 @@ return {
     -- Custom command to reload snippets
     vim.api.nvim_create_user_command("ReloadSnippets", function()
       require("luasnip.loaders.from_vscode").lazy_load({
-        paths = { snippets_path },
+        paths = { snippets_path_json },
+      })
+      require("luasnip.loaders.from_lua").lazy_load({
+        paths = { snippets_path_lua },
       })
       print("Snippets reloaded")
     end, { force = true })
