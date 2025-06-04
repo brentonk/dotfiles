@@ -51,12 +51,14 @@ esac
 # Get the ID of the focused window
 focused_pid="$(hyprctl activewindow -j 2>/dev/null | jq -r '.pid')"
 
-# If we find an nvim process in the process tree of the focused window, ask it
-# to run the given naviation command
-if servername_file=$(get_descendent_nvim "$focused_pid"); then
-  # Locate the corresponding servername for the nvim process
+# Look for a serverfile for an nvim process in the focused window
+servername_file="${XDG_RUNTIME_DIR:-/tmp}/nvim-hypr-nav.${focused_pid}.servername"
+
+# If the serverfile exists, ask the associated nvim server to run the given
+# navigation command
+if [ -f "$servername_file" ]; then
+  # Read the servername from the file
   read -r servername < "$servername_file"
-  echo "Found nvim servername: $servername"
 
   # If we have a servername, run the corresponding navigation call in nvim and exit
   if [ -n "$servername" ]; then
