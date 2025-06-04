@@ -20,6 +20,12 @@ vim.opt.wrap       = true
 vim.opt.linebreak  = true
 vim.opt.breakindent = true
 
+-- don't continue comments on carriage return
+-- reddit says gotta do it this hackish way:
+-- https://www.reddit.com/r/neovim/comments/13585hy/trying_to_disable_autocomments_on_new_line_eg/
+vim.cmd('autocmd BufEnter * set formatoptions-=cro')
+vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
+
 -- line numbers + gutter
 vim.opt.number = true
 vim.opt.signcolumn = "yes"

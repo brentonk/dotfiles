@@ -244,10 +244,14 @@ bind = $mainMod SHIFT, P, exec, grimblast save area
 bind = $mainMod, G, exec, ~/.config/hypr/scripts/toggle_gaps.sh
 
 # Move focus with mainMod + jkl;
-bind = $mainMod, l, hy3:movefocus, l
-bind = $mainMod, semicolon, hy3:movefocus, r
-bind = $mainMod, k, hy3:movefocus, u
-bind = $mainMod, j, hy3:movefocus, d
+# bind = $mainMod, l, hy3:movefocus, l
+# bind = $mainMod, semicolon, hy3:movefocus, r
+# bind = $mainMod, k, hy3:movefocus, u
+# bind = $mainMod, j, hy3:movefocus, d
+bind = $mainMod, l, exec, ~/.config/hypr/scripts/nvim_hypr_nav.sh left
+bind = $mainMod, semicolon, exec, ~/.config/hypr/scripts/nvim_hypr_nav.sh right
+bind = $mainMod, k, exec, ~/.config/hypr/scripts/nvim_hypr_nav.sh up
+bind = $mainMod, j, exec, ~/.config/hypr/scripts/nvim_hypr_nav.sh down
 
 # Window movement bindings
 bind = $mainMod SHIFT, J, hy3:movewindow, d
