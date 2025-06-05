@@ -338,3 +338,6 @@ windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned
 # Float the Brave file picker
 # this doesn't catch the browser b/c its class is "brave-browser"
 windowrule = float,initialClass:brave
+
+# on laptop for some reason the file picker comes up as xdg-desktop-portal-gtk instead
+windowrule = float,initialClass:xdg-desktop-portal-gtk
