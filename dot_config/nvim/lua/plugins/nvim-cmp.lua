@@ -39,6 +39,7 @@ return {
         ['<C-S-f>']   = cmp.mapping.scroll_docs(-4),
         ['<C-f>']     = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
+        ['<M-Space>'] = cmp.mapping.complete(),
         ['<C-e>']     = cmp.mapping.close(),
         ['<C-m>']     = cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Insert,
