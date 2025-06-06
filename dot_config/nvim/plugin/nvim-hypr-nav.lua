@@ -5,27 +5,30 @@ local M = {}
 -- server name
 local runtime_dir = vim.env.XDG_RUNTIME_DIR or "/tmp"
 
-local function get_outermost_foot_pid()
+local function get_outermost_term_pid()
   if not vim.env.HYPRLAND_INSTANCE_SIGNATURE then
     return nil
   end
 
+  -- List of terminal process names to check for
+  local terminal_processes = { "foot", "footclient", "kitty" }
+
   local pid = tostring(vim.fn.getpid())
-  local last_foot
+  local highest_term
   while pid and pid ~= "1" do
     local comm = vim.fn.systemlist({ "ps", "-o", "comm=", "-p", pid })[1]
     comm = comm and vim.trim(comm)
-    if comm == "foot" or comm == "footclient" then
-      last_foot = pid
+    if vim.tbl_contains(terminal_processes, comm) then
+      highest_term = pid
     end
     local ppid = vim.fn.systemlist({ "ps", "-o", "ppid=", "-p", pid })[1]
     ppid = ppid and vim.trim(ppid)
     pid = ppid
   end
-  return last_foot
+  return highest_term
 end
 
-local server_pid = get_outermost_foot_pid()
+local server_pid = get_outermost_term_pid()
 if server_pid then
   M.servername_file = runtime_dir .. "/nvim-hypr-nav." .. server_pid .. ".servername"
 else

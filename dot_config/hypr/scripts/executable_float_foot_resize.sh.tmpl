@@ -7,13 +7,13 @@ class=$(hyprctl activewindow -j | jq -r '.class')
 # Toggle floating
 hyprctl dispatch togglefloating
 
-# Only apply resize if the class is foot and it's now floating
-if [ "$class" = "foot" ]; then
+# Only apply resize if the class is foot or kitty and it's now floating
+if [ "$class" = "foot" ] || [ "$class" = "kitty" ]; then
     sleep 0.05  # short delay to allow floating toggle to apply
     is_floating=$(hyprctl activewindow -j | jq -r '.floating')
 
     if [ "$is_floating" = "true" ]; then
-        hyprctl dispatch resizeactive exact {{ if eq .chezmoi.hostname "trebek" }}640 700{{ else }}800 1000{{ end }}
+        hyprctl dispatch resizeactive exact {{ if eq .chezmoi.hostname "trebek" }}640 700{{ else }}850 1200{{ end }}
         hyprctl dispatch centerwindow
     fi
 fi
