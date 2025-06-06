@@ -1,3 +1,3 @@
 function cmnv --wraps=nvim --description 'nvim into chezmoi picker'
-  nvim -c 'lua require("telescope").extensions.chezmoi.find_files()'
+  nvim -c 'autocmd VimEnter * ++once lua require("telescope").extensions.chezmoi.find_files()'
 end
