@@ -28,7 +28,7 @@ return {
         vim.api.nvim_feedkeys(
           vim.api.nvim_replace_termcodes("<Tab>", true, false, true),
           "n",
-          true
+          false
         )
       end
     end, { silent = true })
