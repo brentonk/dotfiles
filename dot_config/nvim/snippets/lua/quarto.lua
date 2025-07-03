@@ -19,4 +19,12 @@ return {
     i(0),
     t({"", "```"}),
   }),
+  -- aligned equation
+  s("al", {
+    t({"$$", ""}),
+    t({"\\begin{aligned}", ""}),
+    i(0),
+    t({"", "\\end{aligned}", ""}),
+    t({"$$"}),
+  }),
 }
