@@ -27,4 +27,10 @@ return {
     t({"", "\\end{aligned}", ""}),
     t({"$$"}),
   }),
+  -- in-class exercise
+  s("ice", {
+    t({"::: {.callout-note title=\"In-class exercise\"}", ""}),
+    i(0),
+    t({"", "", "```{r}", "#", "# [Write your answer here]", "#", "```", ":::", ""}),
+  }),
 }
