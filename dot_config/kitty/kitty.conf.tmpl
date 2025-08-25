@@ -2,8 +2,8 @@
 
 # Hostname: {{ .chezmoi.hostname }}
 
-font_family	JetBrainsMono Nerd Font
-font_size	{{ if eq .chezmoi.hostname "trebek" }}10{{ else if eq .chezmoi.hostname "AS0374CD6G" }}13{{ else }}11.5{{ end }}
+font_family	{{ if eq .chezmoi.hostname "AS0374CD6G" }}JetBrainsMono Nerd Font Mono{{ else }}JetBrainsMono Nerd Font{{ end }}
+font_size	{{ if eq .chezmoi.hostname "trebek" }}10{{ else if eq .chezmoi.hostname "AS0374CD6G" }}14{{ else }}11.5{{ end }}
 
 # Window margins
 window_padding_width 8
