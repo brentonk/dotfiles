@@ -13,5 +13,4 @@ return {
   opts = {
     -- fill any relevant options here
   },
-  enabled = false,
 }
