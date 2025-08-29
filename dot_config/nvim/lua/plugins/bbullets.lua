@@ -27,5 +27,6 @@ return {
       create_mappings = true,
     })
   end,
+  enabled = false,
 }
 
