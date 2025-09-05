@@ -82,6 +82,14 @@ vim.keymap.set("n", "k", "gk", { noremap = true })
 -- alt+backspace to delete word
 vim.keymap.set("i", "<M-BS>", "<C-w>", { noremap = true })
 
+-- treat .txt files as markdown
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = "*.txt",
+  callback = function()
+    vim.bo.filetype = "markdown"
+  end,
+})
+
 -- enable spell checking for markdown, quarto, and latex
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown", "quarto", "tex" },
