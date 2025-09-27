@@ -1,9 +1,8 @@
 return {
   "neovim/nvim-lspconfig",
   config = function()
-    local lspconfig = require("lspconfig")
-    -- Lua
-    lspconfig.lua_ls.setup {
+    -- Lua LSP configuration using new vim.lsp.config specification
+    vim.lsp.config("lua_ls", {
       settings = {
         Lua = {
           diagnostics = {
@@ -20,6 +19,9 @@ return {
           }
         }
       }
-    }
+    })
+
+    -- Enable the Lua language server
+    vim.lsp.enable("lua_ls")
   end
 }
