@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(chmod:*)",
+      "Bash(nvim:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "file_path=$(jq -r '.tool_input.file_path') && chezmoi re-add \"$file_path\" 2>/dev/null || chezmoi add \"$file_path\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
