@@ -22,6 +22,7 @@ return {
 				end,
 			},
 			sources = cmp.config.sources({
+				{ name = "obsidian" },
 				{ name = "vimtex" },
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
