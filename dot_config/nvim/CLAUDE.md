@@ -29,7 +29,7 @@ Leader is space. Key bindings:
 - `<leader>rs/rr/rf/rh` - Iron REPL start/restart/focus/hide
 - `<leader>sc/sl/sp/sf` - Iron send motion/line/paragraph/file
 - `<leader>rc/ra/rA/rl` - Quarto run cell/above/all/line
-- `<leader>oo/of` - Oil file browser/float
+- `<leader>Oo/Of` - Oil file browser/float
 - `<leader>cm` - Telescope chezmoi files
 - `gf/gq/gF` - LSP format line/paragraph/buffer
 
