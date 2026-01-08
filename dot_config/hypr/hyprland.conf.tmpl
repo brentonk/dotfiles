@@ -166,10 +166,20 @@ animations {
 # uncomment all if you wish to use that.
 workspace = w[tv1], gapsout:0, gapsin:0
 workspace = f[1], gapsout:0, gapsin:0
-windowrulev2 = border_size 0, floating:0, onworkspace:w[tv1]
-windowrulev2 = rounding 0, floating:0, onworkspace:w[tv1]
-windowrulev2 = border_size 0, floating:0, onworkspace:f[1]
-windowrulev2 = rounding 0, floating:0, onworkspace:f[1]
+windowrule {
+    name = smart-gaps-tv1
+    border_size = 0
+    rounding = 0
+    match:float = false
+    match:workspace = w[tv1]
+}
+windowrule {
+    name = smart-gaps-f1
+    border_size = 0
+    rounding = 0
+    match:float = false
+    match:workspace = f[1]
+}
 
 # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
 dwindle {
@@ -334,18 +344,35 @@ bindl = , XF86AudioPrev, exec, playerctl previous
 # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
 # See https://wiki.hyprland.org/Configuring/Workspace-Rules/ for workspace rules
 
-# Example windowrule
-# windowrule = float,class:^(kitty)$,title:^(kitty)$
-
-# Ignore maximize requests from apps. You'll probably like this.
-windowrulev2 = suppressevent maximize, class:.*
+# Ignore maximize requests from apps
+windowrule {
+    name = suppress-maximize
+    suppress_event = maximize
+    match:class = .*
+}
 
 # Fix some dragging issues with XWayland
-windowrulev2 = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
+windowrule {
+    name = fix-xwayland-drag
+    no_focus = true
+    match:class = ^$
+    match:title = ^$
+    match:xwayland = true
+    match:float = true
+    match:fullscreen = false
+    match:pin = false
+}
 
-# Float the Brave file picker
-# this doesn't catch the browser b/c its class is "brave-browser"
-windowrulev2 = float,initialClass:brave
+# Float the Brave file picker (class is "brave", not "brave-browser")
+windowrule {
+    name = float-brave-picker
+    float = true
+    match:class = ^brave$
+}
 
-# on laptop for some reason the file picker comes up as xdg-desktop-portal-gtk instead
-windowrulev2 = float,initialClass:xdg-desktop-portal-gtk
+# Float xdg-desktop-portal-gtk file picker (appears on laptop)
+windowrule {
+    name = float-xdg-portal
+    float = true
+    match:class = ^xdg-desktop-portal-gtk$
+}
