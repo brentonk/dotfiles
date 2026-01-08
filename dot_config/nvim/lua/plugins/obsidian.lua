@@ -13,6 +13,11 @@ return {
 				path = "~/obsidian",
 			},
 		},
+		templates = {
+			folder = "templates",
+		},
+		-- Exclude CLAUDE.md from being treated as a note
+		exclude = { "**/CLAUDE.md" },
 		completion = {
 			nvim_cmp = true,
 			min_chars = 2,
@@ -46,9 +51,9 @@ return {
 	},
 	keys = {
 		{ "<leader>on", "<cmd>ObsidianNew<cr>", desc = "New note" },
-		{ "<leader>oo", "<cmd>ObsidianOpen<cr>", desc = "Open in Obsidian" },
+		{ "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>", desc = "Quick switch" },
+		{ "<leader>oO", "<cmd>ObsidianOpen<cr>", desc = "Open in Obsidian" },
 		{ "<leader>os", "<cmd>ObsidianSearch<cr>", desc = "Search notes" },
-		{ "<leader>oq", "<cmd>ObsidianQuickSwitch<cr>", desc = "Quick switch" },
 		{ "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "Backlinks" },
 		{ "<leader>ot", "<cmd>ObsidianTags<cr>", desc = "Tags" },
 		{ "<leader>od", "<cmd>ObsidianToday<cr>", desc = "Today's note" },
