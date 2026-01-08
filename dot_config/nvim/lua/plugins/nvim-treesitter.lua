@@ -4,18 +4,21 @@ return {
   config = function()
     local configs = require("nvim-treesitter.configs")
     configs.setup({
-    ensure_installed = {
-      "bash",
-      "fish",
-      "json",
-      "latex",
-      "lua",
-      "markdown",
-      "markdown_inline",
-      "python",
-      "r",
-      "yaml"
-    },
+      ensure_installed = {
+        "bash",
+        "fish",
+        "json",
+        "latex",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "r",
+        "yaml",
+      },
+      highlight = {
+        enable = true,
+      },
     })
   end
 }
