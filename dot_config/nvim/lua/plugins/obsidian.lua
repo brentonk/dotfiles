@@ -20,6 +20,9 @@ return {
 		picker = {
 			name = "telescope.nvim",
 		},
+		daily_notes = {
+			folder = "daily",
+		},
 		mappings = {
 			["gf"] = {
 				action = function()
