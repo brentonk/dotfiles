@@ -1,4 +1,4 @@
-function lsa --wraps='ls -a' --description 'alias lsa ls -a'
-  ls -a $argv
-        
+function lsa --wraps='exa -lhF --color=always --icons --group-directories-first --git -a' --description 'alias lsa exa -lhF --color=always --icons --group-directories-first --git -a'
+  exa -lhF --color=always --icons --group-directories-first --git -a $argv
+
 end
