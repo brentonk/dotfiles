@@ -13,6 +13,10 @@ return {
 				path = "~/obsidian",
 			},
 		},
+		-- Open URLs in browser
+		follow_url_func = function(url)
+			vim.fn.jobstart({ "xdg-open", url })
+		end,
 		templates = {
 			folder = "templates",
 		},
