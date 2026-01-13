@@ -34,13 +34,20 @@ The configuration uses the hy3 plugin (`layout = hy3`) instead of the default dw
 - `SUPER+H` creates horizontal group
 - `SUPER+V` creates vertical group
 - `SUPER+T` toggles tabbed mode
+- `SUPER+N` / `SUPER+P` cycles through tabs (with wrap)
 - Window movement uses `hy3:movewindow` and focus uses `hy3:movefocus`
+
+Tab bar styling is configured in the `plugin:hy3 { tabs { ... } }` section.
+
+**Note**: Avoid using native Hyprland groups (`togglegroup`) with hy3 - this combination has caused kernel panics when killing grouped windows.
 
 ### Navigation Integration with Neovim
 The `scripts/nvim_hypr_nav.sh` script enables seamless navigation between Hyprland windows and Neovim splits. It:
 1. Checks if the focused window contains a Neovim instance by looking for serverfiles at `$XDG_RUNTIME_DIR/nvim-hypr-nav.<pid>.servername`
 2. If found, sends navigation command to Neovim via `--remote-expr`
-3. Falls back to `hy3:movefocus` if Neovim returns false or isn't present
+3. Falls back to `hy3:movefocus` with the `visible` flag if Neovim returns false or isn't present
+
+The `visible` flag makes left/right navigation skip hidden tabs in tabbed groups, treating each tabbed container as a single unit. Use `SUPER+N/P` to cycle within tabs.
 
 This requires corresponding Neovim configuration that exposes `v:lua.NvimHyprNav(direction)`.
 

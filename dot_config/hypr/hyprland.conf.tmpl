@@ -203,6 +203,21 @@ cursor {
   no_warps = true
 }
 
+# hy3 plugin configuration
+plugin:hy3 {
+    tabs {
+        height = 24
+        padding = 0
+        text_font = Fira Sans
+        text_height = 10
+        text_padding = 0
+        opacity = 1.0
+        col.active = 0xff33ccff
+        col.inactive = 0xff404040
+        col.text.active = 0xffffffff
+        col.text.inactive = 0xffaaaaaa
+    }
+}
 
 #############
 ### INPUT ###
@@ -283,6 +298,10 @@ bind = $mainMod, v, hy3:makegroup, v
 
 # Toggle tabbed
 bind = $mainMod, t, hy3:changegroup, toggletab
+
+# Cycle through tabs (next/previous, with wrap)
+bind = $mainMod, n, hy3:focustab, r, wrap
+bind = $mainMod, p, hy3:focustab, l, wrap
 
 # Toggle full screen
 bind = $mainMod, f, fullscreen, toggle

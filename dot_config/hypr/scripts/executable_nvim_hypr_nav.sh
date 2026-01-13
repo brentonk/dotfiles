@@ -70,4 +70,4 @@ fi
 # If we didn't find an nvim process, or if the servername was not set, or if
 # the nvim command spit back "false" (meaning nowhere for the nvim window to
 # move), change Hyprland focus instead
-hyprctl dispatch hy3:movefocus "$dir" > /dev/null
+hyprctl dispatch hy3:movefocus "$dir, visible" > /dev/null
