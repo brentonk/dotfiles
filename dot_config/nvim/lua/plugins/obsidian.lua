@@ -32,6 +32,9 @@ return {
 		daily_notes = {
 			folder = "daily",
 		},
+    ui = {
+      enable = false,
+    },
 		mappings = {
 			["gf"] = {
 				action = function()
