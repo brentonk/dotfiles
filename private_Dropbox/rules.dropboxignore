@@ -1,0 +1,9 @@
+# Ignore Python virtual environments created by uv or venv
+**/.venv/
+
+# Other common Python artifacts you might also want to ignore
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.ruff_cache/
+**/.mypy_cache/
