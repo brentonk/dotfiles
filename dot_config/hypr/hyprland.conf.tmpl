@@ -33,7 +33,7 @@ monitor=,preferred,auto,auto
 # Set programs that you use
 $terminal = kitty
 $menu = bemenu-run -i -c --fn "Iosevka Nerd Font 12" -W 0.3 -B 2 -R 10 -p "" -l 6 --fixed-height
-$browser = brave --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto
+$browser = vivaldi-stable --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto
 
 
 #################
@@ -387,6 +387,28 @@ windowrule {
     name = float-brave-picker
     float = true
     match:class = ^brave$
+}
+
+# Float Vivaldi popup windows (file picker has class "vivaldi")
+windowrule {
+    name = float-vivaldi-picker
+    float = true
+    match:class = ^vivaldi$
+}
+
+# Float Vivaldi settings window
+windowrule {
+    name = float-vivaldi-settings
+    float = true
+    match:class = ^vivaldi-stable$
+    match:title = .*Vivaldi Settings.*
+}
+
+# Float Electron file pickers (used by Obsidian and other Electron apps)
+windowrule {
+    name = float-electron-picker
+    float = true
+    match:class = ^electron$
 }
 
 # Float xdg-desktop-portal-gtk file picker (appears on laptop)
