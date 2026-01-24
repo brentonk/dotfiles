@@ -156,10 +156,12 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 ### WINDOW RULES ###
 ######################
 
-# Float browser file pickers
-for_window [app_id="brave"] floating enable
-for_window [app_id="vivaldi"] floating enable
-for_window [app_id="vivaldi-stable" title=".*Settings.*"] floating enable
+# Float browser dialogs (file pickers, settings, etc.) but not main window
+for_window [app_id="brave" window_type="dialog"] floating enable
+for_window [app_id="vivaldi-stable" window_type="dialog"] floating enable
+for_window [app_id="vivaldi-stable" title="^Settings.*"] floating enable
+for_window [app_id="vivaldi-stable" title="^Save As$"] floating enable
+for_window [app_id="vivaldi-stable" title="^Open$"] floating enable
 
 # Float Electron file pickers
 for_window [app_id="electron"] floating enable
