@@ -6,7 +6,8 @@ local M = {}
 local runtime_dir = vim.env.XDG_RUNTIME_DIR or "/tmp"
 
 local function get_outermost_term_pid()
-  if not vim.env.HYPRLAND_INSTANCE_SIGNATURE then
+  -- Work with either Sway or Hyprland
+  if not (vim.env.SWAYSOCK or vim.env.HYPRLAND_INSTANCE_SIGNATURE) then
     return nil
   end
 

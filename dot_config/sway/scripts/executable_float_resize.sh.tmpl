@@ -1,0 +1,19 @@
+#!/bin/sh
+# vim: ft=sh:
+
+# Get the app_id of the currently focused window
+app_id=$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true) | .app_id // .window_properties.class // empty' 2>/dev/null | head -1)
+
+# Toggle floating
+swaymsg floating toggle
+
+# Only apply resize if the app_id is foot or kitty and it's now floating
+if [ "$app_id" = "foot" ] || [ "$app_id" = "kitty" ]; then
+    sleep 0.05  # short delay to allow floating toggle to apply
+    is_floating=$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true) | .type // empty' 2>/dev/null | head -1)
+
+    if [ "$is_floating" = "floating_con" ]; then
+        swaymsg resize set {{ if eq .chezmoi.hostname "trebek" }}640 700{{ else }}850 1200{{ end }}
+        swaymsg move position center
+    fi
+fi

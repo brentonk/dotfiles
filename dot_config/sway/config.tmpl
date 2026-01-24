@@ -1,0 +1,171 @@
+# vim: ft=swayconfig:
+
+# Sway configuration - migrated from Hyprland
+
+###################
+### VARIABLES ###
+###################
+
+set $mod Mod4
+set $terminal kitty
+set $menu bemenu-run -i -c --fn "Iosevka Nerd Font 12" -W 0.3 -B 2 -R 10 -p "" -l 6 --fixed-height
+set $browser vivaldi-stable --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto
+
+#################
+### AUTOSTART ###
+#################
+
+exec waybar
+exec dropbox-cli start
+
+################
+### WALLPAPER ###
+################
+
+output * bg ~/wallpaper/wallpaper fill
+
+#############
+### INPUT ###
+#############
+
+input type:keyboard {
+    xkb_options ctrl:nocaps,compose:ralt
+}
+
+input type:touchpad {
+    natural_scroll enabled
+    tap enabled
+}
+
+#####################
+### LOOK AND FEEL ###
+#####################
+
+# Gaps
+gaps inner 0
+gaps outer 0
+
+# Border
+default_border pixel {{ if eq .chezmoi.hostname "trebek" }}2{{ else }}3{{ end }}
+default_floating_border pixel {{ if eq .chezmoi.hostname "trebek" }}2{{ else }}3{{ end }}
+
+# Colors (active border gradient not supported, using first color)
+client.focused #33ccff #285577 #ffffff #33ccff #33ccff
+client.unfocused #595959 #222222 #888888 #595959 #595959
+
+# Default layout: split (use Super+T to toggle stacking when needed)
+workspace_layout default
+
+# Focus follows mouse: no
+focus_follows_mouse no
+
+# Don't warp cursor when switching focus
+mouse_warping none
+
+###################
+### KEYBINDINGS ###
+###################
+
+# Core bindings
+bindsym $mod+Return exec $terminal
+bindsym $mod+c kill
+bindsym $mod+Shift+q exit
+bindsym $mod+Shift+space exec ~/.config/sway/scripts/float_resize.sh
+bindsym $mod+d exec $menu
+bindsym $mod+Shift+w exec $browser
+bindsym $mod+Shift+z exec zathura
+bindsym $mod+Shift+m exec swaylock -f -c 000000
+bindsym $mod+Shift+p exec grim -g "$(slurp)"
+
+# Fullscreen
+bindsym $mod+f fullscreen toggle
+
+# Navigation (vim-style with nvim integration)
+bindsym $mod+l exec ~/.config/sway/scripts/nvim_sway_nav.sh left
+bindsym $mod+semicolon exec ~/.config/sway/scripts/nvim_sway_nav.sh right
+bindsym $mod+k exec ~/.config/sway/scripts/nvim_sway_nav.sh up
+bindsym $mod+j exec ~/.config/sway/scripts/nvim_sway_nav.sh down
+
+# Window movement (hy3-style)
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move left
+bindsym $mod+Shift+semicolon move right
+
+# Split direction (hy3:makegroup equivalent)
+bindsym $mod+h splith
+bindsym $mod+v splitv
+
+# Toggle stacking/split layout (hy3:changegroup toggletab equivalent)
+bindsym $mod+t layout toggle stacking split
+
+# Cycle through containers (hy3:focustab equivalent)
+bindsym $mod+n focus right
+bindsym $mod+p focus left
+
+# Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# Move window to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
+
+# Scroll through workspaces
+bindsym --whole-window $mod+button4 workspace prev
+bindsym --whole-window $mod+button5 workspace next
+
+# Move/resize with mouse
+floating_modifier $mod normal
+
+# Media keys (with --locked for lock screen)
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym --locked XF86MonBrightnessUp exec brightnessctl -e4 -n2 set 5%+
+bindsym --locked XF86MonBrightnessDown exec brightnessctl -e4 -n2 set 5%-
+
+# Playerctl
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPause exec playerctl play-pause
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioPrev exec playerctl previous
+
+######################
+### WINDOW RULES ###
+######################
+
+# Float browser file pickers
+for_window [app_id="brave"] floating enable
+for_window [app_id="vivaldi"] floating enable
+for_window [app_id="vivaldi-stable" title=".*Settings.*"] floating enable
+
+# Float Electron file pickers
+for_window [app_id="electron"] floating enable
+
+# Float xdg-desktop-portal-gtk
+for_window [app_id="xdg-desktop-portal-gtk"] floating enable
+
+# Include additional config files if present
+include ~/.config/sway/config.d/*

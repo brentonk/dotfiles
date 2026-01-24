@@ -7,16 +7,15 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
+        "sway/workspaces",
         "hyprland/workspaces",
-        // "sway/mode",
-        // "sway/scratchpad",
+        "sway/mode",
+        "sway/scratchpad",
         "custom/media"
     ],
     "modules-center": [
-        {{- if eq .chezmoi.hostname "trebek" -}}
-        {{- else -}}
+        "sway/window",
         "hyprland/window"
-        {{- end -}}
     ],
     "modules-right": [
         "custom/gcal",
@@ -32,6 +31,11 @@
         "tray"
     ],
     // Modules configuration
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "format": "{name}"
+    },
     "hyprland/workspaces": {
         "disable-scroll": true,
         "show-special": true,
