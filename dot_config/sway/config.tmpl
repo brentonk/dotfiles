@@ -15,6 +15,7 @@ set $browser vivaldi-stable --enable-features=UseOzonePlatform,WaylandWindowDeco
 ### AUTOSTART ###
 #################
 
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec waybar
 exec dropbox-cli start
 
