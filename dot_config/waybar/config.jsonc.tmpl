@@ -14,8 +14,10 @@
         "custom/media"
     ],
     "modules-center": [
+        {{ if ne .chezmoi.hostname "trebek" -}}
         "sway/window",
         "hyprland/window"
+        {{- end }}
     ],
     "modules-right": [
         "custom/gcal",
