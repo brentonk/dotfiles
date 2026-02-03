@@ -4,7 +4,8 @@
       "WebSearch",
       "WebFetch(domain:github.com)",
       "Bash(chmod:*)",
-      "Bash(nvim:*)"
+      "Bash(nvim:*)",
+      "Bash(~/.claude/skills/chezmoi-sync/scripts/chezmoi-sync-auto.sh:*)"
     ]
   },
   "hooks": {

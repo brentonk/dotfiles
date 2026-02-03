@@ -22,7 +22,7 @@ return {
   -- aligned equation
   s("al", {
     t({"$$", ""}),
-    t({"\\begin{aligned}", ""}),
+    t({"\\begin{aligned}[]", ""}),
     i(0),
     t({"", "\\end{aligned}", ""}),
     t({"$$"}),
