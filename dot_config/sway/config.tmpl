@@ -75,7 +75,11 @@ bindsym $mod+Shift+space exec ~/.config/sway/scripts/float_resize.sh
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+w exec $browser
 bindsym $mod+Shift+z exec zathura
+{{- if eq .chezmoi.hostname "ASLNX-24CXCB4" }}
+bindsym $mod+Shift+m exec grim /tmp/lockscreen.png && convert /tmp/lockscreen.png -blur 0x5 /tmp/lockscreen.png && swaylock -f -i /tmp/lockscreen.png
+{{- else }}
 bindsym $mod+Shift+m exec swaylock -f --screenshots --effect-blur 7x5
+{{- end }}
 bindsym $mod+Shift+p exec grim -g "$(slurp)"
 
 # Fullscreen
