@@ -1,5 +1,5 @@
 return {
-	"gaoDean/autolist.nvim",
+	"brentonk/bautolist.nvim",
 	ft = { "markdown", "text", "tex", "plaintex", "quarto" },
 	config = function()
 		local autolist = require("autolist")
