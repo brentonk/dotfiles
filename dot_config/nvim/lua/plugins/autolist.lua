@@ -1,16 +1,15 @@
 return {
 	"gaoDean/autolist.nvim",
-	enabled = false,
 	ft = { "markdown", "text", "tex", "plaintex", "quarto" },
 	config = function()
 		local autolist = require("autolist")
 		autolist.setup({
 			lists = {
 				quarto = {
-					"[-+*]",    -- unordered
-					"%d+[.)]",  -- digit (1. 2. 3.)
-					"%a[.)]",   -- ascii (a) b) c))
-					"%u*[.)]",  -- roman (I. II. III.)
+					"[-+*]", -- unordered
+					"%d+[.)]", -- digit (1. 2. 3.)
+					"%a[.)]", -- ascii (a) b) c))
+					"%u*[.)]", -- roman (I. II. III.)
 				},
 			},
 		})
@@ -19,13 +18,71 @@ return {
 
 		local function setup_autolist_keymaps()
 			local opts = { buffer = true }
-			vim.keymap.set("i", "<tab>", "<cmd>AutolistTab<cr>", opts)
-			vim.keymap.set("i", "<s-tab>", "<cmd>AutolistShiftTab<cr>", opts)
-			vim.keymap.set("i", "<CR>", "<CR><cmd>AutolistNewBullet<cr>", opts)
+
+			-- <Tab>: cmp visible → select next, luasnip jumpable → jump, else autolist
+			vim.keymap.set("i", "<Tab>", function()
+				local cmp_ok, cmp = pcall(require, "cmp")
+				if cmp_ok and cmp.visible() then
+					cmp.select_next_item()
+					return
+				end
+				local luasnip_ok, luasnip = pcall(require, "luasnip")
+				if luasnip_ok and luasnip.expand_or_jumpable() then
+					luasnip.expand_or_jump()
+					return
+				end
+				vim.cmd("AutolistTab")
+			end, opts)
+
+			-- <S-Tab>: cmp visible → select prev, luasnip jumpable → jump back, else autolist
+			vim.keymap.set("i", "<S-Tab>", function()
+				local cmp_ok, cmp = pcall(require, "cmp")
+				if cmp_ok and cmp.visible() then
+					cmp.select_prev_item()
+					return
+				end
+				local luasnip_ok, luasnip = pcall(require, "luasnip")
+				if luasnip_ok and luasnip.locally_jumpable(-1) then
+					luasnip.jump(-1)
+					return
+				end
+				vim.cmd("AutolistShiftTab")
+			end, opts)
+
+			-- <C-l>: cycle list type in insert mode
+			vim.keymap.set("i", "<C-l>", function()
+				autolist.cycle_next()
+			end, opts)
+
+			-- <CR> in insert mode: check if cmp menu is visible first
+			vim.keymap.set("i", "<CR>", function()
+				local cmp_ok, cmp = pcall(require, "cmp")
+				if cmp_ok and cmp.visible() then
+					-- If completion menu visible and item selected, confirm it
+					local entry = cmp.get_selected_entry()
+					if entry then
+						cmp.confirm({ select = false })
+						return
+					end
+				end
+				-- Otherwise, do normal enter and autolist bullet
+				local cr = vim.api.nvim_replace_termcodes("<CR>", true, true, true)
+				vim.api.nvim_feedkeys(cr, "n", false)
+				vim.schedule(function()
+					vim.cmd("AutolistNewBullet")
+				end)
+			end, opts)
+
 			vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", opts)
 			vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", opts)
-			vim.keymap.set("n", "<CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", opts)
-			vim.keymap.set("n", "<C-r>", "<cmd>AutolistRecalculate<cr>", opts)
+
+			-- Normal mode <CR>: only set for non-markdown filetypes
+			-- (obsidian.nvim handles <CR> for markdown with smart_action)
+			if vim.bo.filetype ~= "markdown" then
+				vim.keymap.set("n", "<CR>", "<cmd>AutolistToggleCheckbox<cr><CR>", opts)
+			end
+
+			vim.keymap.set("n", "<leader>ar", "<cmd>AutolistRecalculate<cr>", opts)
 
 			-- recalculate on indent/delete
 			vim.keymap.set("n", ">>", ">><cmd>AutolistRecalculate<cr>", opts)
