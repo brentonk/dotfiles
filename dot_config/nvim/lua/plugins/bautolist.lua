@@ -8,10 +8,10 @@ return {
 			loose_lists = true,
 			lists = {
 				quarto = {
-					"[-+*]", -- unordered
-					"%d+[.)]", -- digit (1. 2. 3.)
-					"%a[.)]", -- ascii (a) b) c))
-					"%u*[.)]", -- roman (I. II. III.)
+					"[-+*]",    -- unordered
+					"%d+[.)]",  -- digit
+					"%a[.)]",   -- ascii
+					"%u+[.)]",  -- roman
 				},
 			},
 		})

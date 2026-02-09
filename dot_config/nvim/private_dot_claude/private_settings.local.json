@@ -5,7 +5,8 @@
       "WebFetch(domain:github.com)",
       "Bash(chmod:*)",
       "Bash(nvim:*)",
-      "Bash(~/.claude/skills/chezmoi-sync/scripts/chezmoi-sync-auto.sh:*)"
+      "Bash(~/.claude/skills/chezmoi-sync/scripts/chezmoi-sync-auto.sh:*)",
+      "Bash(git ls-remote:*)"
     ]
   },
   "hooks": {
