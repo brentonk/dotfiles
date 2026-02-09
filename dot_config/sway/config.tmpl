@@ -75,6 +75,7 @@ bindsym $mod+Shift+space exec ~/.config/sway/scripts/float_resize.sh
 bindsym $mod+d exec $menu
 bindsym $mod+Shift+w exec $browser
 bindsym $mod+Shift+z exec zathura
+bindsym $mod+z exec sh -c 'f=$(fd -e pdf "" "$HOME" | bemenu -i -c --fn "Iosevka Nerd Font 12" -W 0.3 -B 2 -R 10 -p "" -l 6 --fixed-height) && [ -n "$f" ] && exec zathura "$f"'
 {{- if eq .chezmoi.hostname "ASLNX-24CXCB4" }}
 bindsym $mod+Shift+m exec grim /tmp/lockscreen.png && convert /tmp/lockscreen.png -blur 0x5 /tmp/lockscreen.png && swaylock -f -i /tmp/lockscreen.png
 {{- else }}
