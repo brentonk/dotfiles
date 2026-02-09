@@ -1,9 +1,11 @@
 return {
 	"brentonk/bautolist.nvim",
+	branch = "develop",
 	ft = { "markdown", "text", "tex", "plaintex", "quarto" },
 	config = function()
 		local autolist = require("autolist")
 		autolist.setup({
+			loose_lists = true,
 			lists = {
 				quarto = {
 					"[-+*]", -- unordered
