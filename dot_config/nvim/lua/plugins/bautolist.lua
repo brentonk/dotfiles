@@ -5,6 +5,7 @@ return {
 	config = function()
 		local autolist = require("autolist")
 		autolist.setup({
+      indent_raw = false,
 			loose_lists = true,
 			lists = {
 				quarto = {
