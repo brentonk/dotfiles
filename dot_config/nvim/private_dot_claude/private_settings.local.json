@@ -6,7 +6,11 @@
       "Bash(chmod:*)",
       "Bash(nvim:*)",
       "Bash(~/.claude/skills/chezmoi-sync/scripts/chezmoi-sync-auto.sh:*)",
-      "Bash(git ls-remote:*)"
+      "Bash(git ls-remote:*)",
+      "Bash(chezmoi managed:*)",
+      "Bash(chezmoi status:*)",
+      "Bash(chezmoi forget:*)",
+      "Bash(chezmoi re-add:*)"
     ]
   },
   "hooks": {

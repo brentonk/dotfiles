@@ -15,7 +15,7 @@ This is a personal Neovim configuration focused on scientific writing (LaTeX, Qu
 - **Completion**: nvim-cmp with sources: vimtex, nvim_lsp, luasnip, rg, path, buffer
 - **Formatting**: conform.nvim (stylua, prettier, black, air, latexindent by filetype)
 - **REPL**: iron.nvim + quarto-nvim for R/Python/Quarto - uses radian for R, ipython for Python
-- **Snippets**: LuaSnip with custom snippets in `snippets/lua/` and `snippets/json/`
+- **Snippets**: LuaSnip with custom snippets in `snippets/lua/`
 
 ## Custom Keybindings
 
