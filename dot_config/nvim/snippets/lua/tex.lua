@@ -98,4 +98,14 @@ return {
 		i(2),
 		t("}"),
 	}),
+	s({ trig = "BEN", dscr = "enumerate environment" }, {
+		t({ "\\begin{enumerate}", "\t\\item " }),
+		i(0),
+		t({ "", "\\end{enumerate}" }),
+	}),
+	s({ trig = "BIT", dscr = "itemize environment" }, {
+		t({ "\\begin{itemize}", "\t\\item " }),
+		i(0),
+		t({ "", "\\end{itemize}" }),
+	}),
 }
