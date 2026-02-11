@@ -108,4 +108,15 @@ return {
 		i(0),
 		t({ "", "\\end{itemize}" }),
 	}),
+	s({ trig = "begin", dscr = "generic environment" }, {
+		t("\\begin{"),
+		i(1),
+		t({ "}", "\t" }),
+		i(0),
+		t({ "", "\\end{" }),
+		f(function(args)
+			return args[1][1]
+		end, { 1 }),
+		t("}"),
+	}),
 }
