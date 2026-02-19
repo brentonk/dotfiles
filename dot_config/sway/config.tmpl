@@ -76,6 +76,7 @@ bindsym $mod+d exec $menu
 bindsym $mod+Shift+w exec $browser
 bindsym $mod+Shift+z exec zathura
 bindsym $mod+z exec sh -c 'f=$(fd --no-ignore -e pdf "" "$HOME" | bemenu -i -c --fn "Iosevka Nerd Font 12" -W {{ if eq .chezmoi.hostname "trebek" }}0.45{{ else }}0.3{{ end }} -B 2 -R 10 -p "" -l 6 --fixed-height) && [ -n "$f" ] && exec zathura "$f"'
+bindsym $mod+r exec $HOME/Dropbox/references/refmenu.sh -c --fn "Iosevka Nerd Font 12" -W {{ if eq .chezmoi.hostname "trebek" }}0.45{{ else }}0.3{{ end }} -B 2 -R 10 --fixed-height
 {{- if eq .chezmoi.hostname "ASLNX-24CXCB4" }}
 bindsym $mod+Shift+m exec grim /tmp/lockscreen.png && convert /tmp/lockscreen.png -blur 0x5 /tmp/lockscreen.png && swaylock -f -i /tmp/lockscreen.png
 {{- else }}
