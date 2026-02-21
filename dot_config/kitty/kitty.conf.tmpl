@@ -2,7 +2,12 @@
 
 # Hostname: {{ .chezmoi.hostname }}
 
-font_family	{{ if eq .chezmoi.hostname "AS0374CD6G" }}JetBrainsMono Nerd Font Mono{{ else }}JetBrainsMono Nerd Font{{ end }}
+font_family	{{ if eq .chezmoi.hostname "AS0374CD6G" }}JetBrainsMono Nerd Font Mono{{ else }}JetBrainsMono NF Thin{{ end }}
+{{ if ne .chezmoi.hostname "AS0374CD6G" -}}
+italic_font	JetBrainsMono NF Thin Italic
+bold_font	JetBrainsMono NF Light
+bold_italic_font	JetBrainsMono NF Light Italic
+{{ end -}}
 font_size	{{ if eq .chezmoi.hostname "trebek" }}10{{ else if eq .chezmoi.hostname "AS0374CD6G" }}14{{ else }}11.5{{ end }}
 
 # Window margins
