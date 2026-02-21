@@ -76,6 +76,15 @@ return {
 				end)
 			end, opts)
 
+			-- <S-CR> in insert mode: soft return (continuation line aligned to content)
+			vim.keymap.set("i", "<S-CR>", function()
+				local cr = vim.api.nvim_replace_termcodes("<CR>", true, true, true)
+				vim.api.nvim_feedkeys(cr, "n", false)
+				vim.schedule(function()
+					vim.cmd("AutolistSoftReturn")
+				end)
+			end, opts)
+
 			vim.keymap.set("n", "o", "o<cmd>AutolistNewBullet<cr>", opts)
 			vim.keymap.set("n", "O", "O<cmd>AutolistNewBulletBefore<cr>", opts)
 
