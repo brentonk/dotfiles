@@ -14,7 +14,7 @@ font_size	{{ if eq .chezmoi.hostname "trebek" }}10{{ else if eq .chezmoi.hostnam
 window_padding_width 8
 
 # Theming
-background_opacity {{ if eq .chezmoi.hostname "AS0374CD6G" }}0.97{{ else if eq .chezmoi.hostname "milchick" }}0.96{{ else }}0.9{{ end }}
+background_opacity {{ if eq .chezmoi.hostname "AS0374CD6G" }}0.97{{ else if eq .chezmoi.hostname "milchick" }}0.96{{ else }}0.95{{ end }}
 
 # Ctrl-shift-n opens new kitty window in the current working directory
 map ctrl+shift+n launch --cwd=current --type=os-window
