@@ -5,13 +5,13 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 -- Fonts
-config.font = wezterm.font 'Iosevka Nerd Font'
-config.font_size = 12.0
+config.font = wezterm.font 'JetBrainsMono Nerd Font'
+config.font_size = 11.0
 
 -- Color theme
-config.color_scheme = 'Gruvbox dark, soft (base16)'
+config.color_scheme = 'Everforest Dark (Gogh)'
 config.hide_tab_bar_if_only_one_tab = true
-config.window_background_opacity = 0.85
+config.window_background_opacity = 0.9
 
 -- Wayland
 config.enable_wayland = true

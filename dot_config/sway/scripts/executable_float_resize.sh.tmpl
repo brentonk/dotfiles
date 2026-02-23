@@ -8,7 +8,7 @@ app_id=$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true) | .app_id /
 swaymsg floating toggle
 
 # Only apply resize if the app_id is foot or kitty and it's now floating
-if [ "$app_id" = "foot" ] || [ "$app_id" = "kitty" ]; then
+if [ "$app_id" = "foot" ] || [ "$app_id" = "org.wezfurlong.wezterm" ]; then
     sleep 0.05  # short delay to allow floating toggle to apply
     is_floating=$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true) | .type // empty' 2>/dev/null | head -1)
 
