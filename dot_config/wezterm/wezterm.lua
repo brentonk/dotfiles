@@ -5,8 +5,8 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 -- Fonts
-config.font = wezterm.font 'JetBrainsMono Nerd Font'
-config.font_size = 11.0
+config.font = wezterm.font 'Iosevka Nerd Font'
+config.font_size = 12.0
 
 -- Color theme
 config.color_scheme = 'Everforest Dark (Gogh)'
