@@ -180,5 +180,12 @@ for_window [app_id="electron"] floating enable
 # Float xdg-desktop-portal-gtk
 for_window [app_id="xdg-desktop-portal-gtk"] floating enable
 
+{{- if eq .chezmoi.hostname "trebek" }}
+# Workaround for wezterm/wezterm#6463: WezTerm mishandles the initial
+# Sway configure event, rendering only at its default geometry until a
+# resize forces a redraw.
+for_window [app_id="org.wezfurlong.wezterm"] exec 'sleep 0.01 && swaymsg "[con_id=__focused__] fullscreen enable, fullscreen disable"'
+{{- end }}
+
 # Include additional config files if present
 include ~/.config/sway/config.d/*
