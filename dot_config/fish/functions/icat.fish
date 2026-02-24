@@ -1,4 +1,4 @@
-function icat --description 'alias icat kitten icat'
-  kitten icat $argv
+function icat --wraps='wezterm imgcat' --description 'Display images in terminal via wezterm'
+  wezterm imgcat $argv
         
 end
