@@ -35,8 +35,8 @@ All custom functions follow a consistent pattern:
 These functions override default commands with modern alternatives:
 - `cat`/`less` → `bat` (syntax-highlighted file viewer)
 - `ls` → `eza` with specific flags (icons, git status, directory-first grouping)
-- `ssh` → `kitty +kitten ssh` (kitty terminal integration)
-- `icat` → `kitten icat` (image viewer in terminal)
+- `ssh` → sets `TERM=xterm-256color` for remote compatibility with wezterm
+- `icat` → `wezterm imgcat` (image viewer in terminal)
 
 ## Testing Functions
 
