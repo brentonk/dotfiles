@@ -7,7 +7,8 @@ return {
     "MunifTanjim/nui.nvim",
     -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
   },
-  lazy = false, -- neo-tree will lazily load itself
+  lazy = true,
+  cmd = { "Neotree" },
   ---@module "neo-tree"
   ---@type neotree.Config?
   opts = {

@@ -20,20 +20,12 @@ Fish loads configuration in this order:
 All custom functions follow a consistent pattern:
 - Each function is defined in its own file: `functions/<function_name>.fish`
 - Simple aliases use `--wraps` to maintain completion support from the underlying command
-- More complex functions (like `va`) include their own logic
-
 ### Key Integration Points
 
 **Dotfile Management (chezmoi):**
 - `cm` - Main chezmoi wrapper
 - `cmlg` - Opens lazygit in the chezmoi source directory via `$(chezmoi source-path)`
 - `cmnv` - Opens nvim with Telescope chezmoi picker using an autocmd
-
-**Python Virtual Environments (`va`):**
-- Uses a centralized venv directory at `~/venv/`
-- Reads venv name from `.venvdir` file in the current directory
-- Creates venv automatically if it doesn't exist
-- Prompts for venv name if `.venvdir` is missing
 
 **Navigation Functions:**
 - `zz` - Interactive directory navigation using `fd` + `fzf` with home directory as search root
@@ -42,7 +34,7 @@ All custom functions follow a consistent pattern:
 **Tool Wrappers:**
 These functions override default commands with modern alternatives:
 - `cat`/`less` → `bat` (syntax-highlighted file viewer)
-- `ls` → `exa` with specific flags (icons, git status, directory-first grouping)
+- `ls` → `eza` with specific flags (icons, git status, directory-first grouping)
 - `ssh` → `kitty +kitten ssh` (kitty terminal integration)
 - `icat` → `kitten icat` (image viewer in terminal)
 
@@ -66,7 +58,6 @@ function <name> --wraps=<command> --description 'description here'
   <command> $argv
 end
 ```
-3. For complex functions, see `va.fish` as a reference for proper error handling and user interaction
 
 ## SSH Key Management
 

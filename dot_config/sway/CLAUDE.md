@@ -28,10 +28,10 @@ After editing, use `/chezmoi-sync` to commit and push changes.
 ### Core
 | Binding | Action |
 |---------|--------|
-| `Super+Return` | Terminal (kitty) |
+| `Super+Return` | Terminal (wezterm) |
 | `Super+C` | Kill window |
 | `Super+D` | Launcher (bemenu) |
-| `Super+Shift+W` | Browser (vivaldi) |
+| `Super+Shift+W` | Browser (brave) |
 | `Super+Shift+Z` | Zathura |
 | `Super+Shift+M` | Lock screen |
 | `Super+Shift+P` | Screenshot (grim+slurp) |

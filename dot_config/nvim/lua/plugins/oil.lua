@@ -7,5 +7,6 @@ return {
 		vim.keymap.set("n", "<leader>Of", "<cmd>Oil --float<cr>", { desc = "Open Oil in floating window" })
 	end,
 	dependencies = { { "echasnovski/mini.icons", opts = {} } },
-	lazy = false,
+	lazy = true,
+	cmd = { "Oil" },
 }

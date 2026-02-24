@@ -1,4 +1,5 @@
 -- <space> as leader
+-- Must be set before lazy.nvim loads so that mappings are correct.
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 

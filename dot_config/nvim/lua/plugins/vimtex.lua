@@ -1,6 +1,5 @@
 return {
   "lervag/vimtex",
-  lazy = false,
   ft = "tex",
   config = function()
     -- Platform-specific PDF viewer setup
@@ -25,7 +24,7 @@ return {
       pattern = "tex",
       callback = function()
         -- <leader>t in normal mode to toggle the TOC
-        vim.api.nvim_set_keymap('n', '<leader>t', ':VimtexTocToggle<CR>', { noremap = true, silent = true })
+        vim.keymap.set('n', '<leader>t', ':VimtexTocToggle<CR>', { buffer = true, noremap = true, silent = true })
 
         -- S to surround selection with an environment
         vim.keymap.set("x", "S", "<plug>(vimtex-env-surround-visual)", { buffer = true, silent = true })
