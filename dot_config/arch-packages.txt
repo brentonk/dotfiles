@@ -1,0 +1,164 @@
+# Generated on trebek at 2026-02-24 10:45
+
+# Shells
+fish
+bash
+zsh
+zsh-autosuggestions
+
+# Terminal Emulators
+wezterm-nightly-bin
+kitty
+xterm
+
+# Sway (Wayland Compositor)
+sway
+swaybg
+swayidle
+swaync
+swaylock-effects
+bemenu-wayland
+wmenu
+waybar
+xorg-xwayland
+xdg-desktop-portal-wlr
+xdg-desktop-portal-gtk
+
+# i3 (X11 Fallback)
+i3-wm
+i3status
+i3lock
+dmenu
+xorg-server
+xorg-xinit
+xorg-xinput
+
+# Screenshots / Display
+grim
+slurp
+wl-clipboard
+wl-mirror
+wlr-randr
+xclip
+
+# Audio / Media
+alsa-utils
+wireplumber
+playerctl
+pavucontrol
+
+# Power / Hardware
+brightnessctl
+acpi
+upower
+tlp
+tlp-rdw
+tp_smapi
+tp_smapi-lts
+
+# Editors
+neovim
+vim
+ex-vi-compat
+
+# Web Browsers
+brave-bin
+firefox
+
+# Document Viewers
+zathura
+zathura-pdf-mupdf
+
+# LaTeX / Document Processing
+texlive-meta
+texlive-doc
+texlab
+pandoc-bin
+pandoc-crossref
+typst
+qpdf
+poppler
+gpp
+
+# Developer Tools
+git
+github-cli
+lazygit
+chezmoi
+cmake
+meson
+jq
+wget
+tree
+tree-sitter-cli
+imagemagick
+rust
+npm
+lua-language-server
+
+# Developer Tools - Python
+uv
+python-pipx
+ipython
+pyright
+
+# Developer Tools - R
+r
+blas-openblas
+blas64-openblas
+gcc-fortran
+gdal
+udunits
+
+# CLI Utilities
+bat
+eza
+fd
+fzf
+ripgrep
+zoxide
+starship
+htop
+keychain
+detach
+
+# File Managers
+ranger
+nnn-nerd
+
+# Productivity
+obsidian
+dropbox-cli
+glow
+slack-desktop
+quarto-cli-bin
+
+# Fonts
+ttf-iosevka-nerd
+ttf-jetbrains-mono-nerd
+ttf-fira-sans
+adobe-source-serif-fonts
+noto-fonts-emoji
+otf-font-awesome
+
+# Spell Checking
+aspell
+aspell-en
+ispell
+
+# System Utilities
+openssh
+tailscale
+bind
+cpio
+man-db
+man-pages
+xdg-utils
+yay
+libappindicator
+libxml2-legacy
+
+# Non-pacman tools (not included in install list)
+# radian — R REPL, installed via pip
+# fnm — Node version manager, installed via cargo
+# stylua, prettier, black, etc. — managed by Mason (nvim)
