@@ -83,6 +83,8 @@ After running both scripts, apply your judgment:
 Write the categorized package list to `~/.config/arch-packages.txt`:
 
 ```
+# Generated on <hostname> at <YYYY-MM-DD HH:MM>
+
 # Category Name
 package1
 package2
@@ -92,6 +94,7 @@ package3
 ```
 
 Rules:
+- First line must be a comment with the hostname (`hostname`) and timestamp (`date '+%Y-%m-%d %H:%M'`)
 - Comment lines (`#`) are category headers
 - One package per line, no version numbers
 - Blank lines between categories for readability
