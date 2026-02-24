@@ -1,18 +1,18 @@
 -- Set up module table
 local M = {}
 
--- Create a file $XDG_RUNTIME_DIR/nvim-hyp-nav.<pid>.servername that stores the
+-- Create a file $XDG_RUNTIME_DIR/nvim-wm-nav.<pid>.servername that stores the
 -- server name
 local runtime_dir = vim.env.XDG_RUNTIME_DIR or "/tmp"
 
 local function get_outermost_term_pid()
-  -- Work with either Sway or Hyprland
+  -- Work with any supported Wayland compositor
   if not (vim.env.SWAYSOCK or vim.env.HYPRLAND_INSTANCE_SIGNATURE) then
     return nil
   end
 
   -- List of terminal process names to check for
-  local terminal_processes = { "foot", "footclient", "kitty" }
+  local terminal_processes = { "wezterm-gui", "kitty", "foot", "footclient" }
 
   local pid = tostring(vim.fn.getpid())
   local highest_term
@@ -31,13 +31,13 @@ end
 
 local server_pid = get_outermost_term_pid()
 if server_pid then
-  M.servername_file = runtime_dir .. "/nvim-hypr-nav." .. server_pid .. ".servername"
+  M.servername_file = runtime_dir .. "/nvim-wm-nav." .. server_pid .. ".servername"
 else
   M.servername_file = nil
 end
 
 -- Write the servername file on VimEnter
-local augroup = vim.api.nvim_create_augroup("NvimHyprNav", { clear = true })
+local augroup = vim.api.nvim_create_augroup("NvimWmNav", { clear = true })
 vim.api.nvim_create_autocmd("VimEnter", {
   group = augroup,
   pattern = "*",
@@ -70,9 +70,9 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
   end,
 })
 
--- Function to be called from the nvim_hypr_nav.sh script that lives in the
--- Hyprland config directory
-function NvimHyprNav(dir)
+-- Function to be called from the compositor's navigation script (e.g.
+-- nvim_sway_nav.sh)
+function NvimWmNav(dir)
   -- Map directions to Vim's window navigation commands
   local dir_map = { left = "h", right = "l", up = "k", down = "j" }
 
@@ -96,8 +96,8 @@ function NvimHyprNav(dir)
   end
 end
 
--- Expose the NvimHyprNav function to be callable from outside
-vim.api.nvim_command("command! -nargs=1 NvimHyprNav lua NvimHyprNav(<f-args>)")
+-- Expose the NvimWmNav function to be callable from outside
+vim.api.nvim_command("command! -nargs=1 NvimWmNav lua NvimWmNav(<f-args>)")
 
 -- Return the module table
 return M

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Sway navigation script with nvim integration
-# Adapted from nvim_hypr_nav.sh for Hyprland
+# Uses nvim-wm-nav plugin for seamless nvim/compositor navigation
 
 # Usage: nvim_sway_nav.sh [direction]
 
@@ -27,7 +27,7 @@ focused_pid="$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true) | .pi
 
 # Look for a serverfile for an nvim process in the focused window
 # Support both naming conventions for compatibility
-servername_file="${XDG_RUNTIME_DIR:-/tmp}/nvim-hypr-nav.${focused_pid}.servername"
+servername_file="${XDG_RUNTIME_DIR:-/tmp}/nvim-wm-nav.${focused_pid}.servername"
 
 # If the serverfile exists, ask the associated nvim server to run the given
 # navigation command
@@ -37,7 +37,7 @@ if [ -f "$servername_file" ]; then
 
   # If we have a servername, run the corresponding navigation call in nvim and exit
   if [ -n "$servername" ]; then
-    nvim_out="$(nvim_remote_expr "v:lua.NvimHyprNav('$dir')")"
+    nvim_out="$(nvim_remote_expr "v:lua.NvimWmNav('$dir')")"
     [ "$nvim_out" = "true" ] && exit 0
   fi
 fi

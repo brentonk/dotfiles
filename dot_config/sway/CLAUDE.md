@@ -73,12 +73,12 @@ After editing, use `/chezmoi-sync` to commit and push changes.
 
 ## Nvim Integration
 
-The navigation scripts work with `~/.config/nvim/plugin/nvim-hypr-nav.lua` which:
-1. Creates a serverfile at `$XDG_RUNTIME_DIR/nvim-hypr-nav.<pid>.servername`
+The navigation scripts work with `~/.config/nvim/plugin/nvim-wm-nav.lua` which:
+1. Creates a serverfile at `$XDG_RUNTIME_DIR/nvim-wm-nav.<pid>.servername`
 2. Navigation script checks for this file and tries nvim navigation first
 3. Falls back to sway focus if nvim can't navigate (at edge of splits)
 
-Works with both Sway and Hyprland (checks for `SWAYSOCK` or `HYPRLAND_INSTANCE_SIGNATURE`).
+Works with any supported Wayland compositor (checks for `SWAYSOCK` or `HYPRLAND_INSTANCE_SIGNATURE`).
 
 ## Differences from Hyprland
 
@@ -91,4 +91,4 @@ Works with both Sway and Hyprland (checks for `SWAYSOCK` or `HYPRLAND_INSTANCE_S
 ## Related Configs
 
 - Waybar: `~/.config/waybar/config.jsonc` - Has both sway/* and hyprland/* modules
-- Nvim plugin: `~/.config/nvim/plugin/nvim-hypr-nav.lua` - Supports both compositors
+- Nvim plugin: `~/.config/nvim/plugin/nvim-wm-nav.lua` - Compositor-agnostic navigation
