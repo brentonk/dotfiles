@@ -24,4 +24,7 @@ config.window_background_opacity = {{ $opacity }}
 config.enable_wayland = true
 config.use_ime = true
 
+-- Send distinct escape sequences for modifier+key combos (CSI u / kitty encoding)
+config.enable_csi_u_key_encoding = true
+
 return config
