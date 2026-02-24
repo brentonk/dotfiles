@@ -1,4 +1,4 @@
-function ssh --description 'alias ssh=kitty +kitten ssh'
-  kitty +kitten ssh $argv
+function ssh --wraps=ssh --description 'SSH with proper TERM for wezterm'
+  TERM=xterm-256color command ssh $argv
         
 end
