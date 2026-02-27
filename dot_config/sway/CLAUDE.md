@@ -9,7 +9,8 @@ Migrated from Hyprland with hy3 plugin. Managed by chezmoi.
 ├── config                 # Main config (from chezmoi template)
 ├── scripts/
 │   ├── nvim_sway_nav.sh   # Vim-style navigation with nvim integration
-│   └── float_resize.sh    # Float toggle with terminal resize
+│   ├── float_resize.sh    # Float toggle with terminal resize
+│   └── toggle_opacity.sh  # Toggle wezterm background opacity
 └── CLAUDE.md
 ```
 
@@ -20,6 +21,7 @@ Migrated from Hyprland with hy3 plugin. Managed by chezmoi.
 - `~/.local/share/chezmoi/dot_config/sway/config.tmpl` - Main config template
 - `~/.local/share/chezmoi/dot_config/sway/scripts/executable_nvim_sway_nav.sh`
 - `~/.local/share/chezmoi/dot_config/sway/scripts/executable_float_resize.sh.tmpl`
+- `~/.local/share/chezmoi/dot_config/sway/scripts/executable_toggle_opacity.sh`
 
 After editing, use `/chezmoi-sync` to commit and push changes.
 
@@ -37,6 +39,7 @@ After editing, use `/chezmoi-sync` to commit and push changes.
 | `Super+Shift+P` | Screenshot (grim+slurp) |
 | `Super+F` | Fullscreen toggle |
 | `Super+Shift+Space` | Float toggle (resizes terminals) |
+| `Super+Shift+T` | Toggle wezterm opacity (transparent/opaque) |
 
 ### Navigation (vim-style, integrates with nvim splits)
 | Binding | Direction |
