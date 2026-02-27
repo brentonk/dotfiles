@@ -14,6 +14,7 @@ return {
         "markdown_inline",
         "python",
         "r",
+        "typst",
         "yaml",
       },
       highlight = {

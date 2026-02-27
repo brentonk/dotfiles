@@ -7,6 +7,7 @@ return {
       filetypes = {
         quarto = false,
         tex = false,
+        typst = false,
       },
       suggestion = {
         auto_trigger = true,

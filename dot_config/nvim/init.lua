@@ -93,7 +93,7 @@ vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
 
 -- enable spell checking for markdown, quarto, and latex
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "quarto", "tex" },
+  pattern = { "markdown", "quarto", "tex", "typst" },
   callback = function()
     vim.opt_local.spell = true
     vim.opt_local.spelllang = { "en_us" }

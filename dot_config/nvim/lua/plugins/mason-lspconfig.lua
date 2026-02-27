@@ -9,6 +9,7 @@ return {
       "r_language_server",
       "ruff",
       "texlab",
+      "tinymist",
     },
     automatic_enable = {
       exclude = {

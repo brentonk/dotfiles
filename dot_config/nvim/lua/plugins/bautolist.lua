@@ -1,7 +1,7 @@
 return {
 	"brentonk/bautolist.nvim",
 	branch = "develop",
-	ft = { "markdown", "text", "tex", "plaintex", "quarto" },
+	ft = { "markdown", "text", "tex", "plaintex", "quarto", "typst" },
 	config = function()
 		local autolist = require("autolist")
 		autolist.setup({
@@ -17,7 +17,7 @@ return {
 			},
 		})
 
-		local filetypes = { "markdown", "text", "tex", "plaintex", "quarto" }
+		local filetypes = { "markdown", "text", "tex", "plaintex", "quarto", "typst" }
 
 		local function setup_autolist_keymaps()
 			local opts = { buffer = true }
