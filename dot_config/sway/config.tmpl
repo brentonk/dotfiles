@@ -50,6 +50,9 @@ gaps outer 0
 default_border pixel {{ if eq .chezmoi.hostname "trebek" }}2{{ else }}3{{ end }}
 default_floating_border pixel {{ if eq .chezmoi.hostname "trebek" }}2{{ else }}3{{ end }}
 
+# Font for title bars and bar (consistent with wezterm)
+font pango:JetBrainsMono Nerd Font 9
+
 # Colors (active border gradient not supported, using first color)
 client.focused #33ccff #285577 #ffffff #33ccff #33ccff
 client.unfocused #595959 #222222 #888888 #595959 #595959
