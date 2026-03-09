@@ -2,8 +2,7 @@ return {
   "sainnhe/everforest",
   priority = 1000,
   config = function()
-    -- Set the background to dark
-    vim.opt.background = "dark"
+    vim.opt.background = "light"
 
     -- Set everforest style to 'hard'
     -- Options: 'hard', 'medium' (default), 'soft'
