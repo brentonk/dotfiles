@@ -20,6 +20,13 @@ Always use `uv` for Python project management instead of pip, pip-tools, poetry,
 - Run tools with `uv run <tool>` (e.g., `uv run pytest`, `uv run ruff`)
 - Use `uv tool run` (or `uvx`) for one-off tool execution without installing
 
+### Pyright Configuration
+- If a Python project has a `.venv` but no `pyrightconfig.json`, create one so pyright resolves dependencies from the venv:
+  ```json
+  { "venvPath": ".", "venv": ".venv" }
+  ```
+- Place it in the same directory as the `.venv`
+
 ### Key Principles
 - Never use `pip install` directly; use `uv add` or `uv pip install` if raw pip interface needed
 - Prefer `uv run` to activate environments implicitly rather than manual activation
