@@ -45,5 +45,4 @@ autolist.nvim provides automatic list continuation for markdown/quarto/tex. Pres
 
 - `.txt` files are treated as markdown
 - Spell checking enabled for markdown, quarto, tex
-- Copilot disabled for quarto and tex filetypes
 - VimTeX uses zathura on Linux, Skim on macOS
