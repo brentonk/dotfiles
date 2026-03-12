@@ -8,6 +8,9 @@
 {{- if eq .chezmoi.hostname "milchick" -}}
 {{-   $opacity = 0.95 -}}
 {{-   $fontSize = 11.5 -}}
+{{- else if eq .chezmoi.hostname "trebek" -}}
+{{-   $opacity = 0.97 -}}
+{{-   $fontSize = 11.0 -}}
 {{- else if eq .chezmoi.hostname "ASLNX-24CXCB4" -}}
 {{-   $opacity = 0.925 -}}
 {{-   $fontSize = 11.5 -}}
