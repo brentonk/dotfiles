@@ -14,7 +14,7 @@ return {
     -- Better performance
     vim.g.everforest_better_performance = 1
 
-    -- Load the colorscheme
-    vim.cmd.colorscheme "everforest"
+    -- Not active — using cyberdream
+    -- vim.cmd.colorscheme "everforest"
   end,
 }
