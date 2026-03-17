@@ -12,7 +12,9 @@
       "Bash(chezmoi forget:*)",
       "Bash(chezmoi re-add:*)",
       "Bash(chezmoi source-path:*)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "Bash(find /home/brenton/.config/nvim -type f \\\\\\(-name *.lua -o -name *.vim \\\\\\))",
+      "Bash(grep -r keymap /home/brenton/.config/nvim --include=*.lua)"
     ]
   },
   "hooks": {
