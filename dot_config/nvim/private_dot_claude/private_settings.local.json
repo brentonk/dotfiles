@@ -10,7 +10,9 @@
       "Bash(chezmoi managed:*)",
       "Bash(chezmoi status:*)",
       "Bash(chezmoi forget:*)",
-      "Bash(chezmoi re-add:*)"
+      "Bash(chezmoi re-add:*)",
+      "Bash(chezmoi source-path:*)",
+      "Bash(git:*)"
     ]
   },
   "hooks": {
