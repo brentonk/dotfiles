@@ -14,6 +14,11 @@ return {
 					"%a[.)]",   -- ascii
 					"%u+[.)]",  -- roman
 				},
+				typst = {
+					"[-+]",     -- unordered
+					"%d+[.]",   -- digit
+					"%a[.]",    -- ascii
+				},
 			},
 		})
 
