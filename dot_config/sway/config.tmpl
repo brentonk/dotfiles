@@ -18,6 +18,9 @@ set $browser brave --enable-features=UseOzonePlatform,WaylandWindowDecorations -
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec waybar
 exec dropbox-cli start
+{{- if or (eq .chezmoi.hostname "trebek") (eq .chezmoi.hostname "milchick") }}
+exec gammastep -l 36.1627:-86.7816
+{{- end }}
 
 ################
 ### WALLPAPER ###
