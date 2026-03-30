@@ -19,7 +19,7 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec waybar
 exec dropbox-cli start
 {{- if or (eq .chezmoi.hostname "trebek") (eq .chezmoi.hostname "milchick") }}
-exec gammastep -l 36.1627:-86.7816
+exec gammastep-indicator -l 36.1627:-86.7816
 {{- end }}
 
 ################
