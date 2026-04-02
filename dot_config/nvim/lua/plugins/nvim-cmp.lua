@@ -69,5 +69,14 @@ return {
 				ghost_text = false,
 			},
 		})
+		cmp.setup.filetype("typst", {
+			sources = cmp.config.sources({
+				{ name = "nvim_lsp" },
+				{ name = "luasnip" },
+				{ name = "path" },
+			}, {
+				{ name = "buffer" },
+			}),
+		})
 	end,
 }
