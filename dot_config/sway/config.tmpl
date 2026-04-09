@@ -91,6 +91,11 @@ bindsym $mod+Shift+m exec swaylock -f --screenshots --effect-blur 7x5
 bindsym $mod+Shift+p exec grim -g "$(slurp)"
 bindsym $mod+Shift+b exec bjkhome_brave
 bindsym $mod+Shift+t exec ~/.config/sway/scripts/toggle_opacity.sh
+{{- if eq .chezmoi.hostname "ASLNX-24CXCB4" }}
+bindsym $mod+Shift+o exec $HOME/.local/bin/Obsidian-1.12.4.AppImage --no-sandbox --ozone-platform=wayland
+{{- else }}
+bindsym $mod+Shift+o exec obsidian --no-sandbox --ozone-platform=wayland
+{{- end }}
 
 # Fullscreen
 bindsym $mod+f fullscreen toggle
