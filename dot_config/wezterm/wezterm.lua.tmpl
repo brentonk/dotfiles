@@ -45,6 +45,11 @@ do
 end
 wezterm.add_to_config_reload_watch_list(opacity_state)
 
+-- Local opacity override: not chezmoi-managed, edit freely per-host
+local opacity_override = (os.getenv('XDG_CONFIG_HOME') or (os.getenv('HOME') .. '/.config'))
+  .. '/wezterm/opacity.local'
+wezterm.add_to_config_reload_watch_list(opacity_override)
+
 local function is_opaque()
   local f = io.open(opacity_state, 'r')
   if f then
@@ -55,7 +60,19 @@ local function is_opaque()
   return false
 end
 
-config.window_background_opacity = is_opaque() and 1.0 or {{ $opacity }}
+local function override_opacity()
+  local f = io.open(opacity_override, 'r')
+  if not f then return nil end
+  local content = f:read('*a')
+  f:close()
+  local n = tonumber((content or ''):match('[%d.]+'))
+  if n and n >= 0 and n <= 1 then return n end
+  return nil
+end
+
+config.window_background_opacity = is_opaque() and 1.0
+  or override_opacity()
+  or {{ $opacity }}
 
 -- Wayland
 config.enable_wayland = true
