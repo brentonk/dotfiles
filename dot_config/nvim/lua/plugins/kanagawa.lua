@@ -6,6 +6,7 @@ return {
     require("kanagawa").setup({
       transparent = true,
       commentStyle = { italic = true },
+      theme = "dragon",
       colors = {
         theme = {
           all = {

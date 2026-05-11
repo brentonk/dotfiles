@@ -1,19 +1,19 @@
--- kanagawa (wave) theme for wezterm
+-- kanagawa (dragon) theme for wezterm
 return {
-    foreground = "#DCD7BA",
-    background = "#1F1F28",
+    foreground = "#C5C9C5",
+    background = "#181616",
 
     cursor_bg = "#C8C093",
     cursor_fg = "#16161D",
     cursor_border = "#C8C093",
 
-    selection_fg = "#DCD7BA",
+    selection_fg = "#C8C093",
     selection_bg = "#2D4F67",
 
-    scrollbar_thumb = "#1F1F28",
-    split = "#1F1F28",
+    scrollbar_thumb = "#16161D",
+    split = "#16161D",
 
-    ansi = { "#16161D", "#C34043", "#76946A", "#C0A36E", "#7E9CD8", "#957FB8", "#6A9589", "#C8C093" },
-    brights = { "#727169", "#E82424", "#98BB6C", "#E6C384", "#7FB4CA", "#938AA9", "#7AA89F", "#DCD7BA" },
+    ansi = { "#0D0C0C", "#C4746E", "#8A9A7B", "#C4B28A", "#8BA4B0", "#A292A3", "#8EA4A2", "#C8C093" },
+    brights = { "#A6A69C", "#E46876", "#87A987", "#E6C384", "#7FB4CA", "#938AA9", "#7AA89F", "#C5C9C5" },
     indexed = { [16] = "#FFA066", [17] = "#FF5D62" },
 }
