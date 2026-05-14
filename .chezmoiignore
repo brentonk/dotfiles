@@ -1,0 +1,2 @@
+# Ubuntu-only brave wrapper (real brave binary on Arch shouldn't be shadowed)
+.local/bin/brave

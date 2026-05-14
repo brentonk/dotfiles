@@ -1,2 +1,0 @@
-#! /bin/sh
-exec /usr/bin/brave-browser --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto "$@"
