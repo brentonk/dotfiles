@@ -3,6 +3,6 @@ return {
   ft = "typst",
   version = "1.*",
   opts = {
-    open_cmd = "brave --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto --app=%s",
+    open_cmd = "brave --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto --app=%s 2>/dev/null",
   },
 }
