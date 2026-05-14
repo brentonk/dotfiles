@@ -19,6 +19,9 @@ background_opacity {{ if eq .chezmoi.hostname "AS0374CD6G" }}0.97{{ else if eq .
 # Ctrl-shift-n opens new kitty window in the current working directory
 map ctrl+shift+n launch --cwd=current --type=os-window
 
+# Treat option as alt on Mac
+macos_option_as_alt yes
+
 
 # BEGIN_KITTY_THEME
 # Gruvbox Dark
