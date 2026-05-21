@@ -1,9 +1,10 @@
 return {
 	"stevearc/oil.nvim",
-	opts = {},
+	opts = {
+		default_file_explorer = true,
+	},
 	dependencies = { { "echasnovski/mini.icons", opts = {} } },
-	lazy = true,
-	cmd = { "Oil" },
+	lazy = false,
 	keys = {
 		{ "<leader>Oo", "<cmd>Oil<cr>", desc = "Open Oil" },
 		{ "<leader>Of", "<cmd>Oil --float<cr>", desc = "Open Oil in floating window" },
