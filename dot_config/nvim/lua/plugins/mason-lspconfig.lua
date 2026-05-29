@@ -6,14 +6,14 @@ return {
       "jsonls",
       "lua_ls",
       "pyright",
-      "r_language_server",
       "ruff",
       "texlab",
       "tinymist",
     },
     automatic_enable = {
       exclude = {
-        "lua_ls",  -- handled by nvim-lspconfig to whitelist vim global
+        "lua_ls",            -- handled by nvim-lspconfig to whitelist vim global
+        "r_language_server", -- handled by nvim-lspconfig; uses system R, not mason
       },
     },
   },

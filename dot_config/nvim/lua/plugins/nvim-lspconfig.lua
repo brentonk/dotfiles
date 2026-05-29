@@ -52,5 +52,13 @@ return {
 
     -- Enable the Lua language server
     vim.lsp.enable("lua_ls")
+
+    -- Use the system R + user library `languageserver` package directly.
+    -- Mason's vendored r-languageserver bundles precompiled .so files that
+    -- break (undefined symbol: SETLENGTH) when the system R is upgraded.
+    vim.lsp.config("r_language_server", {
+      cmd = { "R", "--no-echo", "-e", "languageserver::run()" },
+    })
+    vim.lsp.enable("r_language_server")
   end
 }
