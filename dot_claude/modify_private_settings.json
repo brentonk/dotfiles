@@ -1,0 +1,18 @@
+#!/bin/sh
+# chezmoi modify_ script for ~/.claude/settings.json
+#
+# Claude Code co-owns this file: it writes runtime state (enabledPlugins,
+# effortLevel, skipAutoPermissionPrompt, ...) on its own. Tracking it as a
+# static file made `chezmoi apply` clobber those keys. Instead, chezmoi pipes
+# the CURRENT file in on stdin and this script's stdout becomes the new file,
+# so we enforce only the core permissions and leave everything else intact.
+set -eu
+
+required='["WebSearch","WebFetch","Read","Glob","Grep"]'
+
+content=$(cat)
+[ -n "$content" ] || content='{}'   # fresh machine: no file yet
+
+printf '%s' "$content" | jq --argjson req "$required" '
+  .permissions.allow = ((.permissions.allow // []) + ($req - (.permissions.allow // [])))
+'
