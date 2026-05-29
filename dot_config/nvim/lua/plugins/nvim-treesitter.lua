@@ -7,6 +7,7 @@ return {
     require("nvim-treesitter").install({
       "bash",
       "fish",
+      "html",
       "json",
       "latex",
       "lua",
