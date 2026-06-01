@@ -1,8 +1,8 @@
 local function open_cmd()
   if vim.uv.os_uname().sysname == "Darwin" then
-    return "'/Applications/Brave Browser.app/Contents/MacOS/Brave Browser' --app=%s 2>/dev/null &"
+    return "'/Applications/Chromium.app/Contents/MacOS/Chromium' --app=%s 2>/dev/null &"
   end
-  return "brave --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto --app=%s 2>/dev/null"
+  return "chromium --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto --app=%s 2>/dev/null"
 end
 
 return {

@@ -33,7 +33,7 @@ After editing, use `/chezmoi-sync` to commit and push changes.
 | `Super+Return` | Terminal (wezterm) |
 | `Super+C` | Kill window |
 | `Super+D` | Launcher (bemenu) |
-| `Super+Shift+W` | Browser (brave) |
+| `Super+Shift+W` | Browser (chromium) |
 | `Super+Shift+Z` | Zathura |
 | `Super+Shift+M` | Lock screen |
 | `Super+Shift+P` | Screenshot (grim+slurp) |
@@ -90,6 +90,48 @@ Works with any supported Wayland compositor (checks for `SWAYSOCK` or `HYPRLAND_
 - Uses `swaylock` instead of `hyprlock`
 - Uses `grim`+`slurp` instead of `grimblast`
 - Stacking layout instead of hy3 tabs (similar behavior)
+
+## Chromium dialog floating (cross-distro / Arch note)
+
+The window rules float Chromium's file Open/Save/folder dialogs but not normal
+windows. This is done by **title-matching**, which looks hacky but is forced by
+Wayland:
+
+- Chromium gives its dialogs the **same `app_id` (`chromium`)** as ordinary
+  windows, so app_id alone can't distinguish them.
+- This Chromium build (v148, both xtradeb deb and Arch's package) has **no
+  xdg-desktop-portal file chooser** — `GTK_USE_PORTAL` and any
+  `--use-*-file-picker` flag are absent from the binary. So the dialogs are NOT
+  portal windows; you can't match them via `app_id="xdg-desktop-portal-gtk"`.
+  Don't try to "fix" this by adding portal flags — they don't exist for file
+  selection on Chromium yet.
+- Sway's `window_type=` / `window_role=` criteria are **X11-only** and never
+  match native-Wayland Chromium, so the old `window_type="dialog"` rule was dead.
+
+Titles are the only lever. The rule is anchored (`^...$`); it can't false-match a
+web page because real browser windows always end in ` - Chromium` while dialogs
+have bare titles. (The previous `title="^Settings.*"` rule used a prefix match,
+which floated every site whose page title started with "Settings" — that was the
+bug.)
+
+**Arch compatibility:** the rule uses only `app_id="chromium"` + Chromium's own
+dialog title strings, both identical across Arch and Ubuntu, so it should work on
+Arch unchanged — no portal/distro dependency. **To verify on an Arch machine:**
+open a file dialog in Chromium, then run
+
+```
+swaymsg -t get_tree | grep -E '"app_id"|"name"'
+```
+
+If the dialog's title isn't already in the `for_window [app_id="chromium"
+title="^(...)$"]` alternation, add it there (exact, anchored). Locale matters —
+non-English Chromium will use translated titles.
+
+**Also note the `$mod+Shift+b` binding** runs `bjkhome_chromium` (a PATH launcher
+that opens chromium as an app to bjkhome.pages.dev). On Ubuntu that's
+`~/bin/bjkhome_chromium -> ~/Dropbox/bin/bjkhome_ubuntu`. On Arch, make sure an
+equivalent `bjkhome_chromium` exists in PATH and points at `chromium`, or the
+binding will fail (it was renamed from the old `bjkhome_brave`).
 
 ## Related Configs
 

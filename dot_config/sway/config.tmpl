@@ -9,7 +9,7 @@
 set $mod Mod4
 set $terminal wezterm
 set $menu bemenu-run -i -c --fn "Iosevka Nerd Font 12" -W 0.3 -B 2 -R 10 -p "" -l 6 --fixed-height
-set $browser brave --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto --silent-debugger-extension-api
+set $browser chromium --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto --silent-debugger-extension-api
 
 #################
 ### AUTOSTART ###
@@ -90,7 +90,7 @@ bindsym $mod+Shift+m exec swaylock -f --screenshots --effect-blur 7x5
 {{- end }}
 bindsym $mod+Shift+p exec grim -g "$(slurp)"
 bindsym $mod+Shift+g exec sh -c 'name=$(echo "" | bemenu -c --fn "Iosevka Nerd Font 12" -W {{ if eq .chezmoi.hostname "trebek" }}0.45{{ else }}0.3{{ end }} -B 2 -R 10 -p "screenshot name:" --fixed-height) && [ -n "$name" ] && gb "$name" "$HOME/Dropbox/screenshots"'
-bindsym $mod+Shift+b exec bjkhome_brave
+bindsym $mod+Shift+b exec bjkhome_chromium
 bindsym $mod+Shift+t exec ~/.config/sway/scripts/toggle_opacity.sh
 {{- if eq .chezmoi.hostname "ASLNX-24CXCB4" }}
 bindsym $mod+Shift+o exec $HOME/.local/bin/Obsidian-1.12.4.AppImage --no-sandbox --ozone-platform=wayland
@@ -177,11 +177,17 @@ bindsym --locked XF86AudioPrev exec playerctl previous
 ### WINDOW RULES ###
 ######################
 
-# Float browser dialogs (file pickers, settings, etc.) but not main window
-for_window [app_id="brave-browser" window_type="dialog"] floating enable
-for_window [app_id="brave-browser" title="^Settings.*"] floating enable
-for_window [app_id="brave-browser" title="^Save As$"] floating enable
-for_window [app_id="brave-browser" title="^Open$"] floating enable
+# Float Chromium's file Open/Save/folder dialogs (but NOT normal browser windows).
+# Why title-matching (and not something cleaner): under Wayland, Chromium gives
+# these dialogs the SAME app_id ("chromium") as ordinary windows, ships no
+# xdg-desktop-portal file chooser (so they're not portal windows we could match
+# by app_id), and Sway's window_type/window_role criteria are X11-only -> they
+# never match native-Wayland Chromium. Titles are the only usable lever.
+# Anchored with ^...$ so a rule can't match a web page: real browser windows
+# always end in " - Chromium", only dialogs have bare titles. These titles come
+# from Chromium itself, so they're identical on Arch and Ubuntu -> cross-distro.
+# (See sway/CLAUDE.md "Chromium dialog floating" for the Arch verification note.)
+for_window [app_id="chromium" title="^(Open|Open File|Open Files|Save File|Save File As|Save As|Select Folder)$"] floating enable
 
 # Float Electron file pickers
 for_window [app_id="electron"] floating enable
