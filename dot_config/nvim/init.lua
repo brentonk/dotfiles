@@ -97,6 +97,9 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.spell = true
     vim.opt_local.spelllang = { "en_us" }
+    -- don't flag lowercase words at the start of a line/sentence
+    -- (common in lists), keep real misspelling checks
+    vim.opt_local.spellcapcheck = ""
   end,
 })
 
