@@ -10,7 +10,8 @@
         "sway/workspaces",
         "sway/mode",
         "sway/scratchpad",
-        "custom/media"
+        "custom/media"{{ if eq .chezmoi.hostname "ASLNX-24CXCB4" }},
+        "custom/spotify"{{ end }}
     ],
     "modules-center": [
         {{ if ne .chezmoi.hostname "trebek" -}}
@@ -199,6 +200,17 @@
         "escape": true,
         "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+    "custom/spotify": {
+        "format": "{}",
+        "return-type": "text",
+        "max-length": 50,
+        "interval": 3,
+        "escape": true,
+        "exec": "$HOME/.config/waybar/spotify.sh",
+        "on-click": "playerctl --player=spotify play-pause",
+        "on-scroll-up": "playerctl --player=spotify next",
+        "on-scroll-down": "playerctl --player=spotify previous"
     },
     "custom/power": {
         "format" : "⏻ ",
