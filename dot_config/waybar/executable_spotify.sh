@@ -24,9 +24,20 @@ case "$status" in
     *)       icon=$'' ;;
 esac
 
-# Trailing icon, matching the other right-side modules (e.g. "{volume}% {icon}").
+# Build the text, then truncate the TEXT (not the icon) so the trailing
+# glyph is never cut off. waybar's own max-length is removed for this
+# module; this script is the single source of truncation.
 if [ -n "$artist" ] && [ -n "$title" ]; then
-    printf '%s - %s %s\n' "$artist" "$title" "$icon"
+    text="$artist - $title"
 else
-    printf '%s%s %s\n' "$artist" "$title" "$icon"
+    text="$artist$title"
 fi
+
+# Codepoint-aware truncation (UTF-8 locale); add an ellipsis when clipped.
+maxlen=45
+if [ "${#text}" -gt "$maxlen" ]; then
+    text="${text:0:$maxlen}…"
+fi
+
+# Trailing icon, matching the other right-side modules (e.g. "{volume}% {icon}").
+printf '%s %s\n' "$text" "$icon"
