@@ -15,15 +15,18 @@ title=$(playerctl --player="$player" metadata title 2>/dev/null)
 # Nothing useful to show.
 [ -z "$artist" ] && [ -z "$title" ] && exit 0
 
-# Nerd Font play/pause indicator (matches the mpd module's glyphs).
+# Nerd Font / FontAwesome play-pause indicator. Use explicit codepoint
+# escapes so the private-use glyphs survive editing: U+F04B play,
+# U+F04C pause, U+F001 music note (fallback).
 case "$status" in
-    Playing) icon="" ;;
-    Paused)  icon="" ;;
-    *)       icon="" ;;
+    Playing) icon=$'' ;;
+    Paused)  icon=$'' ;;
+    *)       icon=$'' ;;
 esac
 
+# Trailing icon, matching the other right-side modules (e.g. "{volume}% {icon}").
 if [ -n "$artist" ] && [ -n "$title" ]; then
-    printf '%s %s - %s\n' "$icon" "$artist" "$title"
+    printf '%s - %s %s\n' "$artist" "$title" "$icon"
 else
-    printf '%s %s%s\n' "$icon" "$artist" "$title"
+    printf '%s%s %s\n' "$artist" "$title" "$icon"
 fi
