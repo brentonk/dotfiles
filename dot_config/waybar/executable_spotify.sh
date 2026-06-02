@@ -15,7 +15,7 @@ title=$(playerctl --player="$player" metadata title 2>/dev/null)
 # Nothing useful to show.
 [ -z "$artist" ] && [ -z "$title" ] && exit 0
 
-# Nerd Font: spotify glyph when playing, pause glyph when paused.
+# Nerd Font play/pause indicator (matches the mpd module's glyphs).
 case "$status" in
     Playing) icon="" ;;
     Paused)  icon="" ;;

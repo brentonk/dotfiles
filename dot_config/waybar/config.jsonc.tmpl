@@ -10,8 +10,7 @@
         "sway/workspaces",
         "sway/mode",
         "sway/scratchpad",
-        "custom/media"{{ if eq .chezmoi.hostname "ASLNX-24CXCB4" }},
-        "custom/spotify"{{ end }}
+        "custom/media"
     ],
     "modules-center": [
         {{ if ne .chezmoi.hostname "trebek" -}}
@@ -22,6 +21,7 @@
         "custom/gcal",
         "network",
         {{ if eq .chezmoi.hostname "ASLNX-24CXCB4" -}}
+        "custom/spotify",
         "pulseaudio",
         {{- end }}
         {{ if eq .chezmoi.hostname "trebek" -}}
@@ -208,9 +208,7 @@
         "interval": 3,
         "escape": true,
         "exec": "$HOME/.config/waybar/spotify.sh",
-        "on-click": "playerctl --player=spotify play-pause",
-        "on-scroll-up": "playerctl --player=spotify next",
-        "on-scroll-down": "playerctl --player=spotify previous"
+        "on-click": "playerctl --player=spotify play-pause"
     },
     "custom/power": {
         "format" : "⏻ ",
