@@ -20,6 +20,9 @@
     "modules-right": [
         "custom/gcal",
         "network",
+        {{ if eq .chezmoi.hostname "ASLNX-24CXCB4" -}}
+        "pulseaudio",
+        {{- end }}
         {{ if eq .chezmoi.hostname "trebek" -}}
         "battery",
         {{- else -}}
