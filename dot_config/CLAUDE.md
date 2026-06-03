@@ -2,6 +2,10 @@
 
 Many files in this directory and its subdirectories are managed by chezmoi.
 
+## Compositor
+
+The active Wayland compositor is **sway** (`~/.config/sway/config`, a chezmoi template). The Hyprland config (`~/.config/hypr/hyprland.conf`) is **vestigial and unused** — do not edit it. Apply compositor/keybinding changes to the sway config only.
+
 ## Before Editing Files
 
 Check if a file is managed by chezmoi:
