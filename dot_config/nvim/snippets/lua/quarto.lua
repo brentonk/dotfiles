@@ -1,3 +1,13 @@
+-- Restrict a snippet to buffers under a given directory
+local function in_dir(dir)
+	dir = vim.fs.normalize(vim.fn.expand(dir))
+	return function()
+		return vim.startswith(vim.api.nvim_buf_get_name(0), dir .. "/")
+	end
+end
+
+local in_mfpa_notes = in_dir("~/Dropbox/courses/mfpa/notes")
+
 return {
 	s("block", {
 		t("::: {"),
@@ -41,6 +51,29 @@ return {
 		i(2),
 		t({ "", "::::", ":::" }),
 	}),
+	-- exercise with answer block (mfpa notes only)
+	s(
+		{ trig = "exr", dscr = "Exercise with answer block" },
+		fmta(
+			[[
+			::: {#exr-<> name="<>"}
+			<>
+
+			:::: {.answer}
+			::::
+			:::
+			]],
+			{
+				i(1, "label"),
+				i(2, "Name"),
+				i(0),
+			}
+		),
+		{
+			condition = in_mfpa_notes,
+			show_condition = in_mfpa_notes,
+		}
+	),
 	-- in-class exercise
 	s("ice", {
 		t({ '::: {.callout-note title="In-class exercise"}', "" }),
