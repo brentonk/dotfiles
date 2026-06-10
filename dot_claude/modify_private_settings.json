@@ -1,18 +1,30 @@
 #!/bin/sh
 # chezmoi modify_ script for ~/.claude/settings.json
 #
-# Claude Code co-owns this file: it writes runtime state (enabledPlugins,
-# effortLevel, skipAutoPermissionPrompt, ...) on its own. Tracking it as a
+# Claude Code co-owns this file: it writes runtime state (effortLevel,
+# skipAutoPermissionPrompt, model, ...) on its own. Tracking it as a
 # static file made `chezmoi apply` clobber those keys. Instead, chezmoi pipes
 # the CURRENT file in on stdin and this script's stdout becomes the new file,
-# so we enforce only the core permissions and leave everything else intact.
+# so we enforce only the keys we care about and leave everything else intact.
+#
+# Merge semantics:
+#   - permissions.allow: required entries are added if missing; extras kept.
+#   - permissions.defaultMode: enforced to "auto".
+#   - enabledPlugins: desired plugins are added as true ONLY if the key is
+#     absent — an explicit local false (plugin disabled on this machine)
+#     wins, and machine-local plugins (e.g. obsidian) are untouched. Note
+#     that enabling here does not install: on a fresh machine, run
+#     /plugin install once per plugin.
 set -eu
 
-required='["WebSearch","WebFetch","Read","Glob","Grep"]'
+required='["WebSearch","WebFetch","Read","Glob","Grep","Bash(~/.claude/skills/chezmoi-sync/scripts/chezmoi-sync-auto.sh:*)"]'
+plugins='["pyright-lsp@claude-plugins-official","frontend-design@claude-plugins-official","playwright@claude-plugins-official"]'
 
 content=$(cat)
 [ -n "$content" ] || content='{}'   # fresh machine: no file yet
 
-printf '%s' "$content" | jq --argjson req "$required" '
+printf '%s' "$content" | jq --argjson req "$required" --argjson plugins "$plugins" '
   .permissions.allow = ((.permissions.allow // []) + ($req - (.permissions.allow // [])))
+  | .permissions.defaultMode = "auto"
+  | .enabledPlugins = (($plugins | map({key: ., value: true}) | from_entries) + (.enabledPlugins // {}))
 '
