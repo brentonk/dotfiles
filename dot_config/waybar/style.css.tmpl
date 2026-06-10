@@ -2,7 +2,7 @@
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, 'Font Awesome 7 Brands', 'Font Awesome 7 Free', Fira Sans, Roboto, Helvetica, Arial, sans-serif;
+    font-family: FontAwesome, Fira Sans, Roboto, Helvetica, Arial, sans-serif;
     font-size: {{ if eq .chezmoi.hostname "trebek" }}13px{{ else }}15px{{ end }};
 }
 
@@ -338,6 +338,10 @@ label:focus {
     padding: 0 8px;
     background: rgba(0, 0, 0, 0.2);
     color: rgba(255, 255, 255, 0.45); /* dimmed = stashed in scratchpad */
+    /* FA7 only here: these modules are icon-only. FA 6/7 desktop fonts
+       include Latin glyphs (for ligatures), so putting them in the global
+       font stack would render all bar text in Font Awesome. */
+    font-family: FontAwesome, 'Font Awesome 7 Brands', sans-serif;
 }
 
 #custom-scratch-spotify.visible {
