@@ -1,3 +1,11 @@
+# Document Source Formatting
+
+## One Sentence Per Line
+
+In LaTeX (`.tex`), Typst (`.typ`), and Quarto (`.qmd`) source files, write exactly one sentence per line: break the line at the end of each sentence and never hard-wrap within a sentence.
+
+This convention does NOT apply to ordinary Markdown (`.md`) files, which are sometimes distributed as-is rather than compiled to PDF/HTML.
+
 # Python Project Guidelines
 
 ## Package Manager: uv
