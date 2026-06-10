@@ -2,7 +2,7 @@
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Fira Sans, Roboto, Helvetica, Arial, sans-serif;
+    font-family: FontAwesome, 'Font Awesome 7 Brands', 'Font Awesome 7 Free', Fira Sans, Roboto, Helvetica, Arial, sans-serif;
     font-size: {{ if eq .chezmoi.hostname "trebek" }}13px{{ else }}15px{{ end }};
 }
 
@@ -318,6 +318,18 @@ label:focus {
 
 #scratchpad.empty {
 	background-color: transparent;
+}
+
+/* Generic scratchpad counter (excludes the dedicated scratchpads) */
+#custom-scratch-other {
+    padding: 0 8px;
+    background: rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+}
+
+#custom-scratch-other.empty {
+    background: transparent;
+    padding: 0;
 }
 
 /* Dedicated scratchpad indicators (spotify/obsidian) */

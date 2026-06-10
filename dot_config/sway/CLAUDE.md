@@ -82,7 +82,9 @@ After editing, use `/chezmoi-sync` to commit and push changes.
 apps. Mechanism:
 
 - `for_window [app_id="spotify|obsidian"]` rules send each app to the
-  scratchpad on launch, then show it floating at 75%×85%, centered.
+  scratchpad on launch, then show it floating. Deliberately no forced size:
+  both apps persist their own window geometry, and a `resize set` in the rule
+  would clobber the user's size on every relaunch.
 - The bindings run `swaymsg '[app_id=...] scratchpad show' || <launch cmd>` —
   `swaymsg` exits non-zero when no window matches, so the app is launched if
   not running, toggled otherwise. The Obsidian launch command is host-templated
@@ -92,8 +94,14 @@ apps. Mechanism:
   `~/.config/waybar/scratchpad_indicator.sh` (event-driven via
   `swaymsg -t subscribe`). Icon in brand color when the window is visible,
   dimmed when stashed, absent when the app isn't running. Clicking the
-  indicator toggles, same as the keybinding. Obsidian has no official Nerd
-  Fonts glyph yet, so it uses `nf-md-diamond_stone` (U+F01C8).
+  indicator toggles, same as the keybinding. Icons are the Font Awesome brand
+  glyphs (spotify U+F1BC, obsidian U+E879); obsidian's requires the Font
+  Awesome 7 Brands font, installed in `~/.local/share/fonts` on this host but
+  NOT chezmoi-managed — install it on other machines or the icon is tofu.
+- The stock `sway/scratchpad` waybar module is replaced by
+  `custom/scratch-other` (`~/.config/waybar/scratchpad_count.sh`), which
+  counts scratchpad windows *excluding* spotify/obsidian, so the counter
+  no longer reads "2" permanently from the two dedicated apps.
 
 ## Nvim Integration
 

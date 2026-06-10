@@ -200,9 +200,11 @@ for_window [app_id="electron"] floating enable
 # Float xdg-desktop-portal-gtk
 for_window [app_id="xdg-desktop-portal-gtk"] floating enable
 
-# Dedicated scratchpad apps ($mod+s / $mod+o): stash in scratchpad on launch
-for_window [app_id="spotify"] move scratchpad, scratchpad show, resize set width 75 ppt height 85 ppt, move position center
-for_window [app_id="obsidian"] move scratchpad, scratchpad show, resize set width 75 ppt height 85 ppt, move position center
+# Dedicated scratchpad apps ($mod+s / $mod+o): stash in scratchpad on launch.
+# No forced resize — both apps remember their own window size, and a resize
+# here would clobber it on every relaunch.
+for_window [app_id="spotify"] move scratchpad, scratchpad show
+for_window [app_id="obsidian"] move scratchpad, scratchpad show
 
 {{- if eq .chezmoi.hostname "trebek" }}
 # Workaround for wezterm/wezterm#6463: WezTerm mishandles the initial
