@@ -320,6 +320,28 @@ label:focus {
 	background-color: transparent;
 }
 
+/* Dedicated scratchpad indicators (spotify/obsidian) */
+#custom-scratch-spotify,
+#custom-scratch-obsidian {
+    padding: 0 8px;
+    background: rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.45); /* dimmed = stashed in scratchpad */
+}
+
+#custom-scratch-spotify.visible {
+    color: #1DB954; /* Spotify brand green */
+}
+
+#custom-scratch-obsidian.visible {
+    color: #8b6cef; /* Obsidian brand purple */
+}
+
+#custom-scratch-spotify.empty,
+#custom-scratch-obsidian.empty {
+    background: transparent;
+    padding: 0;
+}
+
 #privacy {
     padding: 0;
 }

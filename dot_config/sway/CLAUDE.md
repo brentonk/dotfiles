@@ -40,6 +40,8 @@ After editing, use `/chezmoi-sync` to commit and push changes.
 | `Super+F` | Fullscreen toggle |
 | `Super+Shift+Space` | Float toggle (resizes terminals) |
 | `Super+Shift+T` | Toggle wezterm opacity (transparent/opaque) |
+| `Super+S` | Toggle Spotify dedicated scratchpad (launches if not running) |
+| `Super+O` | Toggle Obsidian dedicated scratchpad (launches if not running) |
 
 ### Navigation (vim-style, integrates with nvim splits)
 | Binding | Direction |
@@ -73,6 +75,25 @@ After editing, use `/chezmoi-sync` to commit and push changes.
 ### Scratchpad
 - `Super+Minus` - Show scratchpad
 - `Super+Shift+Minus` - Move to scratchpad
+
+### Dedicated scratchpads (Spotify / Obsidian)
+
+`Super+S` and `Super+O` toggle Spotify and Obsidian as dedicated scratchpad
+apps. Mechanism:
+
+- `for_window [app_id="spotify|obsidian"]` rules send each app to the
+  scratchpad on launch, then show it floating at 75%×85%, centered.
+- The bindings run `swaymsg '[app_id=...] scratchpad show' || <launch cmd>` —
+  `swaymsg` exits non-zero when no window matches, so the app is launched if
+  not running, toggled otherwise. The Obsidian launch command is host-templated
+  (`$obsidian` variable: version-pinned AppImage on Ubuntu, `obsidian` on Arch).
+- Waybar shows per-app indicators (`custom/scratch-spotify`,
+  `custom/scratch-obsidian` in `~/.config/waybar/config.jsonc`), driven by
+  `~/.config/waybar/scratchpad_indicator.sh` (event-driven via
+  `swaymsg -t subscribe`). Icon in brand color when the window is visible,
+  dimmed when stashed, absent when the app isn't running. Clicking the
+  indicator toggles, same as the keybinding. Obsidian has no official Nerd
+  Fonts glyph yet, so it uses `nf-md-diamond_stone` (U+F01C8).
 
 ## Nvim Integration
 

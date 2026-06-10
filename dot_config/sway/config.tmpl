@@ -10,6 +10,11 @@ set $mod Mod4
 set $terminal wezterm
 set $menu bemenu-run -i -c --fn "Iosevka Nerd Font 12" -W 0.3 -B 2 -R 10 -p "" -l 6 --fixed-height
 set $browser chromium --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto --silent-debugger-extension-api
+{{- if eq .chezmoi.hostname "ASLNX-24CXCB4" }}
+set $obsidian $HOME/.local/bin/Obsidian-1.12.4.AppImage --no-sandbox --ozone-platform=wayland
+{{- else }}
+set $obsidian obsidian --no-sandbox --ozone-platform=wayland
+{{- end }}
 
 #################
 ### AUTOSTART ###
@@ -92,11 +97,11 @@ bindsym $mod+Shift+p exec grim -g "$(slurp)"
 bindsym $mod+Shift+g exec sh -c 'name=$(echo "" | bemenu -c --fn "Iosevka Nerd Font 12" -W {{ if eq .chezmoi.hostname "trebek" }}0.45{{ else }}0.3{{ end }} -B 2 -R 10 -p "screenshot name:" --fixed-height) && [ -n "$name" ] && gb "$name" "$HOME/Dropbox/screenshots"'
 bindsym $mod+Shift+b exec bjkhome_chromium
 bindsym $mod+Shift+t exec ~/.config/sway/scripts/toggle_opacity.sh
-{{- if eq .chezmoi.hostname "ASLNX-24CXCB4" }}
-bindsym $mod+Shift+o exec $HOME/.local/bin/Obsidian-1.12.4.AppImage --no-sandbox --ozone-platform=wayland
-{{- else }}
-bindsym $mod+Shift+o exec obsidian --no-sandbox --ozone-platform=wayland
-{{- end }}
+
+# Dedicated scratchpads: toggle visibility, launching the app if not running
+# (swaymsg exits non-zero when no window matches the criteria)
+bindsym $mod+s exec swaymsg '[app_id="spotify"] scratchpad show' || spotify
+bindsym $mod+o exec swaymsg '[app_id="obsidian"] scratchpad show' || $obsidian
 
 # Fullscreen
 bindsym $mod+f fullscreen toggle
@@ -194,6 +199,10 @@ for_window [app_id="electron"] floating enable
 
 # Float xdg-desktop-portal-gtk
 for_window [app_id="xdg-desktop-portal-gtk"] floating enable
+
+# Dedicated scratchpad apps ($mod+s / $mod+o): stash in scratchpad on launch
+for_window [app_id="spotify"] move scratchpad, scratchpad show, resize set width 75 ppt height 85 ppt, move position center
+for_window [app_id="obsidian"] move scratchpad, scratchpad show, resize set width 75 ppt height 85 ppt, move position center
 
 {{- if eq .chezmoi.hostname "trebek" }}
 # Workaround for wezterm/wezterm#6463: WezTerm mishandles the initial
