@@ -15,16 +15,20 @@
 #     wins, and machine-local plugins (e.g. obsidian) are untouched. Note
 #     that enabling here does not install: on a fresh machine, run
 #     /plugin install once per plugin.
+#   - env: required vars are enforced (overwriting local values); other
+#     machine-local vars are kept.
 set -eu
 
 required='["WebSearch","WebFetch","Read","Glob","Grep","Bash(~/.claude/skills/chezmoi-sync/scripts/chezmoi-sync-auto.sh:*)"]'
 plugins='["pyright-lsp@claude-plugins-official","frontend-design@claude-plugins-official","playwright@claude-plugins-official"]'
+envvars='{"PLAYWRIGHT_MCP_BROWSER":"chromium"}'
 
 content=$(cat)
 [ -n "$content" ] || content='{}'   # fresh machine: no file yet
 
-printf '%s' "$content" | jq --argjson req "$required" --argjson plugins "$plugins" '
+printf '%s' "$content" | jq --argjson req "$required" --argjson plugins "$plugins" --argjson envvars "$envvars" '
   .permissions.allow = ((.permissions.allow // []) + ($req - (.permissions.allow // [])))
   | .permissions.defaultMode = "auto"
   | .enabledPlugins = (($plugins | map({key: ., value: true}) | from_entries) + (.enabledPlugins // {}))
+  | .env = ((.env // {}) + $envvars)
 '
