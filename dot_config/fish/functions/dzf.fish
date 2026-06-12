@@ -1,4 +1,7 @@
-function dzf --wraps='detach zathura (fzf)' --description 'alias dzf=detach zathura (fzf)'
+function dzf --description 'pick a PDF with fzf and open it in detached zathura'
     set -l file (fd --no-ignore -e pdf $argv | fzf)
-    and detach zathura $file
+    and begin
+        zathura $file >/dev/null 2>&1 &
+        disown
+    end
 end
