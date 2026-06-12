@@ -120,7 +120,6 @@ zoxide
 starship
 htop
 keychain
-detach
 
 # File Managers
 ranger
