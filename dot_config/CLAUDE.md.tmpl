@@ -1,11 +1,11 @@
 # Chezmoi Configuration Directory
 
 {{ if eq .chezmoi.os "darwin" -}}
-**This host:** macOS — work laptop (`{{ .chezmoi.hostname }}`). Package manager: **Homebrew** (`brew`). This is **NOT** Arch and **NOT** Ubuntu — never use `pacman` or `apt`, and the `arch-packages` skill does not apply.
+**This host:** macOS — work laptop (`{{ .chezmoi.hostname }}`). Package manager: **Homebrew** (`brew`). This is **NOT** Arch and **NOT** Ubuntu — never use `pacman` or `apt`.
 {{- else if eq .chezmoi.osRelease.id "arch" -}}
 **This host:** Arch Linux (`{{ .chezmoi.hostname }}`) — my default environment. Package manager: **pacman** (+ AUR).
 {{- else if eq .chezmoi.osRelease.id "ubuntu" -}}
-**This host:** Ubuntu — work desktop (`{{ .chezmoi.hostname }}`). Package manager: **apt**. This is **NOT** Arch — never use `pacman`, and the `arch-packages` skill does not apply here.
+**This host:** Ubuntu — work desktop (`{{ .chezmoi.hostname }}`). Package manager: **apt**. This is **NOT** Arch — never use `pacman`.
 {{- else -}}
 **This host:** {{ .chezmoi.os }}{{ with .chezmoi.osRelease.id }} / {{ . }}{{ end }} (`{{ .chezmoi.hostname }}`). Distro unrecognized by this template — verify the package manager (`pacman`/`apt`/`brew`) before using one.
 {{- end }}
