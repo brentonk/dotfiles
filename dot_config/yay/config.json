@@ -1,0 +1,19 @@
+{
+	"editor": "nvim",
+	"editorflags": "",
+	"editmenu": true,
+	"diffmenu": true,
+	"cleanmenu": true,
+	"answeredit": "",
+	"answerdiff": "",
+	"answerclean": "",
+	"answerupgrade": "",
+	"removemake": "ask",
+	"cleanAfter": false,
+	"pgpfetch": true,
+	"provides": false,
+	"combinedupgrade": true,
+	"doubleconfirm": true,
+	"sudoloop": false,
+	"devel": false
+}
