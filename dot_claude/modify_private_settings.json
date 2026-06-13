@@ -21,7 +21,7 @@ set -eu
 
 required='["WebSearch","WebFetch","Read","Glob","Grep","Bash(~/.claude/skills/chezmoi-sync/scripts/chezmoi-sync-auto.sh:*)"]'
 plugins='["pyright-lsp@claude-plugins-official","frontend-design@claude-plugins-official","playwright@claude-plugins-official"]'
-envvars='{"PLAYWRIGHT_MCP_BROWSER":"chromium"}'
+envvars='{"PLAYWRIGHT_MCP_BROWSER":"chromium","PLAYWRIGHT_MCP_HEADLESS":"true"}'
 
 content=$(cat)
 [ -n "$content" ] || content='{}'   # fresh machine: no file yet
