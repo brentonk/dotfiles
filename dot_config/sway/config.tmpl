@@ -99,8 +99,10 @@ bindsym $mod+Shift+b exec bjkhome_chromium
 bindsym $mod+Shift+t exec ~/.config/sway/scripts/toggle_opacity.sh
 
 # Dedicated scratchpads: toggle visibility, launching the app if not running
-# (swaymsg exits non-zero when no window matches the criteria)
-bindsym $mod+s exec swaymsg '[app_id="spotify"] scratchpad show' || spotify
+# (swaymsg exits non-zero when no window matches the criteria).
+# Spotify runs under Xwayland on some hosts (e.g. Arch's proprietary package),
+# where it has no app_id and must be matched by its X11 class instead.
+bindsym $mod+s exec swaymsg '[app_id="spotify"] scratchpad show' || swaymsg '[class="Spotify"] scratchpad show' || spotify
 bindsym $mod+o exec swaymsg '[app_id="obsidian"] scratchpad show' || $obsidian
 
 # Fullscreen
@@ -204,6 +206,7 @@ for_window [app_id="xdg-desktop-portal-gtk"] floating enable
 # No forced resize — both apps remember their own window size, and a resize
 # here would clobber it on every relaunch.
 for_window [app_id="spotify"] move scratchpad, scratchpad show
+for_window [class="Spotify"] move scratchpad, scratchpad show
 for_window [app_id="obsidian"] move scratchpad, scratchpad show
 
 {{- if eq .chezmoi.hostname "trebek" }}
