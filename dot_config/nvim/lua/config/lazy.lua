@@ -24,6 +24,10 @@ require("lazy").setup({
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "habamax" } },
-  -- automatically check for plugin updates
-  checker = { enabled = true },
+  -- automatically check for plugin updates in the background, but don't
+  -- pop up a notification on startup -- updates still show in the :Lazy UI,
+  -- run :Lazy update when you want to apply them.
+  checker = { enabled = true, notify = false },
+  -- don't notify when config files change (noisy with chezmoi re-applies)
+  change_detection = { notify = false },
 })
