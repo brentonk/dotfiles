@@ -1,0 +1,35 @@
+#!/bin/sh
+# spotify-link — handle a spotify: URI, then surface Spotify from the Sway
+# scratchpad if it's hidden.
+#
+# Wired up as the x-scheme-handler/spotify handler (see the spotify.desktop
+# alongside this script). Without this, clicking a Spotify link in the browser
+# silently navigates the already-running, scratchpad-hidden Spotify window and
+# you never see it. Safe to invoke on non-sway hosts: it just launches Spotify.
+
+uri="$1"
+
+# Was an instance already running before we dispatched the URI? A fresh launch
+# is surfaced by the `for_window [class="Spotify"] ... scratchpad show` rule, so
+# we only need to surface an *existing* (hidden) instance ourselves.
+running=false
+pgrep -x spotify >/dev/null 2>&1 && running=true
+
+# Hand the URI to Spotify: launches a new instance, or navigates the existing
+# single instance and exits.
+setsid spotify --uri="$uri" >/dev/null 2>&1 &
+
+# Surface only under Sway, and only for an already-running instance.
+[ -n "$SWAYSOCK" ] || exit 0
+[ "$running" = true ] || exit 0
+
+# Show the scratchpad window only if it isn't already on screen — `scratchpad
+# show` toggles, so acting unconditionally would hide a visible Spotify.
+visible=$(swaymsg -t get_tree | jq -r '
+  [ recurse(.nodes[]?, .floating_nodes[]?)
+    | select(.window_properties.class? == "Spotify")
+    | .visible ] | first // empty')
+
+if [ "$visible" != "true" ]; then
+  swaymsg '[class="Spotify"] scratchpad show' >/dev/null 2>&1
+fi
