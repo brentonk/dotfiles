@@ -207,7 +207,9 @@ for_window [app_id="xdg-desktop-portal-gtk"] floating enable
 # here would clobber it on every relaunch.
 for_window [app_id="spotify"] move scratchpad, scratchpad show
 for_window [class="Spotify"] move scratchpad, scratchpad show
-for_window [app_id="obsidian"] move scratchpad, scratchpad show
+# Obsidian requests client-side decorations (border=csd), so Sway draws no
+# border by default; force a server-side pixel border to match other windows.
+for_window [app_id="obsidian"] border pixel {{ if eq .chezmoi.hostname "trebek" }}2{{ else }}3{{ end }}, move scratchpad, scratchpad show
 
 {{- if eq .chezmoi.hostname "trebek" }}
 # Workaround for wezterm/wezterm#6463: WezTerm mishandles the initial
