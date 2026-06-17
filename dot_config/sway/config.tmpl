@@ -15,6 +15,9 @@ set $obsidian $HOME/.local/bin/Obsidian-1.12.4.AppImage --no-sandbox --ozone-pla
 {{- else }}
 set $obsidian obsidian --no-sandbox --ozone-platform=wayland
 {{- end }}
+# Dedicated scratchpad terminal: a wezterm instance with its own app_id so it
+# can be matched separately from ordinary $mod+Return terminals.
+set $scratchterm wezterm start --class wezterm-scratch
 
 #################
 ### AUTOSTART ###
@@ -104,6 +107,7 @@ bindsym $mod+Shift+t exec ~/.config/sway/scripts/toggle_opacity.sh
 # where it has no app_id and must be matched by its X11 class instead.
 bindsym $mod+s exec swaymsg '[app_id="spotify"] scratchpad show' || swaymsg '[class="Spotify"] scratchpad show' || spotify
 bindsym $mod+o exec swaymsg '[app_id="obsidian"] scratchpad show' || $obsidian
+bindsym $mod+w exec swaymsg '[app_id="wezterm-scratch"] scratchpad show' || $scratchterm
 
 # Fullscreen
 bindsym $mod+f fullscreen toggle
@@ -210,6 +214,8 @@ for_window [class="Spotify"] move scratchpad, scratchpad show
 # Obsidian requests client-side decorations (border=csd), so Sway draws no
 # border by default; force a server-side pixel border to match other windows.
 for_window [app_id="obsidian"] border pixel {{ if eq .chezmoi.hostname "trebek" }}2{{ else }}3{{ end }}, move scratchpad, scratchpad show
+# Floating wezterm scratchpad ($mod+w).
+for_window [app_id="wezterm-scratch"] move scratchpad, scratchpad show
 
 {{- if eq .chezmoi.hostname "trebek" }}
 # Workaround for wezterm/wezterm#6463: WezTerm mishandles the initial

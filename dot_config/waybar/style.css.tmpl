@@ -332,9 +332,10 @@ label:focus {
     padding: 0;
 }
 
-/* Dedicated scratchpad indicators (spotify/obsidian) */
+/* Dedicated scratchpad indicators (spotify/obsidian/wezterm) */
 #custom-scratch-spotify,
-#custom-scratch-obsidian {
+#custom-scratch-obsidian,
+#custom-scratch-wezterm {
     padding: 0 8px;
     background: rgba(0, 0, 0, 0.2);
     color: rgba(255, 255, 255, 0.45); /* dimmed = stashed in scratchpad */
@@ -352,8 +353,21 @@ label:focus {
     color: #8b6cef; /* Obsidian brand purple */
 }
 
+#custom-scratch-wezterm {
+    /* Font Awesome's terminal glyph is a thin hairline; use the bold filled
+       Octicons terminal (nf-oct-terminal, U+F489) from Iosevka Nerd Font so the
+       icon reads with the same weight as the Spotify/Obsidian glyphs. */
+    font-family: 'Iosevka Nerd Font', sans-serif;
+    font-size: 15px;
+}
+
+#custom-scratch-wezterm.visible {
+    color: #33ccff; /* terminal cyan (matches sway focused border) */
+}
+
 #custom-scratch-spotify.empty,
-#custom-scratch-obsidian.empty {
+#custom-scratch-obsidian.empty,
+#custom-scratch-wezterm.empty {
     background: transparent;
     padding: 0;
 }
