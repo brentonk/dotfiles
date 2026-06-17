@@ -355,9 +355,13 @@ label:focus {
 
 #custom-scratch-wezterm {
     /* Font Awesome's terminal glyph is a thin hairline; use the bold filled
-       Octicons terminal (nf-oct-terminal, U+F489) from Iosevka Nerd Font so the
-       icon reads with the same weight as the Spotify/Obsidian glyphs. */
-    font-family: 'Iosevka Nerd Font', sans-serif;
+       Octicons terminal (nf-oct-terminal, U+F489) so the icon reads with the
+       same weight as the Spotify/Obsidian glyphs. Use the *Propo* variant, not
+       plain 'Iosevka Nerd Font': in the plain variant this glyph's ink is twice
+       its advance (20px ink in a 10px cell), so it overflows ~5px right and
+       renders visibly off-center under newer Pango/Waybar (Arch). Propo makes
+       advance == ink, so it centers correctly on every rendering stack. */
+    font-family: 'Iosevka Nerd Font Propo', sans-serif;
     font-size: 15px;
 }
 
