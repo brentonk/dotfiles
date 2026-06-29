@@ -1,0 +1,9 @@
+#!/bin/sh
+# Shim used only by `quarto preview` (see ../functions/quarto.fish).
+# Quarto hardcodes a bare `xdg-open <url>` to launch the preview; this shadows
+# it so the preview opens in a bar-less chromium app window instead of the
+# default browser. Mirrors the typst-preview.nvim open_cmd.
+exec chromium \
+  --enable-features=UseOzonePlatform,WaylandWindowDecorations \
+  --ozone-platform-hint=auto \
+  --app="$1" >/dev/null 2>&1
