@@ -2,6 +2,9 @@ return {
 	"stevearc/oil.nvim",
 	opts = {
 		default_file_explorer = true,
+		keymaps = {
+			["<C-p>"] = { "actions.preview", opts = { horizontal = true } },
+		},
 	},
 	dependencies = { { "echasnovski/mini.icons", opts = {} } },
 	lazy = false,
