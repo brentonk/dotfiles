@@ -20,9 +20,19 @@ pgrep -x spotify >/dev/null 2>&1 && running=true
 # single instance and exits.
 setsid spotify --uri="$uri" >/dev/null 2>&1 &
 
-# Surface only under Sway, and only for an already-running instance.
-[ -n "$SWAYSOCK" ] || exit 0
+# Surface only for an already-running instance.
 [ "$running" = true ] || exit 0
+
+# Locate the Sway IPC socket. A handler launched by the desktop portal (e.g. a
+# browser click on a spotify: link) runs under systemd/D-Bus, which export
+# WAYLAND_DISPLAY but *not* SWAYSOCK — and swaymsg can't auto-discover it. Fall
+# back to the socket file sway leaves in XDG_RUNTIME_DIR (newest wins if a stale
+# one lingers). No socket -> not a live Sway session, so there's nothing to do.
+if [ -z "$SWAYSOCK" ]; then
+  SWAYSOCK=$(ls -t "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"/sway-ipc.*.sock 2>/dev/null | head -n1)
+  export SWAYSOCK
+fi
+[ -n "$SWAYSOCK" ] || exit 0
 
 # Match Spotify by either identifier: native Wayland builds (e.g. Ubuntu) expose
 # app_id="spotify" with a null class, while Xwayland builds (e.g. Arch's
