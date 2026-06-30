@@ -5,6 +5,7 @@ return {
 		keymaps = {
 			["<C-p>"] = { "actions.preview", opts = { horizontal = true } },
 		},
+		preview_win = { preview_method = "load" },
 	},
 	dependencies = { { "echasnovski/mini.icons", opts = {} } },
 	lazy = false,
