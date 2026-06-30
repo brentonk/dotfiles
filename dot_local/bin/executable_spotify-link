@@ -10,8 +10,9 @@
 uri="$1"
 
 # Was an instance already running before we dispatched the URI? A fresh launch
-# is surfaced by the `for_window [class="Spotify"] ... scratchpad show` rule, so
-# we only need to surface an *existing* (hidden) instance ourselves.
+# is surfaced by the `for_window [app_id="spotify"|class="Spotify"] ...
+# scratchpad show` rules, so we only need to surface an *existing* (hidden)
+# instance ourselves.
 running=false
 pgrep -x spotify >/dev/null 2>&1 && running=true
 
@@ -23,13 +24,19 @@ setsid spotify --uri="$uri" >/dev/null 2>&1 &
 [ -n "$SWAYSOCK" ] || exit 0
 [ "$running" = true ] || exit 0
 
+# Match Spotify by either identifier: native Wayland builds (e.g. Ubuntu) expose
+# app_id="spotify" with a null class, while Xwayland builds (e.g. Arch's
+# proprietary package) expose class="Spotify" with a null app_id. The two are
+# mutually exclusive, so handling both covers every host.
+#
 # Show the scratchpad window only if it isn't already on screen — `scratchpad
 # show` toggles, so acting unconditionally would hide a visible Spotify.
 visible=$(swaymsg -t get_tree | jq -r '
   [ recurse(.nodes[]?, .floating_nodes[]?)
-    | select(.window_properties.class? == "Spotify")
+    | select(.app_id? == "spotify" or .window_properties.class? == "Spotify")
     | .visible ] | first // empty')
 
 if [ "$visible" != "true" ]; then
+  swaymsg '[app_id="spotify"] scratchpad show' >/dev/null 2>&1
   swaymsg '[class="Spotify"] scratchpad show' >/dev/null 2>&1
 fi
