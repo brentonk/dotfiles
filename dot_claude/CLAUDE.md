@@ -39,3 +39,9 @@ Always use `uv` for Python project management instead of pip, pip-tools, poetry,
 - Never use `pip install` directly; use `uv add` or `uv pip install` if raw pip interface needed
 - Prefer `uv run` to activate environments implicitly rather than manual activation
 - Commit both `pyproject.toml` and `uv.lock` to version control
+
+# Software Installation
+
+## Arch Linux
+- You may suggest software packages from the AUR, but never attempt to install them yourself
+- `paru` is the AUR helper of choice---let me run it myself in a separate terminal so I can validate PKGBUILD
