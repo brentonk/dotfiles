@@ -22,33 +22,35 @@ return {
 			},
 		})
 
-		-- Make indent-width config buffer-aware. autolist caches the *global*
-		-- tabstop at setup() time and content_indent is a single global flag,
-		-- so buffer-local widths (e.g. the 4-space Obsidian vault override in
-		-- after/ftplugin/markdown.lua) are otherwise ignored. Serve these
-		-- fields dynamically; b:autolist_content_indent (set per buffer)
-		-- disables content-column alignment in favor of plain shiftwidth
-		-- indents.
+		-- Compatibility shim for bautolist versions before buffer-aware
+		-- indent config (develop < 993ec51): older versions cache the
+		-- *global* tabstop at setup() and treat content_indent as a single
+		-- global flag, ignoring buffer-local widths and the
+		-- b:autolist_content_indent override used by
+		-- after/ftplugin/markdown.lua. Newer versions expose
+		-- content_indent_enabled() natively and this block is skipped.
 		local cfg = require("autolist.config")
-		local default_content_indent = cfg.content_indent
-		cfg.content_indent = nil
-		cfg.tabstop = nil
-		cfg.tab = nil
-		setmetatable(cfg, {
-			__index = function(_, key)
-				if key == "content_indent" then
-					local override = vim.b.autolist_content_indent
-					if override ~= nil then
-						return override
+		if cfg.content_indent_enabled == nil then
+			local default_content_indent = cfg.content_indent
+			cfg.content_indent = nil
+			cfg.tabstop = nil
+			cfg.tab = nil
+			setmetatable(cfg, {
+				__index = function(_, key)
+					if key == "content_indent" then
+						local override = vim.b.autolist_content_indent
+						if override ~= nil then
+							return override
+						end
+						return default_content_indent
+					elseif key == "tabstop" then
+						return vim.bo.expandtab and vim.bo.shiftwidth or 1
+					elseif key == "tab" then
+						return vim.bo.expandtab and string.rep(" ", vim.bo.shiftwidth) or "\t"
 					end
-					return default_content_indent
-				elseif key == "tabstop" then
-					return vim.bo.expandtab and vim.bo.shiftwidth or 1
-				elseif key == "tab" then
-					return vim.bo.expandtab and string.rep(" ", vim.bo.shiftwidth) or "\t"
-				end
-			end,
-		})
+				end,
+			})
+		end
 
 		local filetypes = { "markdown", "text", "tex", "plaintex", "quarto", "typst" }
 
