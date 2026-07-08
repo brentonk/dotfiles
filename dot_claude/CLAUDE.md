@@ -6,6 +6,15 @@ In LaTeX (`.tex`), Typst (`.typ`), and Quarto (`.qmd`) source files, write exact
 
 This convention does NOT apply to ordinary Markdown (`.md`) files, which are sometimes distributed as-is rather than compiled to PDF/HTML.
 
+## Obsidian
+
+When editing files in my Obsidian vault (`~/obsidian`) or via the CLI (`obsidian` shell command), follow Obsidian Markdown idiosyncracies, including:
+- Empty line before a headline, but not after
+- Indent width = 4
+- Unicode dashes (— instead of ---, – instead of --)
+
+Obsidian files are ordinary Markdown, so do not use the one-sentence-per-line convention. There should still be no hard wrapping.
+
 # Python Project Guidelines
 
 ## Package Manager: uv
