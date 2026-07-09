@@ -23,7 +23,7 @@ Separately from `opacity.local`, there is a **runtime opacity toggle**: `~/.conf
 
 - `wezterm.lua` — Main WezTerm configuration (chezmoi-managed)
 - `opacity.local`, `font-size.local` — Per-host overrides (unmanaged, never add to chezmoi)
-- `cyberdream.lua`, `kanagawa.lua`, `tokyonight.lua` — Alternative color schemes (chezmoi-managed, currently unused; the active scheme is wezterm's built-in `Dracula (Official)`)
+- `cyberdream.lua`, `kanagawa.lua`, `tokyonight.lua` — Alternative color schemes (chezmoi-managed, currently unused; the active scheme is wezterm's built-in `Monokai Soda`)
 
 ## Editing
 

@@ -35,7 +35,7 @@ config.font_rules = {
 }
 
 -- Color theme (use a built-in scheme; `wezterm show-keys` / docs list all names)
-config.color_scheme = 'Dracula (Official)'
+config.color_scheme = 'Monokai Soda'
 config.hide_tab_bar_if_only_one_tab = true
 
 -- Opacity toggle: watch a state file so sway keybinding can trigger reload
