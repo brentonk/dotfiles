@@ -27,13 +27,13 @@ config.font_size = read_local_number(font_size_override, 4, 72) or 11.5
 -- calt enables Monaspace's "texture healing" contextual alternates (kern/liga/clig are wezterm's defaults)
 config.harfbuzz_features = { 'kern', 'liga', 'clig', 'calt' }
 -- Duotone-style pairing: Neon uprights, Radon (handwriting) italics
-config.font_rules = {
-  { italic = true, intensity = 'Normal',
-    font = wezterm.font('MonaspiceRn Nerd Font', { weight = 'Light', italic = false }) },
-  { italic = true, intensity = 'Bold',
-    font = wezterm.font('MonaspiceRn Nerd Font', { weight = 'Bold', italic = true }) },
-}
-
+-- config.font_rules = {
+--   { italic = true, intensity = 'Normal',
+--     font = wezterm.font('MonaspiceRn Nerd Font', { weight = 'Light', italic = false }) },
+--   { italic = true, intensity = 'Bold',
+--     font = wezterm.font('MonaspiceRn Nerd Font', { weight = 'Bold', italic = true }) },
+-- }
+--
 -- Color theme (use a built-in scheme; `wezterm show-keys` / docs list all names)
 config.color_scheme = 'Monokai Soda'
 config.hide_tab_bar_if_only_one_tab = true
