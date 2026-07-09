@@ -42,6 +42,7 @@ After editing, use `/chezmoi-sync` to commit and push changes.
 | `Super+Shift+T` | Toggle wezterm opacity (transparent/opaque) |
 | `Super+S` | Toggle Spotify dedicated scratchpad (launches if not running) |
 | `Super+O` | Toggle Obsidian dedicated scratchpad (launches if not running) |
+| `Super+I` | Toggle Claude desktop dedicated scratchpad (launches if not running) |
 
 ### Navigation (vim-style, integrates with nvim splits)
 | Binding | Direction |
@@ -76,10 +77,10 @@ After editing, use `/chezmoi-sync` to commit and push changes.
 - `Super+Minus` - Show scratchpad
 - `Super+Shift+Minus` - Move to scratchpad
 
-### Dedicated scratchpads (Spotify / Obsidian)
+### Dedicated scratchpads (Spotify / Obsidian / Claude)
 
-`Super+S` and `Super+O` toggle Spotify and Obsidian as dedicated scratchpad
-apps. Mechanism:
+`Super+S`, `Super+O`, and `Super+I` toggle Spotify, Obsidian, and the Claude
+desktop app as dedicated scratchpad apps. Mechanism:
 
 - `for_window [app_id="spotify|obsidian"]` rules send each app to the
   scratchpad on launch, then show it floating. Deliberately no forced size:
@@ -89,19 +90,29 @@ apps. Mechanism:
   `swaymsg` exits non-zero when no window matches, so the app is launched if
   not running, toggled otherwise. The Obsidian launch command is host-templated
   (`$obsidian` variable: version-pinned AppImage on Ubuntu, `obsidian` on Arch).
+  Claude launches via `claude-desktop` (AUR `claude-desktop` package on Arch;
+  app_id `claude-desktop`).
+- Obsidian and Claude are Electron apps that request client-side decorations
+  (`border=csd`), so Sway draws no border for them by default; each has a
+  `for_window ... border pixel` rule forcing a server-side border to match
+  other windows. Spotify (native/Xwayland) needs no such rule.
 - Waybar shows per-app indicators (`custom/scratch-spotify`,
-  `custom/scratch-obsidian` in `~/.config/waybar/config.jsonc`), driven by
+  `custom/scratch-obsidian`, `custom/scratch-claude` in
+  `~/.config/waybar/config.jsonc`), driven by
   `~/.config/waybar/scratchpad_indicator.sh` (event-driven via
   `swaymsg -t subscribe`). Icon in brand color when the window is visible,
   dimmed when stashed, absent when the app isn't running. Clicking the
-  indicator toggles, same as the keybinding. Icons are the Font Awesome brand
-  glyphs (spotify U+F1BC, obsidian U+E879); obsidian's requires the Font
-  Awesome 7 Brands font, installed in `~/.local/share/fonts` on this host but
-  NOT chezmoi-managed — install it on other machines or the icon is tofu.
+  indicator toggles, same as the keybinding. Spotify/Obsidian use the Font
+  Awesome brand glyphs (spotify U+F1BC, obsidian U+E879); obsidian's requires
+  the Font Awesome 7 Brands font, installed in `~/.local/share/fonts` on this
+  host but NOT chezmoi-managed — install it on other machines or the icon is
+  tofu. Claude has no brand glyph, so it uses `fa-asterisk` (U+F069, a FA
+  *Free* glyph echoing Claude's spark mark) pinned to `Iosevka Nerd Font` in
+  the style, colored `#da7756` (Claude clay orange) when visible.
 - The stock `sway/scratchpad` waybar module is replaced by
   `custom/scratch-other` (`~/.config/waybar/scratchpad_count.sh`), which
-  counts scratchpad windows *excluding* spotify/obsidian, so the counter
-  no longer reads "2" permanently from the two dedicated apps.
+  counts scratchpad windows *excluding* spotify/obsidian/claude/wezterm, so the
+  counter no longer reads a permanent count from the dedicated apps.
 
 ## Nvim Integration
 

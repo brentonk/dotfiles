@@ -107,6 +107,7 @@ bindsym $mod+Shift+t exec ~/.config/sway/scripts/toggle_opacity.sh
 # where it has no app_id and must be matched by its X11 class instead.
 bindsym $mod+s exec swaymsg '[app_id="spotify"] scratchpad show' || swaymsg '[class="Spotify"] scratchpad show' || spotify
 bindsym $mod+o exec swaymsg '[app_id="obsidian"] scratchpad show' || $obsidian
+bindsym $mod+i exec swaymsg '[app_id="claude-desktop"] scratchpad show' || claude-desktop
 bindsym $mod+w exec swaymsg '[app_id="wezterm-scratch"] scratchpad show' || $scratchterm
 
 # Fullscreen
@@ -214,6 +215,9 @@ for_window [class="Spotify"] move scratchpad, scratchpad show
 # Obsidian requests client-side decorations (border=csd), so Sway draws no
 # border by default; force a server-side pixel border to match other windows.
 for_window [app_id="obsidian"] border pixel {{ if eq .chezmoi.hostname "trebek" }}2{{ else }}3{{ end }}, move scratchpad, scratchpad show
+# Claude desktop is Electron and also requests client-side decorations
+# (border=csd), so force a server-side pixel border like Obsidian.
+for_window [app_id="claude-desktop"] border pixel {{ if eq .chezmoi.hostname "trebek" }}2{{ else }}3{{ end }}, move scratchpad, scratchpad show
 # Floating wezterm scratchpad ($mod+w).
 for_window [app_id="wezterm-scratch"] move scratchpad, scratchpad show
 

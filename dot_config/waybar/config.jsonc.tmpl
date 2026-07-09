@@ -12,6 +12,7 @@
         "custom/scratch-other",
         "custom/scratch-spotify",
         "custom/scratch-obsidian",
+        "custom/scratch-claude",
         "custom/scratch-wezterm",
         "custom/media"
     ],
@@ -83,6 +84,13 @@
         "return-type": "json",
         "exec": "$HOME/.config/waybar/scratchpad_indicator.sh obsidian ''",
         "on-click": "swaymsg '[app_id=\"obsidian\"] scratchpad show' || {{ if eq .chezmoi.hostname "ASLNX-24CXCB4" }}$HOME/.local/bin/Obsidian-1.12.4.AppImage --no-sandbox --ozone-platform=wayland{{ else }}obsidian --no-sandbox --ozone-platform=wayland{{ end }}",
+        "restart-interval": 1
+    },
+    "custom/scratch-claude": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "$HOME/.config/waybar/scratchpad_indicator.sh claude-desktop ''",
+        "on-click": "swaymsg '[app_id=\"claude-desktop\"] scratchpad show' || claude-desktop",
         "restart-interval": 1
     },
     "custom/scratch-wezterm": {

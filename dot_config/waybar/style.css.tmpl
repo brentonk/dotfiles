@@ -332,9 +332,10 @@ label:focus {
     padding: 0;
 }
 
-/* Dedicated scratchpad indicators (spotify/obsidian/wezterm) */
+/* Dedicated scratchpad indicators (spotify/obsidian/claude/wezterm) */
 #custom-scratch-spotify,
 #custom-scratch-obsidian,
+#custom-scratch-claude,
 #custom-scratch-wezterm {
     padding: 0 8px;
     background: rgba(0, 0, 0, 0.2);
@@ -351,6 +352,17 @@ label:focus {
 
 #custom-scratch-obsidian.visible {
     color: #8b6cef; /* Obsidian brand purple */
+}
+
+/* Claude has no Font Awesome brand glyph; use the fa-asterisk (U+F069)
+   sunburst, which echoes Claude's spark mark. It's a FA *Free* glyph, not in
+   the brands font above, so pin an explicit family that carries it. */
+#custom-scratch-claude {
+    font-family: 'Iosevka Nerd Font', sans-serif;
+}
+
+#custom-scratch-claude.visible {
+    color: #da7756; /* Claude clay orange */
 }
 
 #custom-scratch-wezterm {
@@ -371,6 +383,7 @@ label:focus {
 
 #custom-scratch-spotify.empty,
 #custom-scratch-obsidian.empty,
+#custom-scratch-claude.empty,
 #custom-scratch-wezterm.empty {
     background: transparent;
     padding: 0;
