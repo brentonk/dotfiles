@@ -3,3 +3,6 @@
 
 # Claude Code per-project state (auto-memory, transcripts) — machine-local, keep out of dotfiles
 .claude/projects
+
+# Per-host wezterm override files (opacity, font size) — never manage these
+.config/wezterm/*.local
