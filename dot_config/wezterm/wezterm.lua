@@ -22,10 +22,18 @@ end
 -- Fonts
 local font_size_override = config_dir .. '/font-size.local'
 wezterm.add_to_config_reload_watch_list(font_size_override)
-config.font = wezterm.font('MonaspiceNe Nerd Font', { weight = 'Light' })
+config.font = wezterm.font('JetBrainsMono Nerd Font', { weight = 'Light' })
+-- config.font_rules = {
+--   {
+--     intensity = 'Bold',
+--     italic = false,
+--     font = wezterm.font { family = 'BlexMonoNerdFontMono', weight = 'Medium' },
+--   },
+-- }
 config.font_size = read_local_number(font_size_override, 4, 72) or 11.5
 -- calt enables Monaspace's "texture healing" contextual alternates (kern/liga/clig are wezterm's defaults)
 config.harfbuzz_features = { 'kern', 'liga', 'clig', 'calt' }
+-- config.freetype_load_target = 'Light'
 
 -- Color theme (use a built-in scheme; `wezterm show-keys` / docs list all names)
 config.color_scheme = 'Monokai Soda'
