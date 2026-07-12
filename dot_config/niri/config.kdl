@@ -19,6 +19,8 @@ input {
             // If this section is empty, niri will fetch xkb settings
             // from org.freedesktop.locale1. You can control these using
             // localectl set-x11-keymap.
+
+            options "ctrl:nocaps,compose:ralt"
         }
 
         // Enable numlock on startup, omitting this setting disables it.
@@ -111,7 +113,7 @@ input {
 // https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 16
+    gaps 8
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -126,6 +128,7 @@ layout {
         // Proportion sets the width as a fraction of the output width, taking gaps into account.
         // For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
         // The default preset widths are 1/3, 1/2 and 2/3 of the output.
+        proportion 0.25
         proportion 0.33333
         proportion 0.5
         proportion 0.66667
@@ -138,7 +141,7 @@ layout {
     // preset-window-heights { }
 
     // You can change the default width of the new windows.
-    default-column-width { proportion 0.5; }
+    default-column-width { proportion 0.33333; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
     // default-column-width {}
 
@@ -268,7 +271,12 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "waybar"
+// The -c points at the niri-specific bar config (the default config.jsonc
+// is the sway one).
+spawn-at-startup "waybar" "-c" "/home/brenton/.config/waybar/config-niri.jsonc"
+
+// Wallpaper (niri has no built-in wallpaper support).
+spawn-at-startup "swaybg" "-i" "/home/brenton/wallpaper/wallpaper" "-m" "fill"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -283,7 +291,7 @@ hotkey-overlay {
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
 // This option will also fix border/focus ring drawing behind some semitransparent windows.
 // After enabling or disabling this, you need to restart the apps for this to take effect.
-// prefer-no-csd
+prefer-no-csd
 
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
@@ -308,14 +316,19 @@ animations {
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
 
-// Work around WezTerm's initial configure bug
-// by setting an empty default-column-width.
+// WezTerm renders semitransparent: draw the focus ring around it,
+// not as a solid rectangle behind it.
 window-rule {
-    // This regular expression is intentionally made as specific as possible,
-    // since this is the default config, and we want no false positives.
-    // You can get away with just app-id="wezterm" if you want.
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
+    draw-border-with-background false
+}
+
+// Fade inactive WezTerm windows a bit more.
+// Note this dims the whole surface (text included) and stacks with
+// WezTerm's own window_background_opacity.
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"# is-active=false
+    opacity 0.95
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
@@ -364,6 +377,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+Z hotkey-overlay-title="Open a PDF: zathura" { spawn-sh r#"f=$(fd --no-ignore -e pdf "" "$HOME" | fuzzel --dmenu --font="Iosevka Nerd Font:size=12" --width=80 --lines=6 --border-width=2 --prompt="") && [ -n "$f" ] && exec zathura "$f""#; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
@@ -404,19 +418,19 @@ binds {
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
     Mod+Right { focus-column-right; }
-    Mod+H     { focus-column-left; }
-    Mod+J     { focus-window-down; }
-    Mod+K     { focus-window-up; }
-    Mod+L     { focus-column-right; }
+    Mod+L         { focus-column-left; }
+    Mod+J         { focus-window-down; }
+    Mod+K         { focus-window-up; }
+    Mod+Semicolon { focus-column-right; }
 
     Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Down  { move-window-down; }
     Mod+Ctrl+Up    { move-window-up; }
     Mod+Ctrl+Right { move-column-right; }
-    Mod+Ctrl+H     { move-column-left; }
-    Mod+Ctrl+J     { move-window-down; }
-    Mod+Ctrl+K     { move-window-up; }
-    Mod+Ctrl+L     { move-column-right; }
+    Mod+Ctrl+L         { move-column-left; }
+    Mod+Ctrl+J         { move-window-down; }
+    Mod+Ctrl+K         { move-window-up; }
+    Mod+Ctrl+Semicolon { move-column-right; }
 
     // Alternative commands that move across workspaces when reaching
     // the first or last window in a column.
@@ -434,19 +448,19 @@ binds {
     Mod+Shift+Down  { focus-monitor-down; }
     Mod+Shift+Up    { focus-monitor-up; }
     Mod+Shift+Right { focus-monitor-right; }
-    Mod+Shift+H     { focus-monitor-left; }
-    Mod+Shift+J     { focus-monitor-down; }
-    Mod+Shift+K     { focus-monitor-up; }
-    Mod+Shift+L     { focus-monitor-right; }
+    Mod+Shift+L         { focus-monitor-left; }
+    Mod+Shift+J         { focus-monitor-down; }
+    Mod+Shift+K         { focus-monitor-up; }
+    Mod+Shift+Semicolon { focus-monitor-right; }
 
     Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
     Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
-    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+L         { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J         { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K         { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Semicolon { move-column-to-monitor-right; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }

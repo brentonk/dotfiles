@@ -1,0 +1,18 @@
+// vim: set ft=jsonc:
+// Niri-specific bar config; niri's spawn-at-startup launches waybar with -c
+// pointing here. Inherits modules-right and all module definitions from
+// config.jsonc via include (keys defined in this file take precedence).
+// Swaps the sway modules for their niri equivalents and drops the sway
+// scratchpad indicators, which have no niri counterpart.
+{
+    "include": ["{{ .chezmoi.homeDir }}/.config/waybar/config.jsonc"],
+    "modules-left": [
+        "niri/workspaces"
+    ],
+    "modules-center": [
+        "niri/window"
+    ],
+    "niri/workspaces": {
+        "format": "{value}"
+    }
+}
