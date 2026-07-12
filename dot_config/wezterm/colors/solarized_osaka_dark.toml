@@ -8,7 +8,10 @@ selection_bg = "#1a6397"
 selection_fg = "#839395"
 
 ansi = ["#001014", "#db302d", "#849900", "#b28500", "#268bd3", "#d23681", "#29a298", "#9eabac"]
-brights = ["#001419", "#db302d", "#849900", "#b28500", "#268bd3", "#d23681", "#29a298", "#839395"]
+# brights[1] (brblack) changed from upstream's #001419, which is identical to
+# the background and made dim text (e.g. fish autosuggestions) unreadable.
+# #576d74 is the theme's base01, per its own fish extras.
+brights = ["#576d74", "#db302d", "#849900", "#b28500", "#268bd3", "#d23681", "#29a298", "#839395"]
 
 [colors.tab_bar]
 inactive_tab_edge = "#002c38"
