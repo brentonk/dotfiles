@@ -17,7 +17,9 @@ Many files in this directory and its subdirectories are managed by chezmoi.
 {{ if eq .chezmoi.os "linux" -}}
 ## Compositor
 
-The active Wayland compositor is **sway** (`~/.config/sway/config`, a chezmoi template). The Hyprland config (`~/.config/hypr/hyprland.conf`) is **vestigial and unused** — do not edit it. Apply compositor/keybinding changes to the sway config only.
+The active Wayland compositor is **niri** (`~/.config/niri/config.kdl`), the daily driver as of July 2026. Apply compositor/keybinding changes to the niri config only.
+
+The previous driver was **sway** (`~/.config/sway/config`, a chezmoi template). Its config is kept around because I may ask you to carry settings or keybindings over from it to niri — but do not edit it otherwise. The Hyprland config (`~/.config/hypr/hyprland.conf`) is **vestigial and unused** — do not edit it.
 
 {{ end -}}
 ## Before Editing Files

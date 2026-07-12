@@ -312,6 +312,12 @@ animations {
     // slowdown 3.0
 }
 
+// Named workspaces for always-open apps. These always exist (even when
+// empty) and stay pinned above the dynamic workspaces, in this order.
+// Single-letter names double as the waybar labels: s = Spotify, n = notes.
+workspace "s"
+workspace "n"
+
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
@@ -338,6 +344,20 @@ window-rule {
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
+}
+
+// Route always-open apps to their named workspaces.
+// (?i) covers both "spotify" (native Wayland) and "Spotify" (XWayland).
+window-rule {
+    match app-id=r#"(?i)^spotify$"#
+    open-on-workspace "s"
+    open-maximized true
+}
+
+window-rule {
+    match app-id=r#"^obsidian$"#
+    open-on-workspace "n"
+    open-maximized true
 }
 
 // Example: block out two password managers from screen capture.
@@ -528,27 +548,35 @@ binds {
     //
     // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
     // will all refer to the 3rd workspace.
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 2; }
-    Mod+3 { focus-workspace 3; }
-    Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace 5; }
-    Mod+6 { focus-workspace 6; }
-    Mod+7 { focus-workspace 7; }
-    Mod+8 { focus-workspace 8; }
-    Mod+9 { focus-workspace 9; }
-    Mod+Ctrl+1 { move-column-to-workspace 1; }
-    Mod+Ctrl+2 { move-column-to-workspace 2; }
-    Mod+Ctrl+3 { move-column-to-workspace 3; }
-    Mod+Ctrl+4 { move-column-to-workspace 4; }
-    Mod+Ctrl+5 { move-column-to-workspace 5; }
-    Mod+Ctrl+6 { move-column-to-workspace 6; }
-    Mod+Ctrl+7 { move-column-to-workspace 7; }
-    Mod+Ctrl+8 { move-column-to-workspace 8; }
-    Mod+Ctrl+9 { move-column-to-workspace 9; }
+    // Offset by 2 so Mod+1 is the first *dynamic* workspace, skipping the
+    // named "s" and "n" workspaces that always hold indices 1 and 2.
+    Mod+1 { focus-workspace 3; }
+    Mod+2 { focus-workspace 4; }
+    Mod+3 { focus-workspace 5; }
+    Mod+4 { focus-workspace 6; }
+    Mod+5 { focus-workspace 7; }
+    Mod+6 { focus-workspace 8; }
+    Mod+7 { focus-workspace 9; }
+    Mod+8 { focus-workspace 10; }
+    Mod+9 { focus-workspace 11; }
+    Mod+Ctrl+1 { move-column-to-workspace 3; }
+    Mod+Ctrl+2 { move-column-to-workspace 4; }
+    Mod+Ctrl+3 { move-column-to-workspace 5; }
+    Mod+Ctrl+4 { move-column-to-workspace 6; }
+    Mod+Ctrl+5 { move-column-to-workspace 7; }
+    Mod+Ctrl+6 { move-column-to-workspace 8; }
+    Mod+Ctrl+7 { move-column-to-workspace 9; }
+    Mod+Ctrl+8 { move-column-to-workspace 10; }
+    Mod+Ctrl+9 { move-column-to-workspace 11; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
+
+    // Named workspaces for always-open apps.
+    Mod+S { focus-workspace "s"; }
+    Mod+N { focus-workspace "n"; }
+    Mod+Ctrl+S { move-column-to-workspace "s"; }
+    Mod+Ctrl+N { move-column-to-workspace "n"; }
 
     // Switches focus between the current and the previous workspace.
     // Mod+Tab { focus-workspace-previous; }

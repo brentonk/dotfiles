@@ -13,6 +13,17 @@
         "niri/window"
     ],
     "niri/workspaces": {
-        "format": "{value}"
+        "format": "{icon}",
+        "format-icons": {
+            // Named workspaces: s = Spotify, n = Obsidian (same icons as the
+            // old sway scratchpad indicators)
+            "s": "",
+            "n": "",
+            // Dynamic workspaces render as anonymous dots: filled bullet
+            // when occupied, hollow when empty. Plain-text glyphs (not Nerd
+            // Font PUA icons) so they center properly in the button.
+            "empty": "○",
+            "default": "●"
+        }
     }
 }
