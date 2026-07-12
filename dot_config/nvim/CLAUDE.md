@@ -10,6 +10,8 @@ This is a personal Neovim configuration focused on scientific writing (LaTeX, Qu
 
 **Plugin Management**: lazy.nvim with plugin specs in `lua/plugins/` - each file returns a plugin spec table that lazy.nvim auto-imports.
 
+**Color Schemes**: ALL colorscheme plugins live in the single file `lua/plugins/COLORS.lua` (a list of specs) — never create a separate per-theme plugin file. Exactly one spec is the active theme (`lazy = false, priority = 1000`, config ends with `vim.cmd.colorscheme`); the rest are `lazy = true` and load on demand via `:colorscheme <name>`; retired themes get `enabled = false`. To switch themes, move the active-theme markers between specs in that file.
+
 **Key Integrations**:
 - **LSP**: mason.nvim + mason-lspconfig + nvim-lspconfig (uses new `vim.lsp.config()` API)
 - **Completion**: nvim-cmp with sources: vimtex, nvim_lsp, luasnip, rg, path, buffer
