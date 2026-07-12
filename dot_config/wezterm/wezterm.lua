@@ -35,8 +35,10 @@ config.font_size = read_local_number(font_size_override, 4, 72) or 11.5
 config.harfbuzz_features = { 'kern', 'liga', 'clig', 'calt' }
 -- config.freetype_load_target = 'Light'
 
--- Color theme (use a built-in scheme; `wezterm show-keys` / docs list all names)
-config.color_scheme = 'Monokai Soda'
+-- Color theme (built-in scheme name, or one auto-discovered from colors/*.toml)
+-- 'Solarized Osaka' comes from colors/solarized_osaka_dark.toml, the official
+-- port shipped with craftzdog/solarized-osaka.nvim to match the nvim theme
+config.color_scheme = 'Solarized Osaka'
 config.hide_tab_bar_if_only_one_tab = true
 
 -- Opacity toggle: watch a state file so sway keybinding can trigger reload

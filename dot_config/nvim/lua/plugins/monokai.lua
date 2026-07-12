@@ -1,24 +1,24 @@
-return {
-  "tanvirtin/monokai.nvim",
-  lazy = false,
-  priority = 1000,
-  config = function()
-    -- "soda" palette to match WezTerm's built-in "Monokai Soda" scheme
-    vim.cmd.colorscheme "monokai_soda"
-    -- Transparent background so WezTerm's opacity/toggle shows through,
-    -- consistent with the other themes here.
-    for _, group in ipairs({
-      "Normal", "NormalNC", "NormalFloat", "SignColumn", "EndOfBuffer",
-    }) do
-      vim.api.nvim_set_hl(0, group, { bg = "none" })
-    end
-    -- The soda palette paints the line-number column with an opaque base2
-    -- background, so it stands out against the transparent gutter. Drop just
-    -- the background while keeping each group's foreground (dim grey / orange).
-    for _, group in ipairs({ "LineNr", "CursorLineNr" }) do
-      local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
-      hl.bg, hl.ctermbg = nil, nil
-      vim.api.nvim_set_hl(0, group, hl)
-    end
-  end,
-}
+-- return {
+--   "tanvirtin/monokai.nvim",
+--   lazy = false,
+--   priority = 1000,
+--   config = function()
+--     vim.cmd.colorscheme "monokai"
+--     -- Transparent background so WezTerm's opacity/toggle shows through,
+--     -- consistent with the other themes here.
+--     for _, group in ipairs({
+--       "Normal", "NormalNC", "NormalFloat", "SignColumn", "EndOfBuffer",
+--     }) do
+--       vim.api.nvim_set_hl(0, group, { bg = "none" })
+--     end
+--     -- The soda palette paints the line-number column with an opaque base2
+--     -- background, so it stands out against the transparent gutter. Drop just
+--     -- the background while keeping each group's foreground (dim grey / orange).
+--     for _, group in ipairs({ "LineNr", "CursorLineNr" }) do
+--       local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+--       hl.bg, hl.ctermbg = nil, nil
+--       vim.api.nvim_set_hl(0, group, hl)
+--     end
+--   end,
+-- }
+return {}
