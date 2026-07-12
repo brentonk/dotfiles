@@ -318,11 +318,14 @@ animations {
     // slowdown 3.0
 }
 
+{{- if ne .chezmoi.hostname "trebek" }}
 // Named workspaces for always-open apps. These always exist (even when
 // empty) and stay pinned above the dynamic workspaces, in this order.
 // Single-letter names double as the waybar labels: s = Spotify, n = notes.
+// Not used on trebek (laptop): all workspaces are dynamic there.
 workspace "s"
 workspace "n"
+{{- end }}
 
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
@@ -352,17 +355,22 @@ window-rule {
     open-floating true
 }
 
-// Route always-open apps to their named workspaces.
+// Route always-open apps to their named workspaces (except on trebek,
+// which has no named workspaces — there they just open maximized).
 // (?i) covers both "spotify" (native Wayland) and "Spotify" (XWayland).
 window-rule {
     match app-id=r#"(?i)^spotify$"#
+{{- if ne .chezmoi.hostname "trebek" }}
     open-on-workspace "s"
+{{- end }}
     open-maximized true
 }
 
 window-rule {
     match app-id=r#"^obsidian$"#
+{{- if ne .chezmoi.hostname "trebek" }}
     open-on-workspace "n"
+{{- end }}
     open-maximized true
 }
 
@@ -554,6 +562,26 @@ binds {
     //
     // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
     // will all refer to the 3rd workspace.
+{{- if eq .chezmoi.hostname "trebek" }}
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
+    Mod+Ctrl+3 { move-column-to-workspace 3; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+Ctrl+6 { move-column-to-workspace 6; }
+    Mod+Ctrl+7 { move-column-to-workspace 7; }
+    Mod+Ctrl+8 { move-column-to-workspace 8; }
+    Mod+Ctrl+9 { move-column-to-workspace 9; }
+{{- else }}
     // Offset by 2 so Mod+1 is the first *dynamic* workspace, skipping the
     // named "s" and "n" workspaces that always hold indices 1 and 2.
     Mod+1 { focus-workspace 3; }
@@ -574,15 +602,18 @@ binds {
     Mod+Ctrl+7 { move-column-to-workspace 9; }
     Mod+Ctrl+8 { move-column-to-workspace 10; }
     Mod+Ctrl+9 { move-column-to-workspace 11; }
+{{- end }}
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
 
+{{- if ne .chezmoi.hostname "trebek" }}
     // Named workspaces for always-open apps.
     Mod+S { focus-workspace "s"; }
     Mod+N { focus-workspace "n"; }
     Mod+Ctrl+S { move-column-to-workspace "s"; }
     Mod+Ctrl+N { move-column-to-workspace "n"; }
+{{- end }}
 
     // Switches focus between the current and the previous workspace.
     // Mod+Tab { focus-workspace-previous; }
