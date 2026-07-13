@@ -16,10 +16,9 @@
         "format": "{icon}",
         "format-icons": {
 {{- if ne .chezmoi.hostname "trebek" }}
-            // Named workspaces: s = Spotify, n = Obsidian (same icons as the
-            // old sway scratchpad indicators). trebek has no named workspaces.
-            "s": "",
-            "n": "",
+            // The named "pinned" workspace shows as a pin icon.
+            // trebek has no named workspaces.
+            "pinned": "",
 {{- end }}
             // Dynamic workspaces render as anonymous dots: filled bullet
             // when occupied, hollow when empty. Plain-text glyphs (not Nerd
