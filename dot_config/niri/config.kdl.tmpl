@@ -353,18 +353,6 @@ window-rule {
     open-floating true
 }
 
-// Always-open apps start maximized.
-// (?i) covers both "spotify" (native Wayland) and "Spotify" (XWayland).
-window-rule {
-    match app-id=r#"(?i)^spotify$"#
-    open-maximized true
-}
-
-window-rule {
-    match app-id=r#"^obsidian$"#
-    open-maximized true
-}
-
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
