@@ -36,9 +36,10 @@ config.harfbuzz_features = { 'kern', 'liga', 'clig', 'calt' }
 -- config.freetype_load_target = 'Light'
 
 -- Color theme (built-in scheme name, or one auto-discovered from colors/*.toml)
--- 'Solarized Osaka' comes from colors/solarized_osaka_dark.toml, the official
--- port shipped with craftzdog/solarized-osaka.nvim to match the nvim theme
-config.color_scheme = 'Solarized Osaka'
+-- 'flexoki-dark' is a wezterm built-in, matching the nvim flexoki theme.
+-- Previous: 'Solarized Osaka' (colors/solarized_osaka_dark.toml, the official
+-- port shipped with craftzdog/solarized-osaka.nvim)
+config.color_scheme = 'flexoki-dark'
 config.hide_tab_bar_if_only_one_tab = true
 
 -- Opacity toggle: watch a state file so sway keybinding can trigger reload

@@ -17,9 +17,30 @@ return {
   -- ACTIVE THEME
   -----------------------------------------------------------------------
   {
-    "craftzdog/solarized-osaka.nvim",
+    "nuvic/flexoki-nvim",
+    name = "flexoki",
     lazy = false,
     priority = 1000,
+    config = function()
+      require("flexoki").setup({
+        variant = "moon", -- dark variant; "dawn" is the light one
+        styles = {
+          transparency = true,
+        },
+        highlight_groups = {
+          Comment = { italic = true },
+        },
+      })
+      vim.cmd.colorscheme "flexoki"
+    end,
+  },
+
+  -----------------------------------------------------------------------
+  -- ON DEMAND (`:colorscheme <name>`)
+  -----------------------------------------------------------------------
+  {
+    "craftzdog/solarized-osaka.nvim",
+    lazy = true,
     config = function()
       require("solarized-osaka").setup({
         transparent = true,
@@ -27,13 +48,9 @@ return {
           comments = { italic = true },
         },
       })
-      vim.cmd.colorscheme "solarized-osaka"
     end,
   },
 
-  -----------------------------------------------------------------------
-  -- ON DEMAND (`:colorscheme <name>`)
-  -----------------------------------------------------------------------
   {
     "folke/tokyonight.nvim",
     lazy = true,
