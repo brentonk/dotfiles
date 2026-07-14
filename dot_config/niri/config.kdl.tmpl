@@ -418,6 +418,9 @@ binds {
     // Toggle terminal background opacity (wezterm + kitty), sway parity.
     Mod+Shift+T hotkey-overlay-title="Toggle Terminal Opacity" { spawn-sh "~/.config/niri/scripts/toggle_opacity.sh"; }
 
+    // Named area screenshot into Dropbox (fuzzel prompt + grim/slurp via ~/bin/gb), sway parity.
+    Mod+Shift+G hotkey-overlay-title="Named Screenshot to Dropbox" { spawn-sh r#"name=$(fuzzel --dmenu --prompt-only="screenshot name: " --font="Iosevka Nerd Font:size=12" --width=30 --border-width=2) && [ -n "$name" ] && "$HOME/bin/gb" "$name" "$HOME/Dropbox/screenshots""#; }
+
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
