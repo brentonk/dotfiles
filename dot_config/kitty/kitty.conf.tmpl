@@ -15,6 +15,14 @@ window_padding_width 8
 
 # Theming
 background_opacity {{ if eq .chezmoi.hostname "AS0374CD6G" }}0.97{{ else if eq .chezmoi.hostname "milchick" }}0.96{{ else if eq .chezmoi.hostname "ASLNX-24CXCB4"}}0.92{{ else }}0.95{{ end }}
+dynamic_background_opacity yes
+{{- if eq .chezmoi.os "linux" }}
+
+# Remote control socket, used by the compositor opacity-toggle script
+# (~/.config/niri/scripts/toggle_opacity.sh). One socket per kitty process.
+allow_remote_control socket-only
+listen_on unix:${XDG_RUNTIME_DIR}/kitty-{kitty_pid}.sock
+{{- end }}
 
 # Ctrl-shift-n opens new kitty window in the current working directory
 map ctrl+shift+n launch --cwd=current --type=os-window
@@ -24,7 +32,11 @@ macos_option_as_alt yes
 
 
 # BEGIN_KITTY_THEME
-# Gruvbox Dark
+# Flexoki Dark
 include current-theme.conf
 # END_KITTY_THEME
+
+# Per-host local overrides (font_size, background_opacity, ...).
+# Not chezmoi-managed; globinclude is silently ignored when the file is absent.
+globinclude kitty.local.conf
 

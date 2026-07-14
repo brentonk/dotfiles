@@ -352,6 +352,19 @@ window-rule {
     opacity 0.95
 }
 
+// Kitty renders semitransparent too: same border treatment.
+window-rule {
+    match app-id=r#"^kitty$"#
+    draw-border-with-background false
+}
+
+// Fade inactive kitty windows a bit more (stacks with kitty's own
+// background_opacity, like the wezterm rule above).
+window-rule {
+    match app-id=r#"^kitty$"# is-active=false
+    opacity 0.95
+}
+
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
     // This app-id regular expression will work for both:
@@ -396,10 +409,13 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Z hotkey-overlay-title="Open a PDF: zathura" { spawn-sh r#"f=$(fd --no-ignore -e pdf "" "$HOME" | fuzzel --dmenu --font="Iosevka Nerd Font:size=12" --width=80 --lines=6 --border-width=2 --prompt="") && [ -n "$f" ] && exec zathura "$f""#; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+
+    // Toggle terminal background opacity (wezterm + kitty), sway parity.
+    Mod+Shift+T hotkey-overlay-title="Toggle Terminal Opacity" { spawn-sh "~/.config/niri/scripts/toggle_opacity.sh"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
