@@ -22,6 +22,10 @@ The active Wayland compositor is **niri** (`~/.config/niri/config.kdl`), the dai
 The previous driver was **sway** (`~/.config/sway/config`, a chezmoi template). Its config is kept around because I may ask you to carry settings or keybindings over from it to niri — but do not edit it otherwise. The Hyprland config (`~/.config/hypr/hyprland.conf`) is **vestigial and unused** — do not edit it.
 
 {{ end -}}
+## Terminals
+
+**kitty** is the primary terminal as of July 2026 (`Mod+Return` in niri). **wezterm** remains installed and fully configured as a secondary. Both use per-host override files that are NOT chezmoi-managed (`.config/kitty/kitty.local.conf`, `.config/wezterm/*.local`) — see each directory's CLAUDE.md.
+
 ## Before Editing Files
 
 Check if a file is managed by chezmoi:

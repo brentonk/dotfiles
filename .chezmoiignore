@@ -6,3 +6,6 @@
 
 # Per-host wezterm override files (opacity, font size) — never manage these
 .config/wezterm/*.local
+
+# Per-host kitty override file (globinclude'd last from kitty.conf) — never manage
+.config/kitty/kitty.local.conf
