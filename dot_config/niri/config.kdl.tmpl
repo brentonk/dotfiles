@@ -1,3 +1,4 @@
+// vim: ft=kdl
 // This config is in the KDL format: https://kdl.dev
 // "/-" comments out the following node.
 // Check the wiki for a full description of the configuration:
@@ -612,9 +613,10 @@ binds {
 
 {{- if ne .chezmoi.hostname "trebek" }}
     // The pinned workspace, following the standard focus / Ctrl=move-column
-    // modifier pattern.
-    Mod+P { focus-workspace "pinned"; }
-    Mod+Ctrl+P { move-column-to-workspace "pinned"; }
+    // modifier pattern. Grave sits left of 1, like pinned sits above the
+    // dynamic workspaces.
+    Mod+grave { focus-workspace "pinned"; }
+    Mod+Ctrl+grave { move-column-to-workspace "pinned"; }
 {{- end }}
 
     // Switches focus between the current and the previous workspace.
