@@ -2,19 +2,19 @@
 
 # Hostname: {{ .chezmoi.hostname }}
 
-font_family	{{ if eq .chezmoi.hostname "AS0374CD6G" }}JetBrainsMono Nerd Font Mono{{ else }}JetBrainsMono NF Thin{{ end }}
-{{ if ne .chezmoi.hostname "AS0374CD6G" -}}
+# Defaults for every host; per-host font/size/opacity deviations live in
+# kitty.local.conf (not chezmoi-managed) -- see CLAUDE.md for each host's values.
+font_family	JetBrainsMono NF Thin
 italic_font	JetBrainsMono NF Thin Italic
 bold_font	JetBrainsMono NF Light
 bold_italic_font	JetBrainsMono NF Light Italic
-{{ end -}}
-font_size	{{ if eq .chezmoi.hostname "trebek" }}10{{ else if eq .chezmoi.hostname "AS0374CD6G" }}14{{ else }}11.5{{ end }}
+font_size	11.5
 
 # Window margins
 window_padding_width 8
 
 # Theming
-background_opacity {{ if eq .chezmoi.hostname "AS0374CD6G" }}0.97{{ else if eq .chezmoi.hostname "milchick" }}0.96{{ else if eq .chezmoi.hostname "ASLNX-24CXCB4"}}0.92{{ else }}0.95{{ end }}
+background_opacity 0.95
 dynamic_background_opacity yes
 {{- if eq .chezmoi.os "linux" }}
 
@@ -39,4 +39,3 @@ include current-theme.conf
 # Per-host local overrides (font_size, background_opacity, ...).
 # Not chezmoi-managed; globinclude is silently ignored when the file is absent.
 globinclude kitty.local.conf
-
