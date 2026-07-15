@@ -18,6 +18,3 @@ end
 
 # Set editor to nvim
 set -gx EDITOR nvim
-
-# Set default browser to chromium
-set -gx BROWSER chromium
