@@ -3,6 +3,6 @@ Type=Application
 Name=bjkhome
 Comment=bjkhome dashboard (Chromium app window)
 Exec=/home/brenton/bin/bjkhome_chromium
-Icon=chromium
+Icon=/home/brenton/.local/share/icons/bjkhome.png
 Terminal=false
 Categories=Network;
