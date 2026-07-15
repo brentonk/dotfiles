@@ -459,10 +459,14 @@ binds {
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
     Mod+Right { focus-column-right; }
-    Mod+L         { focus-column-left; }
-    Mod+J         { focus-window-down; }
-    Mod+K         { focus-window-up; }
-    Mod+Semicolon { focus-column-right; }
+    // Vim-style focus keys go through the nvim passthrough script: if the
+    // focused window runs nvim (via the nvim-wm-nav plugin), move between
+    // nvim splits first, falling back to niri focus at the edges.
+    // Arrow-key binds above stay native as an escape hatch.
+    Mod+L         { spawn-sh "~/.config/niri/scripts/nvim_niri_nav.sh left"; }
+    Mod+J         { spawn-sh "~/.config/niri/scripts/nvim_niri_nav.sh down"; }
+    Mod+K         { spawn-sh "~/.config/niri/scripts/nvim_niri_nav.sh up"; }
+    Mod+Semicolon { spawn-sh "~/.config/niri/scripts/nvim_niri_nav.sh right"; }
 
     Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Down  { move-window-down; }

@@ -7,7 +7,7 @@ local runtime_dir = vim.env.XDG_RUNTIME_DIR or "/tmp"
 
 local function get_outermost_term_pid()
   -- Work with any supported Wayland compositor
-  if not (vim.env.SWAYSOCK or vim.env.HYPRLAND_INSTANCE_SIGNATURE) then
+  if not (vim.env.SWAYSOCK or vim.env.HYPRLAND_INSTANCE_SIGNATURE or vim.env.NIRI_SOCKET) then
     return nil
   end
 
