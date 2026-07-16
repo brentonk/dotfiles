@@ -3,7 +3,8 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Fira Sans, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 15px;
+    /* Slightly smaller on the laptop's narrower bar. */
+    font-size: {{ if eq .chezmoi.hostname "trebek" }}13px{{ else }}15px{{ end }};
 }
 
 window#waybar {
@@ -374,7 +375,8 @@ label:focus {
        renders visibly off-center under newer Pango/Waybar (Arch). Propo makes
        advance == ink, so it centers correctly on every rendering stack. */
     font-family: 'Iosevka Nerd Font Propo', sans-serif;
-    font-size: 15px;
+    /* Pin to the global font size (see the `*` rule at the top). */
+    font-size: {{ if eq .chezmoi.hostname "trebek" }}13px{{ else }}15px{{ end }};
 }
 
 #custom-scratch-wezterm.visible {
