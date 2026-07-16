@@ -9,8 +9,13 @@
     "modules-left": [
         "niri/workspaces"
     ],
+    // No centered window title on trebek (sway parity): the laptop bar is
+    // too narrow for it once the right-side modules take their space.
+    // NB: waybar's JSON parser rejects comments *inside* an empty array.
     "modules-center": [
+        {{ if ne .chezmoi.hostname "trebek" -}}
         "niri/window"
+        {{- end }}
     ],
     "niri/workspaces": {
         "format": "{icon}",
