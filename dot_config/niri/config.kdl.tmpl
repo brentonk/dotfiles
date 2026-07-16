@@ -303,6 +303,12 @@ spawn-at-startup "waybar" "-c" "/home/brenton/.config/waybar/config-niri.jsonc"
 // Wallpaper (niri has no built-in wallpaper support).
 spawn-at-startup "swaybg" "-i" "/home/brenton/wallpaper/wallpaper" "-m" "fill"
 
+// Notification daemon: swaync (SwayNotificationCenter), to match the work box.
+// Explicitly spawning it makes swaync claim org.freedesktop.Notifications at
+// login (rather than relying on D-Bus activation, which is ambiguous if mako
+// is also installed). Remove mako to avoid the conflict: sudo pacman -Rns mako
+spawn-at-startup "swaync"
+
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
