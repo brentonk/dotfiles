@@ -259,6 +259,24 @@ layout {
         color "#0007"
     }
 
+    // Indicator for tabbed columns (Mod+W toggles tabbed display).
+    // Without this block, niri draws a thin strip outside the column that gets
+    // lost in the gap next to the focus ring. Drawing it within the column
+    // along the top edge makes it read like browser tabs: one segment per
+    // window, highlighted segment = focused tab.
+    tab-indicator {
+        place-within-column
+        position "top"
+        gap 4
+        width 8
+        length total-proportion=1.0
+        gaps-between-tabs 6
+        corner-radius 4
+        active-color "#7fc8ff"
+        inactive-color "#505050"
+        urgent-color "#9b0000"
+    }
+
     // Struts shrink the area occupied by windows, similarly to layer-shell panels.
     // You can think of them as a kind of outer gaps. They are set in logical pixels.
     // Left and right struts will cause the next window to the side to always be visible.
