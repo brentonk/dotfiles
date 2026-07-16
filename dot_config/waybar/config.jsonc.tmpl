@@ -36,7 +36,8 @@
         "temperature",
         {{- end}}
         "clock",
-        "tray"
+        "tray",
+        "custom/swaync"
     ],
     // Modules configuration
     "sway/workspaces": {
@@ -132,6 +133,31 @@
             "activated": "",
             "deactivated": ""
         }
+    },
+    // Notification indicator (swaync), macOS-style crescent moon (nf-fa-moon,
+    // U+F186). Left-click toggles the notification panel, right-click toggles
+    // do-not-disturb. Turns red/accent when there are unread notifications.
+    "custom/swaync": {
+        "tooltip": true,
+        "format": "{icon}",
+        // Same moon glyph for every state; the color for unread/dnd states is
+        // set in style.css (not inline pango) so the glyph inherits the pinned
+        // Iosevka Nerd Font that actually carries U+F186.
+        "format-icons": {
+            "notification": "",
+            "none": "",
+            "dnd-notification": "",
+            "dnd-none": "",
+            "inhibited-notification": "",
+            "inhibited-none": "",
+            "dnd-inhibited-notification": "",
+            "dnd-inhibited-none": ""
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw"
     },
     "tray": {
         // "icon-size": 21,

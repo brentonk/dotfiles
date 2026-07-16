@@ -94,6 +94,7 @@ button:hover {
 #custom-media,
 #custom-spotify,
 #custom-gcal,
+#custom-swaync,
 #tray,
 #mode,
 #idle_inhibitor,
@@ -381,6 +382,25 @@ label:focus {
 
 #custom-scratch-wezterm.visible {
     color: #33ccff; /* terminal cyan (matches sway focused border) */
+}
+
+/* swaync moon: the global stack leads with Font Awesome, which lacks the
+   nf-fa-moon codepoint (U+F186) and renders it blank — pin Iosevka Nerd Font
+   like the other icon-only modules so the glyph draws. */
+#custom-swaync {
+    font-family: 'Iosevka Nerd Font Propo', sans-serif;
+    font-size: 15px;
+    background-color: #34597A; /* match the systray to its left... */
+    margin-left: -4px;         /* ...and swallow the 4px inter-module gap so
+                                  the two steel blocks read as one */
+}
+
+/* Red moon when there are unread notifications (class = swaync 'alt'). */
+#custom-swaync.notification,
+#custom-swaync.dnd-notification,
+#custom-swaync.inhibited-notification,
+#custom-swaync.dnd-inhibited-notification {
+    color: #f53c3c;
 }
 
 #custom-scratch-spotify.empty,
