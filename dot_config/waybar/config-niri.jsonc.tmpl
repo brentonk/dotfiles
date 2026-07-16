@@ -15,11 +15,8 @@
     "niri/workspaces": {
         "format": "{icon}",
         "format-icons": {
-{{- if ne .chezmoi.hostname "trebek" }}
             // The named "pinned" workspace shows as a pin icon.
-            // trebek has no named workspaces.
             "pinned": "",
-{{- end }}
             // Dynamic workspaces render as anonymous dots: filled bullet
             // when occupied, hollow when empty. Plain-text glyphs (not Nerd
             // Font PUA icons) so they center properly in the button.
