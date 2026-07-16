@@ -25,7 +25,7 @@ None are templates, so edit target files directly.
 ## Key Customizations from Defaults
 
 - **Navigation remapped for Colemak-style layout**: `hjkl` → `l` is left, `;` is right, `j`/`k` are down/up (see `copymap` lines ~427-434)
-- Image preview method: **iterm2** protocol (for WezTerm compatibility)
+- Image preview method: **kitty** graphics protocol (works in both kitty and WezTerm)
 - Column ratios: `1,3,4`
 - Local sort override for `~/Dropbox/advising/`: basename, reversed
 
