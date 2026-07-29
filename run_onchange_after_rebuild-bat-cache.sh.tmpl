@@ -1,0 +1,24 @@
+#!/bin/bash
+# Rebuild bat's compiled syntax/theme cache. bat never does this on its own:
+# it only loads ~/.cache/bat at startup, so custom syntaxes require an
+# explicit `bat cache --build` on every machine.
+#
+# chezmoi re-runs this script whenever its rendered content changes. The
+# hashes and version below exist solely to trigger that:
+#
+# Custom syntax files:
+{{ range glob (joinPath .chezmoi.sourceDir "dot_config/bat/syntaxes/*") -}}
+# {{ base . }}: {{ include . | sha256sum }}
+{{ end -}}
+{{ range glob (joinPath .chezmoi.sourceDir "dot_config/bat/themes/*") -}}
+# {{ base . }}: {{ include . | sha256sum }}
+{{ end -}}
+{{ if lookPath "bat" -}}
+# bat version (cache is invalidated by bat upgrades): {{ output "bat" "--version" | trim }}
+{{ end }}
+if ! command -v bat >/dev/null 2>&1; then
+    echo "bat not installed, skipping cache rebuild"
+    exit 0
+fi
+
+bat cache --build
