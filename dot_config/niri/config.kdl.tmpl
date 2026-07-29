@@ -439,8 +439,9 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Z hotkey-overlay-title="Open a PDF: zathura" { spawn-sh r#"f=$(fd --no-ignore -e pdf "" "$HOME" | fuzzel --dmenu --font="Iosevka Nerd Font:size=12" --width=80 --lines=6 --border-width=2 --prompt="") && [ -n "$f" ] && exec zathura "$f""#; }
-    // Reference search (bib file -> bemenu -> zathura), sway parity (Mod+R there; R is taken by width presets here).
-    Mod+B hotkey-overlay-title="Reference Search" { spawn-sh r#"$HOME/Dropbox/references/refmenu.sh -c --fn "Iosevka Nerd Font 12" -W 0.3 -B 2 -R 10 --fixed-height"#; }
+    // Reference search (bib file -> fuzzel -> zathura), sway parity (Mod+R there; R is taken by width presets here).
+    // Fuzzel styling lives in the script; extra args are passed through to fuzzel.
+    Mod+B hotkey-overlay-title="Reference Search" { spawn-sh "$HOME/Dropbox/references/refmenu.sh"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "grim /tmp/lockscreen.png && convert /tmp/lockscreen.png -blur 0x5 /tmp/lockscreen.png && swaylock -f -i /tmp/lockscreen.png"; }
 
     // Toggle terminal background opacity (wezterm + kitty), sway parity.
