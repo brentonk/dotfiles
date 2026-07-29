@@ -36,7 +36,7 @@ These functions override default commands with modern alternatives:
 - `cat`/`less` → `bat` (syntax-highlighted file viewer)
 - `ls` → `eza` with specific flags (icons, git status, directory-first grouping)
 - `ssh` → sets `TERM=xterm-256color` for remote compatibility with wezterm
-- `icat` → `wezterm imgcat` (image viewer in terminal)
+- `icat` → `kitten icat` in kitty, `wezterm imgcat` in wezterm (image viewer in terminal; errors elsewhere)
 
 ## Testing Functions
 
