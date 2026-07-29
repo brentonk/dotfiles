@@ -1,0 +1,3 @@
+# Recognize R startup dotfiles as R scripts (bat only maps the
+# extensionless-looking "Rprofile" suffix, not the bare dotfile)
+--map-syntax ".Rprofile:R"
