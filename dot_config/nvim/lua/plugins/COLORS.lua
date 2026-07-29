@@ -26,6 +26,11 @@ return {
         variant = "moon", -- dark variant; "dawn" is the light one
         styles = {
           transparency = true,
+          -- flexoki defaults italic to false, which suppresses ALL italics
+          -- (notably @markup.italic, i.e. markdown *emphasis*). If theme-wide
+          -- italics ever get too busy, drop this line and instead add
+          -- `["@markup.italic"] = { italic = true }` to highlight_groups below.
+          italic = true,
         },
         highlight_groups = {
           Comment = { italic = true },
