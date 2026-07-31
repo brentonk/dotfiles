@@ -360,6 +360,19 @@ animations {
 // and stays above the dynamic workspaces. Waybar shows it as a pin icon.
 workspace "pinned"
 
+{{ if eq .chezmoi.hostname "milchick" -}}
+// Thunderbird runs 24/7 on this host purely as an Exchange-to-Gmail relay
+// (managed by thunderbird.service + watchdog, not chezmoi-managed).
+// Stock Thunderbird has no Linux tray support, so park its window on a
+// dedicated named workspace instead to keep it out of the way.
+workspace "mail"
+
+window-rule {
+    match app-id=r#"^org\.mozilla\.Thunderbird$"#
+    open-on-workspace "mail"
+}
+{{- end }}
+
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
