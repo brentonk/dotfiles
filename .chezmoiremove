@@ -1,3 +1,4 @@
 .claude/skills/arch-packages
 .claude/skills/arch-packages/**
 .config/arch-packages.txt
+.config/nvim/lua/plugins/copilot.lua
