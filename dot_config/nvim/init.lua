@@ -105,8 +105,14 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- telescope key bindings
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>ff', function()
+  local wd = require('workdirs')
+  builtin.find_files({ search_dirs = wd.search_dirs(), prompt_title = 'Find Files' .. wd.status() })
+end, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', function()
+  local wd = require('workdirs')
+  builtin.live_grep({ search_dirs = wd.search_dirs(), prompt_title = 'Live Grep' .. wd.status() })
+end, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
