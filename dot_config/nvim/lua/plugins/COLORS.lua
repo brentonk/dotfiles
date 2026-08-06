@@ -26,14 +26,15 @@ return {
         variant = "moon", -- dark variant; "dawn" is the light one
         styles = {
           transparency = true,
-          -- flexoki defaults italic to false, which suppresses ALL italics
-          -- (notably @markup.italic, i.e. markdown *emphasis*). If theme-wide
-          -- italics ever get too busy, drop this line and instead add
-          -- `["@markup.italic"] = { italic = true }` to highlight_groups below.
-          italic = true,
+          -- Keep theme-wide italics off (flexoki's default): italic = true here
+          -- italicizes keywords/etc. in code buffers, which got too busy.
         },
         highlight_groups = {
           Comment = { italic = true },
+          -- Explicitly re-enable markdown/quarto/tex *emphasis*, which the
+          -- theme-wide italic = false would otherwise suppress. @markup.italic
+          -- only appears in markup filetypes, so code buffers stay upright.
+          ["@markup.italic"] = { italic = true },
         },
       })
       vim.cmd.colorscheme "flexoki"
