@@ -4,7 +4,7 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			markdown = { "prettier", "injected" },
-			python = { "ruff_format" },
+			python = { "ruff_organize_imports", "ruff_format" },
 			quarto = { "injected" },
 			r = { "air" },
 			tex = { "latexindent" },
