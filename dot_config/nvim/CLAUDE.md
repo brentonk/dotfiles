@@ -12,6 +12,8 @@ This is a personal Neovim configuration focused on scientific writing (LaTeX, Qu
 
 **Color Schemes**: ALL colorscheme plugins live in the single file `lua/plugins/COLORS.lua` (a list of specs) — never create a separate per-theme plugin file. Exactly one spec is the active theme (`lazy = false, priority = 1000`, config ends with `vim.cmd.colorscheme`); the rest are `lazy = true` and load on demand via `:colorscheme <name>`; retired themes get `enabled = false`. To switch themes, move the active-theme markers between specs in that file.
 
+**Sunny mode**: COLORS.lua defines a `sunny` flag from the hostname (currently `ASLNX-24CXCB4`, a too-bright office). Sunny hosts get `background=light` and a light colorscheme (currently `catppuccin-latte`, lazy-loaded via the colorscheme trigger from inside the active spec's config); all other hosts keep the dark default (flexoki "moon"). The sunny host list must stay in sync with the hostname gate in kitty's `kitty.conf.tmpl` (which includes the matching `sunlight-theme.conf`). Light themes for prose-heavy work (LaTeX/Quarto) need a near-neutral foreground — Tokyo Night Day was rejected because its blue foreground colored all body text.
+
 **Key Integrations**:
 - **LSP**: mason.nvim + mason-lspconfig + nvim-lspconfig (uses new `vim.lsp.config()` API)
 - **Completion**: nvim-cmp with sources: vimtex, nvim_lsp, luasnip, rg, path, buffer

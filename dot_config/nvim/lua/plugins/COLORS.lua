@@ -11,6 +11,11 @@
 --   * Retired themes get `enabled = false` (lazy.nvim will uninstall them on
 --     `:Lazy clean`); keep their spec around in case they make a comeback.
 
+-- Sunny-office hosts flip the active theme to its light variant; everywhere
+-- else keeps the dark default. Mirrors the hostname gate in chezmoi's
+-- kitty.conf.tmpl (sunlight-theme.conf), so keep the two host lists in sync.
+local sunny = vim.startswith(vim.uv.os_gethostname(), "ASLNX-24CXCB4")
+
 return {
 
   -----------------------------------------------------------------------
@@ -22,8 +27,9 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
+      vim.opt.background = sunny and "light" or "dark"
       require("flexoki").setup({
-        variant = "moon", -- dark variant; "dawn" is the light one
+        variant = sunny and "dawn" or "moon", -- "moon" = dark, "dawn" = light
         styles = {
           transparency = true,
           -- Keep theme-wide italics off (flexoki's default): italic = true here
@@ -37,7 +43,14 @@ return {
           ["@markup.italic"] = { italic = true },
         },
       })
-      vim.cmd.colorscheme "flexoki"
+      if sunny then
+        -- Auditioning light themes; the named scheme lazy-loads via the
+        -- colorscheme trigger and its setup() below runs first.
+        -- Keep in sync with kitty's sunlight-theme.conf (Catppuccin Latte).
+        vim.cmd.colorscheme "catppuccin-latte"
+      else
+        vim.cmd.colorscheme "flexoki"
+      end
     end,
   },
 

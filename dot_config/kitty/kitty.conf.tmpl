@@ -35,6 +35,12 @@ macos_option_as_alt yes
 # Flexoki Dark
 include current-theme.conf
 # END_KITTY_THEME
+{{- if eq .chezmoi.hostname "ASLNX-24CXCB4" }}
+
+# Sunny-office override (this host only): a light theme included after the
+# theme block above, so it wins. See sunlight-theme.conf to swap themes.
+include sunlight-theme.conf
+{{- end }}
 
 # Per-host local overrides (font_size, background_opacity, ...).
 # Not chezmoi-managed; globinclude is silently ignored when the file is absent.
