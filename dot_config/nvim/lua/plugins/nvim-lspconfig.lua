@@ -60,5 +60,28 @@ return {
       cmd = { "R", "--no-echo", "-e", "languageserver::run()" },
     })
     vim.lsp.enable("r_language_server")
+
+    -- Prefer the project venv's ruff (matches `uv run ruff check` and the
+    -- conform formatters) over mason's, which shadows it via PATH prepending
+    vim.lsp.config("ruff", {
+      cmd = function(dispatchers, config)
+        local ruff = "ruff"
+        local candidates = {}
+        if vim.env.VIRTUAL_ENV then
+          table.insert(candidates, vim.env.VIRTUAL_ENV .. "/bin/ruff")
+        end
+        local root = config.root_dir or vim.fn.getcwd()
+        for _, dir in ipairs(vim.fs.find(".venv", { upward = true, path = root, type = "directory" })) do
+          table.insert(candidates, dir .. "/bin/ruff")
+        end
+        for _, candidate in ipairs(candidates) do
+          if vim.fn.executable(candidate) == 1 then
+            ruff = candidate
+            break
+          end
+        end
+        return vim.lsp.rpc.start({ ruff, "server" }, dispatchers)
+      end,
+    })
   end
 }
