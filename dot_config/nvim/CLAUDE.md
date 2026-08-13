@@ -29,7 +29,7 @@ Movement is remapped for right-hand ergonomics:
 - `j`/`k` move visually on wrapped lines
 
 Leader is space. Key bindings:
-- `<leader>ff/fg/fb/fh` - Telescope find files/grep/buffers/help
+- `<leader>ff/fg/fb/fh/fs` - Telescope find files/grep/buffers/help/workspace symbols
 - `<leader>rs/rr/rf/rh` - Iron REPL start/restart/focus/hide
 - `<leader>sc/sl/sp/sf` - Iron send motion/line/paragraph/file
 - `<leader>rc/ra/rA/rl` - Quarto run cell/above/all/line
