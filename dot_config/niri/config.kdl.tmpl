@@ -451,7 +451,11 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    // Merged launcher: applications + documents + Obsidian notes in one fuzzel list.
+    // Scope of the document sweep is controlled by ~/.config/niri/launcher-ignore.
+    // Mod+Shift+Space is the plain app-launcher escape valve.
+    Mod+Space hotkey-overlay-title="Find: apps, documents, notes" { spawn-sh "~/.config/niri/scripts/launch_menu.py"; }
+    Mod+Shift+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Z hotkey-overlay-title="Open a PDF: zathura" { spawn-sh r#"f=$(fd --no-ignore -e pdf "" "$HOME" | fuzzel --dmenu --font="Iosevka Nerd Font:size=12" --width=80 --lines=6 --border-width=2 --prompt="") && [ -n "$f" ] && exec zathura "$f""#; }
     // Reference search (bib file -> fuzzel -> zathura), sway parity (Mod+R there; R is taken by width presets here).
     // Fuzzel styling lives in the script; extra args are passed through to fuzzel.

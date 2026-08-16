@@ -1,0 +1,15 @@
+# Directories excluded from the Mod+Space launcher (~/.config/niri/scripts/launch_menu.py).
+#
+# Syntax is .gitignore format -- this file is handed straight to `fd --ignore-file`,
+# so anything gitignore accepts works here (negate with a leading `!`).
+#
+# Applies to the PDF sweep over ~/Dropbox, ~/Downloads and ~/Documents only.
+# Applications and Obsidian notes are never filtered by this file.
+#
+# ~/Dropbox/references/library is excluded by the script itself, not here: those
+# papers are listed via references.bib as author/title rows instead of filenames.
+
+backups/
+archive/
+obsidian_mirror_readonly/
+**/00_archive/
