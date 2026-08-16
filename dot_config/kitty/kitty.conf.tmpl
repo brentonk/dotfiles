@@ -31,16 +31,11 @@ map ctrl+shift+n launch --cwd=current --type=os-window
 macos_option_as_alt yes
 
 
-# BEGIN_KITTY_THEME
-# Flexoki Dark
-include current-theme.conf
-# END_KITTY_THEME
-{{- if eq .chezmoi.hostname "ASLNX-24CXCB4" }}
-
-# Sunny-office override (this host only): a light theme included after the
-# theme block above, so it wins. See sunlight-theme.conf to swap themes.
-include sunlight-theme.conf
-{{- end }}
+# Theme collection (colors only). The active collection's name comes from
+# ~/.config/theme.local (per-host, not chezmoi-managed); the generator prints
+# an include for collections/<name>.conf and falls back to flexoki-dark when
+# the name file is missing or names no collection. Reload: ctrl+shift+f5.
+geninclude theme-collection.py
 
 # Per-host local overrides (font_size, background_opacity, ...).
 # Not chezmoi-managed; globinclude is silently ignored when the file is absent.

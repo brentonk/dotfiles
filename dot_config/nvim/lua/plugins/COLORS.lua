@@ -2,19 +2,42 @@
 -- one place instead of spread across per-plugin spec files.
 --
 -- Conventions:
---   * Exactly ONE spec is the active theme: `lazy = false, priority = 1000`,
---     and its config ends with `vim.cmd.colorscheme "..."`.
+--   * The flexoki spec is the fixed bootstrap: `lazy = false, priority = 1000`,
+--     and its config activates whichever collection is selected (below).
 --   * Every other theme stays `lazy = true`. It remains installed and can be
 --     test-driven any time with `:colorscheme <name>` — lazy.nvim loads the
 --     plugin on demand and runs its config/setup first.
---   * To switch themes, swap which spec carries the active-theme lines.
 --   * Retired themes get `enabled = false` (lazy.nvim will uninstall them on
 --     `:Lazy clean`); keep their spec around in case they make a comeback.
 
--- Sunny-office hosts flip the active theme to its light variant; everywhere
--- else keeps the dark default. Mirrors the hostname gate in chezmoi's
--- kitty.conf.tmpl (sunlight-theme.conf), so keep the two host lists in sync.
-local sunny = vim.startswith(vim.uv.os_gethostname(), "ASLNX-24CXCB4")
+-- Theme collections: pair this nvim colorscheme with the matching kitty
+-- collection (~/.config/kitty/collections/<name>.conf). The active name is
+-- read from ~/.config/theme.local (per-host, NOT chezmoi-managed); missing
+-- file or unknown name falls back to flexoki-dark. Keep parsing in sync with
+-- kitty's theme-collection.py.
+local collections = {
+  ["flexoki-dark"] = { colorscheme = "flexoki", background = "dark" },
+  -- Light mode for sunny offices (kitty side: Catppuccin Latte too).
+  ["catppuccin-latte"] = { colorscheme = "catppuccin-latte", background = "light" },
+}
+
+local function active_collection()
+  local path = vim.fs.joinpath(vim.fs.dirname(vim.fn.stdpath("config")), "theme.local")
+  local f = io.open(path, "r")
+  if not f then return collections["flexoki-dark"] end
+  local name
+  for line in f:lines() do
+    line = vim.trim(line)
+    if line ~= "" and not vim.startswith(line, "#") then
+      name = line:match("%S+")
+      break
+    end
+  end
+  f:close()
+  return collections[name] or collections["flexoki-dark"]
+end
+
+local active = active_collection()
 
 return {
 
@@ -27,9 +50,9 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      vim.opt.background = sunny and "light" or "dark"
+      vim.opt.background = active.background
       require("flexoki").setup({
-        variant = sunny and "dawn" or "moon", -- "moon" = dark, "dawn" = light
+        variant = active.background == "light" and "dawn" or "moon",
         styles = {
           transparency = true,
           -- Keep theme-wide italics off (flexoki's default): italic = true here
@@ -43,14 +66,9 @@ return {
           ["@markup.italic"] = { italic = true },
         },
       })
-      if sunny then
-        -- Auditioning light themes; the named scheme lazy-loads via the
-        -- colorscheme trigger and its setup() below runs first.
-        -- Keep in sync with kitty's sunlight-theme.conf (Catppuccin Latte).
-        vim.cmd.colorscheme "catppuccin-latte"
-      else
-        vim.cmd.colorscheme "flexoki"
-      end
+      -- Non-flexoki collection schemes lazy-load via lazy.nvim's colorscheme
+      -- trigger; their setup() in the specs below runs first.
+      vim.cmd.colorscheme(active.colorscheme)
     end,
   },
 

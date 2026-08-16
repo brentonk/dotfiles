@@ -9,3 +9,6 @@
 
 # Per-host kitty override file (globinclude'd last from kitty.conf) — never manage
 .config/kitty/kitty.local.conf
+
+# Active theme-collection name (kitty + nvim read it) — per-host, never manage
+.config/theme.local
