@@ -20,6 +20,8 @@ vim.opt.softtabstop = 2
 vim.opt.wrap       = true
 vim.opt.linebreak  = true
 vim.opt.breakindent = true
+-- scroll by screen line, so zz/zt/zb center correctly within long wrapped lines
+vim.opt.smoothscroll = true
 
 -- don't continue comments on carriage return
 -- reddit says gotta do it this hackish way:
