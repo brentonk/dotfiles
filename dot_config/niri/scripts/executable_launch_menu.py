@@ -255,7 +255,12 @@ def fd_find(extension: str, roots: list[Path], use_ignore_file: bool) -> list[st
     existing = [str(r) for r in roots if r.exists()]
     if not existing:
         return []
-    cmd = ["fd", "--type", "f", "--extension", extension, "--print0"]
+    # --no-ignore-vcs, because a .gitignore is the wrong authority here: project
+    # repos gitignore figures/, tables/, output/ and logs/ precisely because those
+    # PDFs are *generated*, which is no reason to hide them from a document
+    # search. Worth ~1,500 files. Unlike the blanket --no-ignore that Mod+Z uses,
+    # this still honours .ignore/.fdignore and, crucially, --ignore-file below.
+    cmd = ["fd", "--no-ignore-vcs", "--type", "f", "--extension", extension, "--print0"]
     if use_ignore_file and IGNORE_FILE.is_file():
         cmd += ["--ignore-file", str(IGNORE_FILE)]
     cmd += [".", *existing]
