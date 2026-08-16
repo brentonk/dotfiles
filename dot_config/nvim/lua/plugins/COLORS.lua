@@ -14,7 +14,8 @@
 -- collection (~/.config/kitty/collections/<name>.conf). The active name is
 -- read from ~/.config/theme.local (per-host, NOT chezmoi-managed); missing
 -- file or unknown name falls back to flexoki-dark. Keep parsing in sync with
--- kitty's theme-collection.py.
+-- kitty's theme-collection.py. An optional `g` table holds vim.g variables
+-- applied before the colorscheme (e.g. the everforest contrast variant).
 local collections = {
   ["flexoki-dark"] = { colorscheme = "flexoki", background = "dark" },
   -- Light mode for sunny offices (kitty side: Catppuccin Latte too).
@@ -23,16 +24,27 @@ local collections = {
   -- kitty collections/<name>.conf header).
   ["kanagawa-dragon"] = { colorscheme = "kanagawa-dragon", background = "dark" },
   ["kanagawa-wave"] = { colorscheme = "kanagawa-wave", background = "dark" },
-  ["everforest-dark"] = { colorscheme = "everforest", background = "dark" },
-  ["everforest-light"] = { colorscheme = "everforest", background = "light" },
+  ["everforest-dark"] = { colorscheme = "everforest", background = "dark", g = { everforest_background = "hard" } },
+  ["everforest-light"] = { colorscheme = "everforest", background = "light", g = { everforest_background = "hard" } },
   ["catppuccin-frappe"] = { colorscheme = "catppuccin-frappe", background = "dark" },
   ["dracula"] = { colorscheme = "dracula", background = "dark" },
   ["monokai-soda"] = { colorscheme = "monokai_soda", background = "dark" },
   ["cyberdream"] = { colorscheme = "cyberdream", background = "dark" },
   ["solarized-osaka"] = { colorscheme = "solarized-osaka", background = "dark" },
-  -- Reconstruction: the 2025 gruvbox era ran gruvbox-material in nvim against
-  -- a community Gruvbox Dark terminal palette; the pairing never truly matched.
   ["gruvbox-material"] = { colorscheme = "gruvbox-material", background = "dark" },
+  -- Never daily-driven; added for completeness of each theme family.
+  ["catppuccin-macchiato"] = { colorscheme = "catppuccin-macchiato", background = "dark" },
+  ["catppuccin-mocha"] = { colorscheme = "catppuccin-mocha", background = "dark" },
+  ["kanagawa-lotus"] = { colorscheme = "kanagawa-lotus", background = "light" },
+  ["everforest-dark-medium"] = { colorscheme = "everforest", background = "dark", g = { everforest_background = "medium" } },
+  ["everforest-dark-soft"] = { colorscheme = "everforest", background = "dark", g = { everforest_background = "soft" } },
+  ["everforest-light-medium"] = { colorscheme = "everforest", background = "light", g = { everforest_background = "medium" } },
+  ["everforest-light-soft"] = { colorscheme = "everforest", background = "light", g = { everforest_background = "soft" } },
+  ["gruvbox-material-light"] = { colorscheme = "gruvbox-material", background = "light" },
+  ["monokai-classic"] = { colorscheme = "monokai", background = "dark" },
+  ["monokai-pro"] = { colorscheme = "monokai_pro", background = "dark" },
+  ["monokai-ristretto"] = { colorscheme = "monokai_ristretto", background = "dark" },
+  ["solarized-osaka-day"] = { colorscheme = "solarized-osaka-day", background = "light" },
 }
 
 local function active_collection()
@@ -65,6 +77,9 @@ return {
     priority = 1000,
     config = function()
       vim.opt.background = active.background
+      for k, v in pairs(active.g or {}) do
+        vim.g[k] = v
+      end
       require("flexoki").setup({
         variant = active.background == "light" and "dawn" or "moon",
         styles = {
@@ -206,9 +221,10 @@ return {
     "sainnhe/everforest",
     lazy = true,
     config = function()
-      -- background (light/dark picks the everforest variant) is set by the
-      -- collection bootstrap above, or by hand before :colorscheme everforest.
-      vim.g.everforest_background = "hard"
+      -- background (light/dark) and everforest_background (contrast) are set
+      -- by the collection bootstrap above; default to hard for by-hand
+      -- :colorscheme everforest test-drives.
+      vim.g.everforest_background = vim.g.everforest_background or "hard"
       vim.g.everforest_transparent_background = 1
       vim.g.everforest_better_performance = 1
     end,
