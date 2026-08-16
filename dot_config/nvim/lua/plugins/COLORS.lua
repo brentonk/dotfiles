@@ -19,6 +19,20 @@ local collections = {
   ["flexoki-dark"] = { colorscheme = "flexoki", background = "dark" },
   -- Light mode for sunny offices (kitty side: Catppuccin Latte too).
   ["catppuccin-latte"] = { colorscheme = "catppuccin-latte", background = "light" },
+  -- Past daily-driver eras, resurrected from dotfiles history (dates in each
+  -- kitty collections/<name>.conf header).
+  ["kanagawa-dragon"] = { colorscheme = "kanagawa-dragon", background = "dark" },
+  ["kanagawa-wave"] = { colorscheme = "kanagawa-wave", background = "dark" },
+  ["everforest-dark"] = { colorscheme = "everforest", background = "dark" },
+  ["everforest-light"] = { colorscheme = "everforest", background = "light" },
+  ["catppuccin-frappe"] = { colorscheme = "catppuccin-frappe", background = "dark" },
+  ["dracula"] = { colorscheme = "dracula", background = "dark" },
+  ["monokai-soda"] = { colorscheme = "monokai_soda", background = "dark" },
+  ["cyberdream"] = { colorscheme = "cyberdream", background = "dark" },
+  ["solarized-osaka"] = { colorscheme = "solarized-osaka", background = "dark" },
+  -- Reconstruction: the 2025 gruvbox era ran gruvbox-material in nvim against
+  -- a community Gruvbox Dark terminal palette; the pairing never truly matched.
+  ["gruvbox-material"] = { colorscheme = "gruvbox-material", background = "dark" },
 }
 
 local function active_collection()
@@ -192,7 +206,8 @@ return {
     "sainnhe/everforest",
     lazy = true,
     config = function()
-      vim.opt.background = "light"
+      -- background (light/dark picks the everforest variant) is set by the
+      -- collection bootstrap above, or by hand before :colorscheme everforest.
       vim.g.everforest_background = "hard"
       vim.g.everforest_transparent_background = 1
       vim.g.everforest_better_performance = 1
@@ -208,37 +223,58 @@ return {
     end,
   },
 
-  -----------------------------------------------------------------------
-  -- RETIRED
-  -----------------------------------------------------------------------
   {
     "scottmckendry/cyberdream.nvim",
-    enabled = false,
+    lazy = true,
+    config = function()
+      require("cyberdream").setup({
+        transparent = true,
+        italic_comments = true,
+        borderless_pickers = false,
+      })
+      -- Post-colorscheme fixup (autocmd because this config runs before the
+      -- triggering :colorscheme finishes applying): brighter bold separators.
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "cyberdream",
+        callback = function()
+          vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#5ea1ff", bold = true })
+        end,
+      })
+    end,
   },
 
   {
     "tanvirtin/monokai.nvim",
-    enabled = false,
     lazy = true,
     config = function()
-      -- Transparent background so WezTerm's opacity/toggle shows through,
-      -- consistent with the other themes here.
-      for _, group in ipairs({
-        "Normal", "NormalNC", "NormalFloat", "SignColumn", "EndOfBuffer",
-      }) do
-        vim.api.nvim_set_hl(0, group, { bg = "none" })
-      end
-      -- The soda palette paints the line-number column with an opaque base2
-      -- background, so it stands out against the transparent gutter. Drop just
-      -- the background while keeping each group's foreground (dim grey / orange).
-      for _, group in ipairs({ "LineNr", "CursorLineNr" }) do
-        local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
-        hl.bg, hl.ctermbg = nil, nil
-        vim.api.nvim_set_hl(0, group, hl)
-      end
+      -- Post-colorscheme fixups (autocmd because this config runs before the
+      -- triggering :colorscheme finishes applying).
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "monokai*",
+        callback = function()
+          -- Transparent background so the terminal's opacity/toggle shows
+          -- through, consistent with the other themes here.
+          for _, group in ipairs({
+            "Normal", "NormalNC", "NormalFloat", "SignColumn", "EndOfBuffer",
+          }) do
+            vim.api.nvim_set_hl(0, group, { bg = "none" })
+          end
+          -- The soda palette paints the line-number column with an opaque base2
+          -- background, so it stands out against the transparent gutter. Drop just
+          -- the background while keeping each group's foreground (dim grey / orange).
+          for _, group in ipairs({ "LineNr", "CursorLineNr" }) do
+            local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+            hl.bg, hl.ctermbg = nil, nil
+            vim.api.nvim_set_hl(0, group, hl)
+          end
+        end,
+      })
     end,
   },
 
+  -----------------------------------------------------------------------
+  -- RETIRED
+  -----------------------------------------------------------------------
   {
     "RRethy/base16-nvim",
     enabled = false,
