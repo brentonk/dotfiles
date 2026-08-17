@@ -415,6 +415,17 @@ window-rule {
     open-floating true
 }
 
+// Open the httpgd R graphics viewer (launched from ~/.Rprofile as a
+// Chromium app window) floating. The viewer fits the plot to the window,
+// so the plot takes whatever shape the window has.
+window-rule {
+    // Chromium --app windows get app-id "chrome-<sanitized-url>-Default";
+    // plain windows get "chromium". Match both, keyed on the page title.
+    match app-id=r#"^chrome-"# title=r#"^httpgd$"#
+    match app-id=r#"^chromium$"# title=r#"^httpgd$"#
+    open-floating true
+}
+
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
