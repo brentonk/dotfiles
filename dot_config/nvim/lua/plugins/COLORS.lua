@@ -45,6 +45,28 @@ local collections = {
   ["monokai-pro"] = { colorscheme = "monokai_pro", background = "dark" },
   ["monokai-ristretto"] = { colorscheme = "monokai_ristretto", background = "dark" },
   ["solarized-osaka-day"] = { colorscheme = "solarized-osaka-day", background = "light" },
+  -- Added 2026-08-16, never daily-driven: new families whose kitty confs are
+  -- official ports dumped via `kitty +kitten themes --dump-theme`.
+  ["tokyonight-night"] = { colorscheme = "tokyonight-night", background = "dark" },
+  ["tokyonight-storm"] = { colorscheme = "tokyonight-storm", background = "dark" },
+  ["tokyonight-moon"] = { colorscheme = "tokyonight-moon", background = "dark" },
+  ["tokyonight-day"] = { colorscheme = "tokyonight-day", background = "light" },
+  ["rose-pine"] = { colorscheme = "rose-pine-main", background = "dark" },
+  ["rose-pine-moon"] = { colorscheme = "rose-pine-moon", background = "dark" },
+  ["rose-pine-dawn"] = { colorscheme = "rose-pine-dawn", background = "light" },
+  ["nightfox"] = { colorscheme = "nightfox", background = "dark" },
+  ["duskfox"] = { colorscheme = "duskfox", background = "dark" },
+  ["nordfox"] = { colorscheme = "nordfox", background = "dark" },
+  ["terafox"] = { colorscheme = "terafox", background = "dark" },
+  ["carbonfox"] = { colorscheme = "carbonfox", background = "dark" },
+  ["dayfox"] = { colorscheme = "dayfox", background = "light" },
+  ["dawnfox"] = { colorscheme = "dawnfox", background = "light" },
+  ["solarized-dark"] = { colorscheme = "solarized", background = "dark" },
+  ["solarized-light"] = { colorscheme = "solarized", background = "light" },
+  ["modus-operandi"] = { colorscheme = "modus_operandi", background = "light" },
+  ["modus-vivendi"] = { colorscheme = "modus_vivendi", background = "dark" },
+  ["nord"] = { colorscheme = "nord", background = "dark" },
+  ["onedark"] = { colorscheme = "onedark", background = "dark" },
 }
 
 local function active_collection()
@@ -284,6 +306,99 @@ return {
             vim.api.nvim_set_hl(0, group, hl)
           end
         end,
+      })
+    end,
+  },
+
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    lazy = true,
+    config = function()
+      require("rose-pine").setup({
+        styles = {
+          -- Theme-wide italics off, matching the flexoki convention.
+          italic = false,
+          transparency = true,
+        },
+        highlight_groups = {
+          Comment = { italic = true },
+          -- Re-enable markup emphasis suppressed by italic = false (same
+          -- rationale as the flexoki spec above).
+          ["@markup.italic"] = { italic = true },
+        },
+      })
+    end,
+  },
+
+  {
+    "EdenEast/nightfox.nvim",
+    lazy = true,
+    config = function()
+      require("nightfox").setup({
+        options = {
+          transparent = true,
+          styles = {
+            comments = "italic",
+          },
+        },
+      })
+    end,
+  },
+
+  {
+    "maxmx03/solarized.nvim",
+    lazy = true,
+    config = function()
+      -- Classic Solarized (Ethan Schoonover palette); dark/light follows
+      -- vim.o.background, set by the collection bootstrap.
+      require("solarized").setup({
+        transparent = { enabled = true },
+        styles = {
+          comments = { italic = true },
+        },
+      })
+    end,
+  },
+
+  {
+    "miikanissi/modus-themes.nvim",
+    lazy = true,
+    config = function()
+      require("modus-themes").setup({
+        transparent = true,
+        styles = {
+          comments = { italic = true },
+          -- Default italicizes keywords too; keep code upright per the
+          -- comments-only italics convention.
+          keywords = {},
+        },
+      })
+    end,
+  },
+
+  {
+    "gbprod/nord.nvim",
+    lazy = true,
+    config = function()
+      require("nord").setup({
+        transparent = true,
+        styles = {
+          comments = { italic = true },
+        },
+      })
+    end,
+  },
+
+  {
+    "navarasu/onedark.nvim",
+    lazy = true,
+    config = function()
+      require("onedark").setup({
+        transparent = true,
+        code_style = {
+          comments = "italic",
+        },
       })
     end,
   },
