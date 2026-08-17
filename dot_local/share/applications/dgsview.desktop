@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=dgsview
+Comment=dgs student record editor (local Flask server + Chromium app window)
+Exec=/home/brenton/bin/dgsview_chromium
+Terminal=false
+Categories=Office;
