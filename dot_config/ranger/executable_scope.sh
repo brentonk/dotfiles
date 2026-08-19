@@ -44,6 +44,28 @@ HIGHLIGHT_TABWIDTH=${HIGHLIGHT_TABWIDTH:-8}
 HIGHLIGHT_STYLE=${HIGHLIGHT_STYLE:-pablo}
 HIGHLIGHT_OPTIONS="--replace-tabs=${HIGHLIGHT_TABWIDTH} --style=${HIGHLIGHT_STYLE} ${HIGHLIGHT_OPTIONS:-}"
 PYGMENTIZE_STYLE=${PYGMENTIZE_STYLE:-autumn}
+
+## bat theme, synced to the light/dark-ness of the active theme collection.
+## Resolved via XDG_CONFIG_HOME (not a hardcoded ~/.config) and overriding any
+## inherited BAT_THEME, so sandboxed runs like theme-mockups.py — which point
+## XDG_CONFIG_HOME at a fake config home with a private theme.local — render
+## correctly. nvim's COLORS.lua registry is the source of truth for each
+## collection's background.
+## Sets the BAT_THEME_ENV array of arguments for env(1); an array because
+## this script's IFS=$'\n' rules out word-splitting a command substitution.
+set_bat_theme_env() {
+    local config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
+    local colors_lua="${config_home}/nvim/lua/plugins/COLORS.lua"
+    local collection=""
+    [[ -f "${config_home}/theme.local" ]] && collection="$(<"${config_home}/theme.local")"
+    collection="${collection//[[:space:]]/}"
+    if [[ -n "${collection}" && -f "${colors_lua}" ]] \
+        && grep -F -- "[\"${collection}\"]" "${colors_lua}" | grep -q 'background = "light"'; then
+        BAT_THEME_ENV=('BAT_THEME=gruvbox-light')
+    else
+        BAT_THEME_ENV=('-u' 'BAT_THEME')  # dark or unknown: bat's default dark theme
+    fi
+}
 OPENSCAD_IMGSIZE=${RNGR_OPENSCAD_IMGSIZE:-1000,1000}
 OPENSCAD_COLORSCHEME=${RNGR_OPENSCAD_COLORSCHEME:-Tomorrow Night}
 
@@ -305,7 +327,8 @@ handle_mime() {
             env HIGHLIGHT_OPTIONS="${HIGHLIGHT_OPTIONS}" highlight \
                 --out-format="${highlight_format}" \
                 --force -- "${FILE_PATH}" && exit 5
-            env COLORTERM=8bit bat --color=always --style="plain" \
+            set_bat_theme_env
+            env "${BAT_THEME_ENV[@]}" COLORTERM=8bit bat --color=always --style="plain" \
                 -- "${FILE_PATH}" && exit 5
             pygmentize -f "${pygmentize_format}" -O "style=${PYGMENTIZE_STYLE}"\
                 -- "${FILE_PATH}" && exit 5

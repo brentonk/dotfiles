@@ -29,6 +29,10 @@ None are templates, so edit target files directly.
 - Column ratios: `1,3,4`
 - Local sort override for `~/Dropbox/advising/`: basename, reversed
 
+## scope.sh bat Theme Sync
+
+Text previews fall through to `bat`, whose theme is synced to the light/dark-ness of the active theme collection: `set_bat_theme_env` reads `theme.local` and looks up the collection's `background` in nvim's `COLORS.lua` registry (light → `BAT_THEME=gruvbox-light`, dark/unknown → bat's default). It resolves paths via `XDG_CONFIG_HOME` and overrides any inherited `BAT_THEME`, so sandboxed runs (e.g. `theme-mockups.py`'s fake config home) render per-collection. The fish `conf.d/bat_theme.fish` does the same for interactive `cat`/`less`. Note scope.sh tries `highlight` before bat — on hosts where `highlight` is installed, it wins and this sync doesn't apply.
+
 ## scope.sh Exit Codes
 
 When modifying scope.sh, these exit codes control ranger behavior:
