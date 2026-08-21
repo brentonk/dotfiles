@@ -67,6 +67,10 @@ local collections = {
   ["modus-vivendi"] = { colorscheme = "modus_vivendi", background = "dark" },
   ["nord"] = { colorscheme = "nord", background = "dark" },
   ["onedark"] = { colorscheme = "onedark", background = "dark" },
+  -- Added 2026-08-21, never daily-driven: Circadia (OKLCH spec, WCAG 2.1 AAA;
+  -- kitty confs are the official ports from the circadia monorepo).
+  ["circadia-dark"] = { colorscheme = "circadia-dark", background = "dark" },
+  ["circadia-light"] = { colorscheme = "circadia-light", background = "light" },
 }
 
 local function active_collection()
@@ -399,6 +403,36 @@ return {
         code_style = {
           comments = "italic",
         },
+      })
+    end,
+  },
+
+  {
+    "tanmaymanojgandhi/circadia",
+    name = "circadia",
+    lazy = true,
+    config = function(plugin)
+      -- Monorepo: the nvim port lives in ports/neovim (no lua/ or colors/ at
+      -- the repo root), so splice that subdir onto the rtp. lazy.nvim's
+      -- colorscheme trigger only scans plugin-root colors/, so loading is
+      -- driven by the colors/circadia-*.lua shims in this config instead.
+      vim.opt.rtp:append(plugin.dir .. "/ports/neovim")
+      -- Post-colorscheme fixup (autocmd because the shim finishes applying
+      -- the theme after this config runs): transparent background so the
+      -- terminal's opacity/toggle shows through, consistent with the other
+      -- themes here. Keep each group's other attributes (the port gives
+      -- Normal its fg, for instance).
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "circadia-*",
+        callback = function()
+          for _, group in ipairs({
+            "Normal", "NormalNC", "NormalFloat", "SignColumn", "EndOfBuffer",
+          }) do
+            local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+            hl.bg, hl.ctermbg = nil, nil
+            vim.api.nvim_set_hl(0, group, hl)
+          end
+        end,
       })
     end,
   },
