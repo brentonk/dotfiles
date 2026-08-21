@@ -360,20 +360,17 @@ animations {
 // Thunderbird runs 24/7 on this host purely as an Exchange-to-Gmail relay
 // (managed by thunderbird.service + watchdog, not chezmoi-managed).
 // Stock Thunderbird has no Linux tray support, so park its window on a
-// dedicated named workspace instead to keep it out of the way. Declared
-// before "pinned" so it sits at the very top of the workspace list;
-// reachable via Mod+Shift+grave (see binds below).
+// dedicated named workspace instead to keep it out of the way. Named
+// workspaces sit above the dynamic ones; reachable via Mod+grave
+// (see binds below).
 workspace "mail"
 
 window-rule {
     match app-id=r#"^org\.mozilla\.Thunderbird$"#
     open-on-workspace "mail"
 }
-{{ end -}}
-// A single named "pinned" workspace that always exists (even when empty)
-// and stays above the dynamic workspaces. Waybar shows it as a pin icon.
-workspace "pinned"
 
+{{ end -}}
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
@@ -632,11 +629,11 @@ binds {
     // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
     // will all refer to the 3rd workspace.
     // Offset so Mod+1 is the first *dynamic* workspace, skipping the
-    // always-present named workspaces that hold the leading indices:
-    // "pinned" everywhere, plus "mail" on milchick.
-    {{- $wsOff := 1 }}
+    // always-present named "mail" workspace on milchick, which holds the
+    // leading index. No named workspaces (and no offset) on other hosts.
+    {{- $wsOff := 0 }}
     {{- if eq .chezmoi.hostname "milchick" }}
-    {{- $wsOff = 2 }}
+    {{- $wsOff = 1 }}
     {{- end }}
     Mod+1 { focus-workspace {{ add 1 $wsOff }}; }
     Mod+2 { focus-workspace {{ add 2 $wsOff }}; }
@@ -660,17 +657,13 @@ binds {
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
 
-    // The pinned workspace, following the standard focus / Ctrl=move-column
-    // modifier pattern. Grave sits left of 1, like pinned sits above the
-    // dynamic workspaces.
-    Mod+grave { focus-workspace "pinned"; }
-    Mod+Ctrl+grave { move-column-to-workspace "pinned"; }
     {{- if eq .chezmoi.hostname "milchick" }}
 
-    // The mail workspace (Thunderbird relay), one row further up:
-    // Shift+grave (~) reaches above grave, like mail sits above pinned.
-    Mod+Shift+grave { focus-workspace "mail"; }
-    Mod+Ctrl+Shift+grave { move-column-to-workspace "mail"; }
+    // The mail workspace (Thunderbird relay), following the standard
+    // focus / Ctrl=move-column modifier pattern. Grave sits left of 1,
+    // like mail sits above the dynamic workspaces.
+    Mod+grave { focus-workspace "mail"; }
+    Mod+Ctrl+grave { move-column-to-workspace "mail"; }
     {{- end }}
 
     // Switches focus between the current and the previous workspace.
