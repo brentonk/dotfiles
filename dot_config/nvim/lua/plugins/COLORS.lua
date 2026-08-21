@@ -71,6 +71,11 @@ local collections = {
   -- kitty confs are the official ports from the circadia monorepo).
   ["circadia-dark"] = { colorscheme = "circadia-dark", background = "dark" },
   ["circadia-light"] = { colorscheme = "circadia-light", background = "light" },
+  -- Added 2026-08-21, never daily-driven: Paradise (Manas140's r/unixporn
+  -- palette; dark only). No canonical ports exist — the kitty conf is
+  -- hand-extracted from the canon repo's full kitty.conf and the nvim side
+  -- is the ahmadinne/paradise.nvim community port.
+  ["paradise"] = { colorscheme = "paradise", background = "dark" },
 }
 
 local function active_collection()
@@ -424,6 +429,35 @@ return {
       -- Normal its fg, for instance).
       vim.api.nvim_create_autocmd("ColorScheme", {
         pattern = "circadia-*",
+        callback = function()
+          for _, group in ipairs({
+            "Normal", "NormalNC", "NormalFloat", "SignColumn", "EndOfBuffer",
+          }) do
+            local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+            hl.bg, hl.ctermbg = nil, nil
+            vim.api.nvim_set_hl(0, group, hl)
+          end
+        end,
+      })
+    end,
+  },
+
+  {
+    "ahmadinne/paradise.nvim",
+    name = "paradise",
+    lazy = true,
+    config = function()
+      -- Community port of Manas140's paradise (no official nvim port
+      -- exists). Its setup() compiles a highlight cache on first run
+      -- (:ParadiseRebuild clears it) and its transparency option misses
+      -- NormalNC etc., so skip setup opts and do transparency the monokai
+      -- way instead: strip backgrounds post-colorscheme, keeping each
+      -- group's other attributes, so the terminal's opacity/toggle shows
+      -- through consistent with the other themes here. (autocmd because
+      -- this config runs before the triggering :colorscheme finishes
+      -- applying.)
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "paradise",
         callback = function()
           for _, group in ipairs({
             "Normal", "NormalNC", "NormalFloat", "SignColumn", "EndOfBuffer",
