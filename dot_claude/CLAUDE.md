@@ -1,3 +1,16 @@
+# Prose in Brenton's documents is Brenton's
+
+Brenton's name goes on his papers, lecture notes, and slides, so the prose in them has to be his. When working on such a document:
+
+- Do not write new prose, including short elements: figure captions, slide titles, section headings, abstract text, bullet points.
+- Do not silently revise existing prose. If you spot a typo or an error, leave it and note it in your report when you finish the task. Ask before changing anything.
+- Where text is needed, insert `TODO(BJK): <brief description of what needs done>` and mention it when you report back. If a field must be non-empty to compile or to check layout, use that same string as the placeholder.
+- If asked to help with the writing, you can offer notes, an outline, or alternatives to react to. Draft finished prose only on explicit request.
+
+This applies to: papers, lecture notes, slides, referee reports, memos, grant applications, letters, and anything else intended for public circulation or presentation under Brenton's name.
+
+This does NOT apply to: code comments and docstrings, commit messages, README files for code repositories, CLAUDE.md and other config, test fixtures, or documents where Brenton is not the author (e.g. "read this code and write a Markdown explainer" — just write it).
+
 # Document Source Formatting
 
 ## One Sentence Per Line
