@@ -18,6 +18,9 @@
 -- applied before the colorscheme (e.g. the everforest contrast variant).
 local collections = {
   ["flexoki-dark"] = { colorscheme = "flexoki", background = "dark" },
+  -- Light half of the flexoki family (bootstrap picks the "dawn" variant
+  -- whenever background = light).
+  ["flexoki-light"] = { colorscheme = "flexoki", background = "light" },
   -- Light mode for sunny offices (kitty side: Catppuccin Latte too).
   ["catppuccin-latte"] = { colorscheme = "catppuccin-latte", background = "light" },
   -- Past daily-driver eras, resurrected from dotfiles history (dates in each
