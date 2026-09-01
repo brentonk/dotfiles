@@ -2,3 +2,13 @@
 .claude/skills/arch-packages/**
 .config/arch-packages.txt
 .config/nvim/lua/plugins/copilot.lua
+.config/nvim/lua/plugins/base16-nvim.lua
+.config/nvim/lua/plugins/catppuccin.lua
+.config/nvim/lua/plugins/cyberdream.lua
+.config/nvim/lua/plugins/dracula.lua
+.config/nvim/lua/plugins/everforest.lua
+.config/nvim/lua/plugins/gruvbox-material.lua
+.config/nvim/lua/plugins/kanagawa.lua
+.config/nvim/lua/plugins/monokai.lua
+.config/nvim/lua/plugins/solarized-osaka.lua
+.config/nvim/lua/plugins/tokyonight.lua
