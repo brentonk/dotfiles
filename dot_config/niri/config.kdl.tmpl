@@ -313,6 +313,13 @@ spawn-at-startup "swaybg" "-i" "/home/brenton/wallpaper/wallpaper" "-m" "fill"
 // login (rather than relying on D-Bus activation, which is ambiguous if mako
 // is also installed). Remove mako to avoid the conflict: sudo pacman -Rns mako
 spawn-at-startup "swaync"
+{{- if eq .chezmoi.hostname "trebek" }}
+
+// The first window opened on an empty workspace gets maximize-window-to-edges
+// (the Mod+M state) applied automatically; Mod+M still toggles it off. There is
+// no window-rule matcher for "workspace is empty", hence the event-stream watcher.
+spawn-at-startup "/home/brenton/.config/niri/scripts/auto_maximize_first.py"
+{{- end }}
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
