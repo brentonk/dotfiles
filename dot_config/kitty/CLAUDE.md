@@ -16,7 +16,7 @@ The template's defaults are JetBrainsMono NF Thin/Light, `font_size 11.5`, `back
 | Host | kitty.local.conf contents | theme.local |
 |------|---------------------------|-------------|
 | `milchick` (Arch) | `background_opacity 0.97` (matches wezterm's `opacity.local`) | — |
-| `trebek` (Arch) | `font_size 10` | — |
+| `trebek` (Arch) | `font_size 11.571` (= 27px on the 2880x1800 panel at niri scale 1.75; integer-px sizes are `pt = px * 72 / (96 * scale)`, i.e. steps of 3/7 pt), `background_opacity 0.99`, `font_family Maple Mono NF ExtraLight`, `italic_font Maple Mono NF ExtraLight`, `bold_font Maple Mono NF Light`, `bold_italic_font Maple Mono NF Light` | — |
 | `ASLNX-24CXCB4` (Ubuntu) | `background_opacity 0.97`, `font_family JetBrainsMono NF`, `italic_font JetBrainsMono NF Italic`, `bold_font JetBrainsMono NF SemiBold`, `bold_italic_font JetBrainsMono NF SemiBold Italic` | `catppuccin-latte` |
 | `AS0374CD6G` (macOS) | `font_family JetBrainsMono Nerd Font Mono`, `italic_font auto`, `bold_font auto`, `bold_italic_font auto`, `font_size 14`, `background_opacity 0.97` | — |
 
