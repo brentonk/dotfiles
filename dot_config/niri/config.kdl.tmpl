@@ -33,7 +33,10 @@ input {
     // All commented-out settings here are examples, not defaults.
     touchpad {
         // off
+{{- if ne .chezmoi.hostname "trebek" }}
+        // Tap-to-click is off on trebek: only a physical press should click.
         tap
+{{- end }}
         // dwt
         // dwtp
         // drag false
