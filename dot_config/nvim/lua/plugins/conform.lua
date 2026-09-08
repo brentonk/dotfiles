@@ -46,7 +46,8 @@ return {
 			function()
 				require("conform").format()
 			end,
-			desc = "Format buffer",
+			mode = { "n", "v" },
+			desc = "Format buffer or selection",
 		},
 	},
 }
