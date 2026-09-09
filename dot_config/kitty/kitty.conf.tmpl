@@ -27,6 +27,11 @@ listen_on unix:${XDG_RUNTIME_DIR}/kitty-{kitty_pid}.sock
 # Ctrl-shift-n opens new kitty window in the current working directory
 map ctrl+shift+n launch --cwd=current --type=os-window
 
+# Unbind kitty's default ctrl+shift+l (next_layout) so it reaches nvim, where
+# ctrl+shift+j/k/l/; swap splits. j/k need no unbind: their default
+# scroll actions only fire in the main screen, so nvim already receives them.
+map ctrl+shift+l no_op
+
 # Treat option as alt on Mac
 macos_option_as_alt yes
 

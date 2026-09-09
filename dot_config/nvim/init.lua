@@ -78,6 +78,31 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", { noremap = true })
 vim.keymap.set("n", "<C-l>", "<C-w>h", { noremap = true })
 vim.keymap.set("n", "<C-;>", "<C-w>l", { noremap = true })
 
+-- Move (swap) the current split with its neighbor in a direction, keeping
+-- focus on the moved buffer. Ctrl+Shift+<focus key> mirrors vim's own
+-- <C-w>j (focus) vs <C-w>J (move) convention. Requires a terminal that
+-- distinguishes Ctrl+Shift via the kitty keyboard protocol (kitty, wezterm).
+local function swap_window(dir)
+  local cur = vim.api.nvim_get_current_win()
+  local target = vim.fn.win_getid(vim.fn.winnr(dir))
+  if target == cur or target == 0 then
+    return
+  end
+  local cur_buf = vim.api.nvim_win_get_buf(cur)
+  local target_buf = vim.api.nvim_win_get_buf(target)
+  local cur_view = vim.api.nvim_win_call(cur, vim.fn.winsaveview)
+  local target_view = vim.api.nvim_win_call(target, vim.fn.winsaveview)
+  vim.api.nvim_win_set_buf(cur, target_buf)
+  vim.api.nvim_win_set_buf(target, cur_buf)
+  vim.api.nvim_win_call(cur, function() vim.fn.winrestview(target_view) end)
+  vim.api.nvim_win_call(target, function() vim.fn.winrestview(cur_view) end)
+  vim.api.nvim_set_current_win(target)
+end
+vim.keymap.set("n", "<C-S-j>", function() swap_window("j") end, { desc = "Swap split down" })
+vim.keymap.set("n", "<C-S-k>", function() swap_window("k") end, { desc = "Swap split up" })
+vim.keymap.set("n", "<C-S-l>", function() swap_window("h") end, { desc = "Swap split left" })
+vim.keymap.set("n", "<C-S-;>", function() swap_window("l") end, { desc = "Swap split right" })
+
 -- Move visually when lines are wrapped
 vim.keymap.set("n", "j", "gj", { noremap = true })
 vim.keymap.set("n", "k", "gk", { noremap = true })
@@ -186,6 +211,10 @@ vim.keymap.set("t", "<C-j>", "<C-\\><C-n><C-w>j", { noremap = true })
 vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k", { noremap = true })
 vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>h", { noremap = true })
 vim.keymap.set("t", "<C-;>", "<C-\\><C-n><C-w>l", { noremap = true })
+vim.keymap.set("t", "<C-S-j>", function() vim.cmd.stopinsert(); swap_window("j") end, { desc = "Swap split down" })
+vim.keymap.set("t", "<C-S-k>", function() vim.cmd.stopinsert(); swap_window("k") end, { desc = "Swap split up" })
+vim.keymap.set("t", "<C-S-l>", function() vim.cmd.stopinsert(); swap_window("h") end, { desc = "Swap split left" })
+vim.keymap.set("t", "<C-S-;>", function() vim.cmd.stopinsert(); swap_window("l") end, { desc = "Swap split right" })
 
 -- R: don't indent like ESS
 vim.g.r_indent_align_args    = 0

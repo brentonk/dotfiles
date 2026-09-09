@@ -79,4 +79,10 @@ config.use_ime = true
 -- Send distinct escape sequences for modifier+key combos (CSI u / kitty encoding)
 config.enable_csi_u_key_encoding = true
 
+-- Unbind wezterm's default ctrl+shift+l (ShowDebugOverlay) so it reaches nvim,
+-- where ctrl+shift+j/k/l/; swap splits.
+config.keys = {
+  { key = "L", mods = "CTRL|SHIFT", action = wezterm.action.DisableDefaultAssignment },
+}
+
 return config
