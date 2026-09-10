@@ -38,6 +38,17 @@ Leader is space. Key bindings:
 - `<leader>Oo/Of` - Oil file browser/float
 - `<leader>cm` - Telescope chezmoi files
 - `gf/gq/gF` - LSP format line/paragraph/buffer
+- `<leader>fv` - Telescope git_bcommits: past versions of the current file (visual mode: versions of the selected lines)
+
+## Past Versions of a File (side-by-side diff)
+
+Recurring question: "how do I see a past git version of this file next to the current one?"
+
+- `<leader>fv` in normal mode runs `:Telescope git_bcommits`, listing every commit that touched the current file with the commit diff in the preview. In visual mode it runs `git_bcommits_range` on the selected lines only.
+- Inside the picker: `<CR>` or `<C-v>` opens the chosen version in a vertical split vimdiff'd against the current buffer; `<C-x>` horizontal split; `<C-t>` new tab. The old version lives in a scratch buffer named `Original` that wipes itself when its window closes.
+- `<C-o>` runs `git checkout <sha> -- <file>` behind a yes/no prompt. This OVERWRITES THE FILE ON DISK with no undo. It is telescope's stock `<CR>` action; `lua/plugins/telescope.lua` moves it off `<CR>` and adds the confirmation because it silently destroyed uncommitted work (2026-09-10). Never rebind `<CR>` back to it.
+- Without the picker: `:Gitsigns diffthis <rev>` (e.g. `HEAD~3`, `HEAD@{2.weeks.ago}`) diffs the current buffer against a revision; from the shell, `nvim -d <(git show <rev>:path/to/file) path/to/file`.
+- Diff-mode navigation: `]c`/`[c` next/previous hunk, `do` pulls the old hunk into the current file, `dp` pushes the current hunk the other way, `zR` opens all folds.
 
 ## Snippets
 

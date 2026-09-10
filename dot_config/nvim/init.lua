@@ -143,6 +143,8 @@ end, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 vim.keymap.set('n', '<leader>fs', builtin.lsp_dynamic_workspace_symbols, { desc = 'Telescope workspace symbols' })
+vim.keymap.set('n', '<leader>fv', builtin.git_bcommits, { desc = 'Telescope file versions' })
+vim.keymap.set('x', '<leader>fv', builtin.git_bcommits_range, { desc = 'Telescope file versions (selected lines)' })
 
 -- iron REPL key bindings
 vim.keymap.set("n", "<leader>rs", "<cmd>IronRepl<CR>", {desc="Open REPL"})
