@@ -29,6 +29,13 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       callback = function(args)
         pcall(vim.treesitter.start, args.buf)
+        -- start() blanks 'syntax'. typst.vim's math conceal (alpha -> α)
+        -- lives in its regex syntax file, so switch syntax back on for
+        -- typst buffers; treesitter keeps doing the highlighting.
+        -- See lua/plugins/typst-vim.lua.
+        if args.match == "typst" then
+          vim.bo[args.buf].syntax = "on"
+        end
       end,
     })
   end,
