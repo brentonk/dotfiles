@@ -11,5 +11,4 @@ map U scroll full-up
 set show-recent 0
 
 set selection-clipboard clipboard
-map <C-c> copy
-map <C-v> exec xclip -selection clipboard -o | xclip -selection primary
+map <C-v> exec "sh -c 'wl-paste -n | wl-copy --primary'"
