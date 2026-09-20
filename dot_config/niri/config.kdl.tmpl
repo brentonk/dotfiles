@@ -141,6 +141,7 @@ layout {
         proportion 0.33333
         proportion 0.5
         proportion 0.66667
+        proportion 1.0
 {{- else }}
         proportion 0.25
         proportion 0.33333
@@ -156,7 +157,7 @@ layout {
     // preset-window-heights { }
 
     // You can change the default width of the new windows.
-    default-column-width { proportion {{ if eq .chezmoi.hostname "trebek" }}0.5{{ else }}0.33333{{ end }}; }
+    default-column-width { proportion {{ if eq .chezmoi.hostname "trebek" }}1.0{{ else }}0.33333{{ end }}; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
     // default-column-width {}
 
@@ -316,13 +317,6 @@ spawn-at-startup "swaybg" "-i" "/home/brenton/wallpaper/wallpaper" "-m" "fill"
 // login (rather than relying on D-Bus activation, which is ambiguous if mako
 // is also installed). Remove mako to avoid the conflict: sudo pacman -Rns mako
 spawn-at-startup "swaync"
-{{- if eq .chezmoi.hostname "trebek" }}
-
-// The first window opened on an empty workspace gets maximize-window-to-edges
-// (the Mod+M state) applied automatically; Mod+M still toggles it off. There is
-// no window-rule matcher for "workspace is empty", hence the event-stream watcher.
-spawn-at-startup "/home/brenton/.config/niri/scripts/auto_maximize_first.py"
-{{- end }}
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
