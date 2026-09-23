@@ -30,7 +30,7 @@ Obsidian files are ordinary Markdown, so do not use the one-sentence-per-line co
 
 ## Quarto Preview
 
-I often have `quarto preview` running on the Quarto document you're editing. Before running `quarto render` yourself, check for a preview process watching that file (e.g., `pgrep -af "quarto preview"`). If there is one, don't render: the preview re-renders on every save, and a concurrent render collides with it over the knitr cache and intermediate files (symptoms: "cannot open the connection", missing cache objects, a render that fails once and then succeeds). Instead, save your edit, wait until the output file is newer than the source, and inspect that output.
+I often have `quarto preview` running on the Quarto document you're editing. Before running `quarto render` yourself, check for a preview process watching that file (e.g., `pgrep -af "[q]uarto preview"`; the brackets keep the pattern from matching the shell running the check). If there is one, don't render: the preview re-renders on every save, and a concurrent render collides with it over the knitr cache and intermediate files (symptoms: "cannot open the connection", missing cache objects, a render that fails once and then succeeds). Instead, save your edit, wait until the output file is newer than the source, and inspect that output.
 
 # Python Project Guidelines
 
