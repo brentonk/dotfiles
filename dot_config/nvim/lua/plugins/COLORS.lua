@@ -193,6 +193,17 @@ return {
       require("dracula").setup({
         transparent_bg = true,
         italic_comment = true,
+        -- Stock spell groups recolor the word's text (red/yellow), which
+        -- reads like syntax highlighting. Leave the text color alone and
+        -- flag misspellings with a colored undercurl instead.
+        overrides = function(colors)
+          return {
+            SpellBad = { undercurl = true, sp = colors.bright_red },
+            SpellCap = { undercurl = true, sp = colors.yellow },
+            SpellLocal = { undercurl = true, sp = colors.yellow },
+            SpellRare = { undercurl = true, sp = colors.yellow },
+          }
+        end,
       })
     end,
   },
