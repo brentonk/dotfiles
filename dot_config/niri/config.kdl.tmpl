@@ -317,6 +317,11 @@ spawn-at-startup "swaybg" "-i" "/home/brenton/wallpaper/wallpaper" "-m" "fill"
 // login (rather than relying on D-Bus activation, which is ambiguous if mako
 // is also installed). Remove mako to avoid the conflict: sudo pacman -Rns mako
 spawn-at-startup "swaync"
+{{- if or (eq .chezmoi.hostname "trebek") (eq .chezmoi.hostname "milchick") }}
+
+// Night light (f.lux equivalent), carried over from the sway config.
+spawn-at-startup "gammastep-indicator" "-l" "36.1627:-86.7816"
+{{- end }}
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
