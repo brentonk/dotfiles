@@ -63,3 +63,4 @@ autolist.nvim provides automatic list continuation for markdown/quarto/tex. Pres
 - `.txt` files are treated as markdown
 - Spell checking enabled for markdown, quarto, tex
 - VimTeX uses zathura on Linux, Skim on macOS
+- CSV/TSV auto-enable csvview.nvim (`lua/plugins/csvview.lua`): aligned virtual-text columns in border mode, sticky header, nowrap; file on disk is never rewritten. In CSV buffers: `<Tab>`/`<S-Tab>` next/prev field, `<CR>`/`<S-CR>` next/prev row, `if`/`af` cell text objects; `:CsvViewToggle` shows raw text. Buffer-local `<Tab>` shadows `<C-i>` jump-forward in CSV buffers on terminals without the kitty keyboard protocol (accepted tradeoff).
