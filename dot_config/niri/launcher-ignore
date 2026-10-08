@@ -6,10 +6,19 @@
 # Applies to the PDF sweep over ~/Dropbox, ~/Downloads and ~/Documents only.
 # Applications and Obsidian notes are never filtered by this file.
 #
-# ~/Dropbox/references/library is excluded by the script itself, not here: those
-# papers are listed via references.bib as author/title rows instead of filenames.
+# A bare name (`backups/`) matches a directory of that name at any depth and is
+# case-sensitive. A pattern with an inner slash is anchored, and an anchored
+# pattern here silently matches nothing (`Dropbox/archive/` excludes zero files),
+# so prefix path patterns with `**/`. Verified independent of the launcher's cwd.
+#
+# Course, service, review and project `archive/` folders are deliberately searchable.
+# Only the two below are excluded: a personal dumping ground, and generated figures.
+#
+# ~/Dropbox/references/library is not excluded wholesale. The script skips only
+# PDFs it already lists as references.bib rows (author/title rather than filename);
+# un-cited papers and appendices in the library still appear as documents.
 
 backups/
-archive/
 obsidian_mirror_readonly/
-**/00_archive/
+**/Dropbox/archive/
+**/strategic-aid/Code_optimized/output/archive/

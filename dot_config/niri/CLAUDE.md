@@ -6,11 +6,11 @@ The daily-driver Wayland compositor (see `~/.config/CLAUDE.md`).
 
 - `config.kdl` — rendered from a chezmoi **template** (`dot_config/niri/config.kdl.tmpl`). **Edit the template, never the rendered file.** Niri live-reloads on change, but silently keeps the old state if the new config is invalid — always run `niri validate` after applying.
 - `scripts/` — chezmoi-managed helper scripts (source files use the `executable_` prefix, e.g. `dot_config/niri/scripts/executable_toggle_opacity.sh`).
-- `launcher-ignore` — gitignore-syntax exclusions for the `Mod+Space` launcher's document sweep, handed straight to `fd --ignore-file`. Yours to edit; the script adds no exclusions of its own.
+- `launcher-ignore` — gitignore-syntax exclusions for the `Mod+Space` launcher's document sweep, handed straight to `fd --ignore-file`. Yours to edit; the script adds no exclusions of its own. Path patterns there need a `**/` prefix — an anchored pattern silently matches nothing.
 
 ## Launcher (`Mod+Space`)
 
-`scripts/launch_menu.py` is a merged picker — applications, PDFs, and Obsidian notes in one `fuzzel --dmenu` list (~10,900 rows, ~70ms to build). `Mod+Shift+Space` is the plain-fuzzel app-launcher escape valve; `Mod+Z` (full-`$HOME` PDF sweep) and `Mod+B` (bibliography) are unchanged.
+`scripts/launch_menu.py` is a merged picker — applications, PDFs, and Obsidian notes in one `fuzzel --dmenu` list (~13,400 rows, ~110ms to build). `Mod+Shift+Space` is the plain-fuzzel app-launcher escape valve; `Mod+Z` (full-`$HOME` PDF sweep) and `Mod+B` (bibliography) are unchanged.
 
 Things worth knowing before editing it:
 
