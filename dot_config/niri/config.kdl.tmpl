@@ -366,6 +366,16 @@ animations {
 }
 
 {{ if eq .chezmoi.hostname "milchick" -}}
+// This host has two GPUs: the Ryzen iGPU (73:00.0) and an RX 7600 (03:00.0).
+// The monitor is on the RX 7600, but firmware marks the iGPU as boot_vga, so
+// niri would otherwise render on the iGPU and copy every frame across.
+// Read only at niri startup; by-path avoids renderD* renumbering.
+debug {
+    render-drm-device "/dev/dri/by-path/pci-0000:03:00.0-render"
+}
+
+{{ end -}}
+{{ if eq .chezmoi.hostname "milchick" -}}
 // Thunderbird runs 24/7 on this host purely as an Exchange-to-Gmail relay
 // (managed by thunderbird.service + watchdog, not chezmoi-managed).
 // Stock Thunderbird has no Linux tray support, so park its window on a
