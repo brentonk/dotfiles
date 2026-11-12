@@ -329,7 +329,13 @@ layout {
 spawn-at-startup "waybar" "-c" "/home/brenton/.config/waybar/config-niri.jsonc"
 
 // Wallpaper (niri has no built-in wallpaper support).
-spawn-at-startup "swaybg" "-i" "/home/brenton/wallpaper/wallpaper" "-m" "fill"
+// Per-monitor images via symlinks in ~/wallpaper; swaybg prefers an exact
+// -o match over "*", so "*" (the plain `wallpaper` link, also used by sway)
+// is the fallback for any output not listed.
+spawn-at-startup "swaybg" \
+    "-o" "*"     "-i" "/home/brenton/wallpaper/wallpaper" "-m" "fill" \
+    "-o" "DP-2"  "-i" "/home/brenton/wallpaper/dell"      "-m" "fill" \
+    "-o" "eDP-1" "-i" "/home/brenton/wallpaper/laptop"    "-m" "fill"
 
 // Notification daemon: swaync (SwayNotificationCenter), to match the work box.
 // Explicitly spawning it makes swaync claim org.freedesktop.Notifications at
