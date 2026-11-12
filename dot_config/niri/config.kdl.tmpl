@@ -804,3 +804,10 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 }
+
+// Per-host overrides (NOT chezmoi-managed; see .chezmoiignore). Must stay the
+// LAST line: includes are positional and override only the options they set,
+// so e.g. `layout { focus-ring { active-color "..." } }` there changes just
+// the color. Optional: a missing file only logs a warning, and niri watches
+// the path, so creating it later triggers a reload.
+include optional=true "config.local.kdl"

@@ -12,3 +12,6 @@
 
 # Active theme-collection name (kitty + nvim read it) — per-host, never manage
 .config/theme.local
+
+# Per-host niri overrides (include'd last from config.kdl) — never manage
+.config/niri/config.local.kdl
