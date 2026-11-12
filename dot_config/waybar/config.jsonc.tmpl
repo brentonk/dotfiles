@@ -24,7 +24,7 @@
     "modules-right": [
         "custom/gcal",
         "network",
-        {{ if or (eq .chezmoi.hostname "ASLNX-24CXCB4") (eq .chezmoi.hostname "milchick") -}}
+        {{ if or (eq .chezmoi.hostname "ASLNX-24CXCB4") (eq .chezmoi.hostname "milchick") (eq .chezmoi.hostname "trebek") -}}
         "custom/spotify",
         "pulseaudio",
         {{- end }}
