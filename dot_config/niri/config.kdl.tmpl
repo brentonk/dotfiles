@@ -111,6 +111,25 @@ input {
     // automatically.
     position x=1280 y=0
 }
+{{- if eq .chezmoi.hostname "trebek" }}
+
+// Ultrawide external monitor: override trebek's laptop-oriented widths with
+// the desktop-host widths (keep in sync with the non-trebek branches of
+// preset-column-widths / default-column-width in the layout block below).
+// Matched by make/model/serial, so it applies only to this physical monitor;
+// add another output block (name from `niri msg outputs`) for other ultrawides.
+output "Dell Inc. DELL U3824DW 2L7PZR3" {
+    layout {
+        default-column-width { proportion 0.33333; }
+        preset-column-widths {
+            proportion 0.25
+            proportion 0.33333
+            proportion 0.5
+            proportion 0.66667
+        }
+    }
+}
+{{- end }}
 
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
