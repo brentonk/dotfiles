@@ -23,8 +23,14 @@ running=false
 pgrep -x spotify >/dev/null 2>&1 && running=true
 
 # Hand the URI to Spotify: launches a new instance, or navigates the existing
-# single instance and exits.
-setsid spotify --uri="$uri" >/dev/null 2>&1 &
+# single instance and exits. Hosts that install Spotify via spotify-launcher
+# (Arch) have no `spotify` on PATH; the launcher forwards a positional URI to
+# its managed client.
+if command -v spotify >/dev/null 2>&1; then
+  setsid spotify --uri="$uri" >/dev/null 2>&1 &
+else
+  setsid spotify-launcher "$uri" >/dev/null 2>&1 &
+fi
 
 # Surface only for an already-running instance.
 [ "$running" = true ] || exit 0
